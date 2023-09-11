@@ -4,6 +4,7 @@
  */
 package com.egg.ServiApp.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -13,7 +14,7 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
-public class Proveedor extends Usuario {
+public class Proveedor extends Usuario implements Serializable {
     
     private double puntuacion;
     private double costoHora;

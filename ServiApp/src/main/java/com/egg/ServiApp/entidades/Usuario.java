@@ -27,7 +27,7 @@ public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    protected String id;
     
     protected String nombre;
     protected String email;
@@ -48,11 +48,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
