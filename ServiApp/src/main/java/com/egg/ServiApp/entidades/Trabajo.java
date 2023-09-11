@@ -23,7 +23,7 @@ public class Trabajo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
     
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -41,11 +41,11 @@ public class Trabajo {
     public Trabajo() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
