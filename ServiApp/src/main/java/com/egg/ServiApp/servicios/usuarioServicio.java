@@ -7,6 +7,7 @@ package com.egg.ServiApp.servicios;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
+import excepciones.miException;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class usuarioServicio {
     private usuarioRepositorio ur;
     
     @Transactional
-    public void crearUsuario (String nombre, String email, String password, int telefono){
+    public void crearUsuario (String nombre, String email, String password, int telefono) throws miException{
+        
+        validar(nombre, email, password, telefono);
+        
         Usuario usuario = new Usuario();
         
         usuario.setNombre(nombre);
@@ -59,6 +63,20 @@ public class usuarioServicio {
         ur.deleteById(id);
     }
     
-    
+     protected void validar(String nombre, String email, String password, int telefono) throws miException{
+        
+        if (nombre.isEmpty()||nombre==null) {
+            throw new miException("El nombre no puede ser nulo");
+        }
+        if (email.isEmpty()||email==null) {
+            throw new miException("El email no puede ser nulo");
+        }
+        if (password.isEmpty()||password==null||password.length()<=5) {
+            throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+        if (telefono < 6 || telefono > 20) {
+            throw new miException("Las contraseñas deben ser iguales");
+        }
+    }
 }
     
