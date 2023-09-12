@@ -5,15 +5,16 @@
 package com.egg.ServiApp.repositorio;
 
 import com.egg.ServiApp.entidades.Servicio;
-import com.egg.ServiApp.entidades.Trabajo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author marco
  */
+@Repository
 public interface servicioRepositorio extends JpaRepository<Servicio, String>{
     
     
