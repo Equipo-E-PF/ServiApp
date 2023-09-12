@@ -16,11 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface calificacionRepositorio extends JpaRepository<Calificacion, String>{
- 
-
-        
-    @Query("SELECT a FROM Calificacion a WHERE a.id = :id")
-    public Calificacion buscarPorId(@Param ("id")String id);
     
     @Query("SELECT a FROM Calificacion a WHERE a.puntuacion = :puntuacion")
     public Calificacion buscarPorPuntuacion(@Param ("puntuacion")String puntuacion);
