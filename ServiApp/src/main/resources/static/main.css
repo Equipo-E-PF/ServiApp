@@ -1,0 +1,134 @@
+.navcolor {
+  background-color: #f8f0e5;
+}
+.menucolor {
+  background-color: #eadbc8;
+}
+.maincolor {
+  background-color: #eadbc8;
+}
+.textcolor {
+  color: #17468a;
+}
+.cls-1 {
+  font-family: Espiritu-Condensed, Espiritu;
+  font-size: 60px;
+}
+
+.cls-1,
+.cls-2 {
+  fill: #17468a;
+}
+
+.cls-2,
+.cls-3 {
+  stroke-width: 0px;
+}
+
+.cls-3 {
+  fill: #0f2c59;
+}
+
+.cls-4 {
+  font-family: Espiritu-Condensed, Espiritu;
+  font-size: 124.75px;
+}
+.cls-5 {
+  fill: #fff;
+  stroke-width: 0px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pad {
+  padding-top: 80px;
+}
+
+.caracteristicas {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.interior-caracteristicas {
+  display: flex;
+  flex-direction: row;
+}
+
+.box {
+  width: 25%;
+  height: 100%;
+  background-color: #ccc;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: top;
+  align-items: center;
+}
+
+.box > h4 {
+  text-align: center;
+}
+
+.box:last-child {
+  margin-right: 0;
+}
+
+.footer {
+  background-color: #0f2c59;
+  padding: 70px 0;
+  margin-top: 0;
+  bottom: 0;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-links {
+  width: 25%;
+  padding: 0 15px;
+}
+
+.footer-links h4 {
+  font-size: 20px;
+  color: #dac0a3;
+  margin-bottom: 25px;
+  font-weight: 500;
+  border-bottom: 2px solid #eadbc8;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.footer-links ul li a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #f8f0e5;
+  display: block;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: white;
+  padding-left: 6px;
+}
+
+.social-link a {
+  display: inline-block;
+  min-height: 40px;
+  width: 40px;
+  background-color: rgb(255, 255, 255, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #f8f0e5;
+  transition: all 0.5s ease;
+}
+
+.social-link a:hover {
+  background-color: aqua;
+}
