@@ -6,6 +6,7 @@ package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Calificacion;
 import com.egg.ServiApp.repositorio.calificacionRepositorio;
+import excepciones.miException;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -24,9 +25,9 @@ public class calificacionServicio {
     private calificacionRepositorio califRepo;
     
     @Transactional
-    public void crearCalificacion(String contenido, double puntuacion)/*throws Exception*/{
+    public void crearCalificacion(String contenido, double puntuacion) throws miException{
         
-        //Agregar acá valicación con excepción personalizada
+        validar(contenido, puntuacion);
         
         Calificacion calif = new Calificacion();
         
@@ -67,5 +68,15 @@ public class calificacionServicio {
     @Transactional
     public void eliminarCalificacion(String id){
         califRepo.deleteById(id);
+    }
+    
+    private void validar(String contenido, double puntuacion) throws miException{
+        
+        if (contenido.isEmpty() || contenido==null) {
+            throw new miException("El contenido no puede estar vacio /n");
+        }
+        if (puntuacion > 5 || puntuacion < 0) {
+            throw new miException("Seleccione un numero valido entre 0 y 5 /n");
+        }
     }
 }
