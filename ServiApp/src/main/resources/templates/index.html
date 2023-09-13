@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
-</head>
+<head th:replace="/fragments/head :: head"> </head>
 
-<body>
+<body class="m-o p-o h-screen flex flex-col">
     <header class="navcolor">
         <nav th:replace="/fragments/navbar :: nav">  </nav>
       </header>
 
-<main class="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8" >
+<main class="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8 flex-grow grid grid-flow-row-dense grid-cols-5 m-y-4 gap-4" >
 
-  <div>
-    <label class="text-sm font-semibold leading-6 textcolor gap-x-1">¿QUE SERVICIO NECESITAS HOY?</label>
+  <div class="col-span-4 col-start-3 ">
+    <label class="text-sm font-semibold leading-6 textcolor gap-x-1" for="buscarServicio">¿QUE SERVICIO NECESITAS HOY?</label>
   </div>
-  <br>
-<input id="buscador" class="gap-x-1 border" >
-<button id="buscar" type="button" class="gap-x-12" >
-  <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg"  widht="30" height="30" viewBox="0 0 197.12 229.51">
-    <path class="cls-3" d="m85.1,121.29l-.34.1c-6.06,1.73-12.37,2.61-18.76,2.61C30.16,124,1,96.41,1,62.5S30.16,1,66,1s65,27.59,65,61.5c0,12.16-3.74,23.91-10.82,33.97l-.2.29,75.76,105.5-33.95,25.82-76.69-106.8ZM66,12c-29.78,0-54,22.88-54,51s24.22,51,54,51,54-22.88,54-51S95.78,12,66,12Z"/>
-    <path class="cls-3" d="m66,1.5c35.57,0,64.5,27.36,64.5,61,0,12.06-3.71,23.71-10.73,33.68l-.41.58.41.58,75.27,104.82-33.16,25.22-76.18-106.1-.41-.57-.68.19c-6.01,1.72-12.28,2.59-18.63,2.59C30.43,123.5,1.5,96.14,1.5,62.5S30.43,1.5,66,1.5m0,113c30.05,0,54.5-23.1,54.5-51.5S96.05,11.5,66,11.5,11.5,34.6,11.5,63s24.45,51.5,54.5,51.5M66,.5C29.83.5.5,28.26.5,62.5s29.33,62,65.5,62c6.57,0,12.92-.92,18.9-2.63l76.78,106.93,34.75-26.43-75.84-105.61c6.9-9.81,10.91-21.59,10.91-34.26C131.5,28.26,102.17.5,66,.5h0Zm0,113c-29.55,0-53.5-22.61-53.5-50.5S36.45,12.5,66,12.5s53.5,22.61,53.5,50.5-23.95,50.5-53.5,50.5h0Z"/>
+  
+  <div class="col-span-4 col-start-2 col-end-5">
+      <input id="buscador" class="gap-x-1 w-full lg:w-100 p-2 border rounded-md" name="buscarServicio">
+  </div>
+
+<button id="buscar" type="button" name="buscar" class="col-start-5">
+  <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 197.12 229.51">
+    <path class="cls-3" d="m85.1,121.29l-.34.10c-6.06,1.73-12.37,2.61-18.76,2.61C30.16,124,1,96.41,1,62.5S30.16,1,66,1s65,27.59,65,61.5c0,12.16-3.74,23.91-10.82,33.97l-.20.29,75.76,105.5-33.95,25.82-76.69-106.8ZM66,12c-29.78,0-54,22.88-54,51s24.22,51,54,51,54-22.88,54-51S95.78,12,66,12Z"/>
+    <path class="cls-3" d="m66,1.5c35.57,0,64.5,27.36,64.5,61c0,12.06-3.71,23.71-10.73,33.68l-.41.58.41.58,75.27,104.82-33.16,25.22-76.18-106.1-.41-.57-.68.19c-6.01,1.72-12.28,2.59-18.63,2.59C30.43,123.5,1.5,96.14,1.5,62.5S30.43,1.5,66,1.5m0,113c30.05,0,54.5-23.1,54.5-51.5S96.05,11.5,66,11.5,11.5,34.6,11.5,63s24.45,51.5,54.5,51.5M66,.5C29.83.5.5,28.26.5,62.5s29.33,62,65.5,62c6.57,0,12.92-.92,18.9-2.63l76.78,106.93,34.75-26.43-75.84-105.61c6.9-9.81,10.91-21.59,10.91-34.26C131.5,28.26,102.17,.5,66,.5h0Zm0,113c-29.55,0-53.5-22.61-53.5-50.5S36.45,12.5,66,12.5s53.5,22.61,53.5,50.5-23.95,50.5-53.5,50.5h0Z"/>
   </svg>
 </button>
 
-</main>
 
-<div class="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8 caracteristicas flex ">
+
+
+<div class="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8 caracteristicas flex col-span-5 ">
   <div class="interior-caracteristicas">
     <div class="box">
       <h4>Encontra tu proveedor</h4>
@@ -38,6 +35,7 @@
         siempre la mejor decision
       </p>
     </div>
+      
     <div class="box">
       <h4>Encontra tu proveedor</h4>
       <p>
@@ -61,6 +59,10 @@
     </div>
   </div>
 </div>
+
+</main>
+
+
     
     <footer th:replace="/fragments/footer :: footer">  </footer>
 
