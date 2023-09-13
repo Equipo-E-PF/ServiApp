@@ -31,7 +31,7 @@ public class Usuario {
     protected String nombre;
     protected String email;
     protected String Password;
-    protected int telefono;
+    protected Long telefono;
     protected boolean baja;
     
     @Enumerated(EnumType.STRING)
@@ -79,11 +79,11 @@ public class Usuario {
         this.Password = Password;
     }
 
-    public int getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
