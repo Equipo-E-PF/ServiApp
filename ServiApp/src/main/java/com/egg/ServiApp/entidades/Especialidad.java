@@ -16,7 +16,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Servicio implements Serializable {
+public class Especialidad implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ public class Servicio implements Serializable {
     private String nombre;
     
 
-    public Servicio() {
+    public Especialidad() {
     }
 
     public String getId() {

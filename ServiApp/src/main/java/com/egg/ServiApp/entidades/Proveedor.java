@@ -17,10 +17,10 @@ import javax.persistence.OneToOne;
 public class Proveedor extends Usuario implements Serializable {
     
     private double puntuacion;
-    private double costoHora;
+    private Integer costoHora;
     
     @OneToOne
-    private Servicio servicios;
+    private Especialidad especialidad;
 
     public Proveedor() {
     }
@@ -34,19 +34,19 @@ public class Proveedor extends Usuario implements Serializable {
         this.puntuacion = puntuacion;
     }
 
-    public Servicio getServicios() {
-        return servicios;
+    public Especialidad getServicios() {
+        return especialidad;
     }
 
-    public void setServicios(Servicio servicios) {
-        this.servicios = servicios;
+    public void setServicios(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
     
     public double getCostoHora() {
         return costoHora;
     }
 
-    public void setCostoHora(double costoHora) {
+    public void setCostoHora(Integer costoHora) {
         this.costoHora = costoHora;
     }
     

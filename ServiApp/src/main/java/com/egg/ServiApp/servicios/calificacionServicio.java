@@ -66,8 +66,12 @@ public class calificacionServicio {
     public Calificacion getOne(String id){return califRepo.getOne(id);}
     
     @Transactional
-    public void eliminarCalificacion(String id){
-        califRepo.deleteById(id);
+    public void eliminarCalificacion(String id) throws miException{
+        if (califRepo.findById(id).isPresent()) {
+            califRepo.deleteById(id);
+        }else{
+            throw new miException("El id no existe");
+        }
     }
     
     private void validar(String contenido, double puntuacion) throws miException{

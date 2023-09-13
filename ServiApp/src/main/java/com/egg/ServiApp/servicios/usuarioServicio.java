@@ -24,7 +24,7 @@ public class usuarioServicio {
     private usuarioRepositorio ur;
     
     @Transactional
-    public void crearUsuario (String nombre, String email, String password, int telefono) throws miException{
+    public void crearCliente (String nombre, String email, String password, int telefono) throws miException{
         
         validar(nombre, email, password, telefono);
         
@@ -59,8 +59,12 @@ public class usuarioServicio {
     }
     
     @Transactional
-    public void eliminarUsuarioId(String id){
-        ur.deleteById(id);
+    public void eliminarUsuarioId(String id) throws miException{
+        if (ur.findById(id).isPresent()) {
+            ur.deleteById(id);
+        }else{
+            throw new miException("El id no existe");
+        }
     }
     
      protected void validar(String nombre, String email, String password, int telefono) throws miException{
@@ -75,7 +79,7 @@ public class usuarioServicio {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
         }
         if (telefono < 6 || telefono > 20) {
-            throw new miException("Las contraseñas deben ser iguales");
+            throw new miException("Ingrese un número válido");
         }
     }
 }
