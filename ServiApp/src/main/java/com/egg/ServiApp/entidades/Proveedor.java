@@ -20,7 +20,7 @@ public class Proveedor extends Usuario implements Serializable {
     private double costoHora;
     
     @OneToOne
-    private Servicio servicios;
+    private Especialidad servicios;
 
     public Proveedor() {
     }
@@ -34,11 +34,11 @@ public class Proveedor extends Usuario implements Serializable {
         this.puntuacion = puntuacion;
     }
 
-    public Servicio getServicios() {
+    public Especialidad getServicios() {
         return servicios;
     }
 
-    public void setServicios(Servicio servicios) {
+    public void setServicios(Especialidad servicios) {
         this.servicios = servicios;
     }
     

@@ -10,7 +10,7 @@ package com.egg.ServiApp.enumeraciones;
  */
 public enum Rol {
     
-    PROVEEDOR, CLIENTE, ADMIN;
+    PROVEEDOR, USUARIO, ADMIN;
 
     
 }

@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.GenericGenerator;
 
 
 /**
@@ -22,7 +22,8 @@ import javax.persistence.OneToOne;
 public class Trabajo {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
     @Enumerated(EnumType.STRING)

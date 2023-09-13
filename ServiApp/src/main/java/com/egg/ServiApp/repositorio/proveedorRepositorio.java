@@ -21,9 +21,6 @@ public interface proveedorRepositorio extends JpaRepository<Proveedor, String>{
     
     @Query("SELECT a FROM Proveedor a WHERE a.servicios.nombre = :servicio")
     public Proveedor buscarPorServicio(@Param("servicio") String servicio);
-        
-    @Query("SELECT a FROM Proveedor a WHERE a.id = :id")
-    public Proveedor buscarPorId(@Param ("id")String id);
     
     @Query("SELECT a FROM Proveedor a WHERE a.puntuacion = :puntuacion")
     public Proveedor buscarPorPuntuacion(@Param ("puntuacion")String puntuacion);

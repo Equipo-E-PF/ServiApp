@@ -7,8 +7,8 @@ package com.egg.ServiApp.entidades;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -16,16 +16,17 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Servicio implements Serializable {
+public class Especialidad implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
     private String nombre;
     
 
-    public Servicio() {
+    public Especialidad() {
     }
 
     public String getId() {
