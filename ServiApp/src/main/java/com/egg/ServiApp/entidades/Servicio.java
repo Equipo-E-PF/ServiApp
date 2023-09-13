@@ -4,6 +4,7 @@
  */
 package com.egg.ServiApp.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,11 +16,11 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Servicio {
+public class Servicio implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
     
     private String nombre;
     
@@ -27,11 +28,11 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

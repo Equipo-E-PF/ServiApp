@@ -10,6 +10,6 @@ package com.egg.ServiApp.enumeraciones;
  */
 public enum Estado {
     
-    Finalizado, Cancelado, Aceptado, Pendiente;
+    FINALIZADO, CANCELADO, ACEPTADO, PENDIENTE;
     
 }
