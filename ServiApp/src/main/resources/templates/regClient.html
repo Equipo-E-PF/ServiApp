@@ -5,11 +5,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html>
     <head>
-        <title>Login Cliente</title>
+        <link rel="stylesheet" href="../static/style.css" type="text/css"/>
+
+        <title>Registro Cliente</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+
+        <div class="regClient">
+            <h1>Regístrate</h1>
+            <form method="post">
+                <input type="text" name="u" placeholder="Username" required="required" />
+                <input type="password" name="p" placeholder="Password" required="required" />
+                <input type="password" name="p2" placeholder="Password" required="required" />
+                <button type="submit" class="btn btn-primary btn-block btn-large">Registrarme.</button>
+            </form>
+        </div>
 
     </body>
 </html>
