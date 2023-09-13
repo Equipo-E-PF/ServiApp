@@ -10,18 +10,28 @@ import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
  * @author Juanp
  */
 @Service
-public class usuarioServicio {
+public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
@@ -77,8 +87,9 @@ public class usuarioServicio {
 //    }
 
     @Transactional
-    public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) {
-
+    public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) throws miException {
+        
+        validar(nombre, email, password, telefono);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
@@ -140,4 +151,26 @@ public class usuarioServicio {
             throw new miException("El costo de la hora no puede ser menor o igual a 0");
         }
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = ur.buscarPorEmail(email);
+        
+        if (usuario != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString());
+            permisos.add(p);
+            
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usersession", usuario);
+            
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        }else{
+            
+            return null;
+        }
+    }
+    
+    
 }
