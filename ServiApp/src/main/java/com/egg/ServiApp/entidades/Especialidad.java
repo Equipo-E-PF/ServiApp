@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 
 @Entity
-public class Servicio implements Serializable {
+public class Especialidad implements Serializable {
     
     @Id
     @GeneratedValue(generator = "uuid")
@@ -26,7 +26,7 @@ public class Servicio implements Serializable {
     private String nombre;
     
 
-    public Servicio() {
+    public Especialidad() {
     }
 
     public String getId() {
