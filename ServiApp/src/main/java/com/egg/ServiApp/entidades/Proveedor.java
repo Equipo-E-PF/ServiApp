@@ -4,6 +4,7 @@
  */
 package com.egg.ServiApp.entidades;
 
+import com.egg.ServiApp.enumeraciones.Rol;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -20,11 +21,11 @@ public class Proveedor extends Usuario implements Serializable {
     private double costoHora;
     
     @OneToOne
-    private Servicio servicios;
+    private Especialidad especialidad;
 
     public Proveedor() {
     }
-
+    
 
     public double getPuntuacion() {
         return puntuacion;
@@ -34,12 +35,12 @@ public class Proveedor extends Usuario implements Serializable {
         this.puntuacion = puntuacion;
     }
 
-    public Servicio getServicios() {
-        return servicios;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setServicios(Servicio servicios) {
-        this.servicios = servicios;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
     
     public double getCostoHora() {
@@ -49,9 +50,41 @@ public class Proveedor extends Usuario implements Serializable {
     public void setCostoHora(double costoHora) {
         this.costoHora = costoHora;
     }
-    
-    
-    
-    
+
+    @Override
+    public void setNombre(String nombre) {
+        super.setNombre(nombre);
+    }
+
+    @Override
+    public void setEmail(String email) {
+        super.setEmail(email);
+    }
+
+    @Override
+    public void setPassword(String Password) {
+        super.setPassword(Password);
+    }
+
+    @Override
+    public void setTelefono(Long telefono) {
+        super.setTelefono(telefono);
+    }
+
+    @Override
+    public void setRol(Rol rol) {
+        super.setRol(rol);
+    }
+
+    @Override
+    public void setImagen(byte[] imagen) {
+        super.setImagen(imagen);
+    }
+
+    @Override
+    public void setBaja(boolean baja) {
+        super.setBaja(baja);
+    }
+
     
 }

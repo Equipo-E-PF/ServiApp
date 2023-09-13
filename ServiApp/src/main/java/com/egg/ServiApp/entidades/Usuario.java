@@ -5,7 +5,6 @@
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +12,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -26,13 +24,14 @@ import javax.persistence.OneToMany;
 public class Usuario {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     protected String id;
     
     protected String nombre;
     protected String email;
     protected String Password;
-    protected int telefono;
+    protected Long telefono;
     protected boolean baja;
     
     @Enumerated(EnumType.STRING)
@@ -80,11 +79,11 @@ public class Usuario {
         this.Password = Password;
     }
 
-    public int getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 

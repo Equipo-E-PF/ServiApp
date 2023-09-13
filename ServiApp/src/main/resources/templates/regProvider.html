@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns: sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/fragments/head :: head"> </head>
+    <body class="degradado">
+        <header class="navcolor">
+        <nav th:replace="/fragments/navbar :: nav">  </nav>
+      </header>
+        
+        <main>
+            <div>
+           <label for="especialidad" class="">Especialidad</label>
+                        <br>
+             <select name="especialidad" id="especialidad">
+                <option >Seleccione</option>
+                <option th:each="especialidad : ${especialidades}" th:value="${especialidad.nombre}" th:text="${especialidad.id}"></option>
+            </select>
+            </div>
+            
+ 
+        </main>
+        <footer th:replace="/fragments/footer :: footer">  </footer>
+    </body>
+</html>
