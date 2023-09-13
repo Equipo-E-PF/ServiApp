@@ -10,7 +10,6 @@ import excepciones.miException;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-import static org.hibernate.criterion.Projections.id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,13 +48,13 @@ public class calificacionServicio {
     }
     
     @Transactional
-    public void modificarCalificacion(String id, String contenido, double puntuacion){
+    public void modificarCalificacion(String id, String contenido, double puntuacion) throws miException{
         
-        Calificacion calif = null;
+        validar(contenido, puntuacion);
         Optional<Calificacion> respuesta = califRepo.findById(id);
         
         if (respuesta.isPresent()) {
-             calif = respuesta.get();
+             Calificacion calif = respuesta.get();
              calif.setContenido(contenido);
              calif.setPuntuacion(puntuacion);
              
@@ -72,7 +71,7 @@ public class calificacionServicio {
     
     private void validar(String contenido, double puntuacion) throws miException{
         
-        if (contenido.isEmpty() || contenido==null) {
+        if (contenido == null || contenido.isEmpty()) {
             throw new miException("El contenido no puede estar vacio /n");
         }
         if (puntuacion > 5 || puntuacion < 0) {
