@@ -5,6 +5,8 @@
 package com.egg.ServiApp.repositorio;
 
 import com.egg.ServiApp.entidades.Usuario;
+import com.egg.ServiApp.enumeraciones.Rol;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,11 +17,20 @@ import org.springframework.stereotype.Repository;
  * @author marco
  */
 @Repository
-public interface usuarioRepositorio extends JpaRepository<Usuario, String>{
-    
+public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
+
     @Query("SELECT a FROM Usuario a WHERE a.email = :email")
-        public Usuario buscarPorEmail(@Param("email") String email);
+    public Usuario buscarPorEmail(@Param("email") String email);
 
     @Query("SELECT a FROM Usuario a WHERE a.rol = :rol")
-    public Usuario buscarPorRol(@Param ("rol")String rol);
+    public Usuario buscarPorRol(@Param("rol") String rol);
+
+    @Query("SELECT u FROM Usuario u WHERE u.rol = :PROVEEDOR AND u.especialidad.nombre = :especialidad")
+    public List<Usuario> buscarProveedoresPorServicio(@Param("especialidad") String especialidad);
+
+    @Query("SELECT u FROM Usuario u, Proveedor p WHERE u.rol= :PROVEEDOR")
+    public List<Usuario> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
+
+    @Query("SELECT u FROM Usuario u WHERE u.rol= :USUARIO")
+    public List<Usuario> listaUsuarios(@Param("USUARIO") Rol rolUsuario);
 }
