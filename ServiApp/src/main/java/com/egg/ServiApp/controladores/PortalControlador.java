@@ -26,6 +26,6 @@ public class PortalControlador {
     public String index(ModelMap model) {
         List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-        return "regProvider.html";
+        return "regUser.html";
     }
 }
