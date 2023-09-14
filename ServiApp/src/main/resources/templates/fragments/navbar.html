@@ -113,7 +113,7 @@
                         </svg>
                     </div>
                     <div class="flex-auto">
-                        <a th:href="@{/login}" class="block font-semibold textcolor">
+                        <a th:if = "${session.usuariosession == null}" th:href="@{/login}" class="block font-semibold textcolor">
                             <p class="text-base">Proveedor</p>
                             <span class="absolute inset-0"></span>
                         </a>
