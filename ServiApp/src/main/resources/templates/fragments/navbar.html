@@ -19,7 +19,7 @@
                     </div>
                     <div class="flex-auto">
                         <a href="#" class="block font-semibold textcolor">
-                           <p class="text-base">Electricistas</p> 
+                            <p class="text-base">Electricistas</p> 
                             <span class="absolute inset-0"></span>
                         </a>
                     </div>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="flex-auto">
                         <a href="#" class="block font-semibold textcolor">
-                           <p class="text-base">Plomeros</p> 
+                            <p class="text-base">Plomeros</p> 
                             <span class="absolute inset-0"></span>
                         </a>
 
@@ -48,7 +48,7 @@
                     </div>
                     <div class="flex-auto">
                         <a href="#" class="block font-semibold textcolor">
-                           <p class="text-base">Gasistas</p> 
+                            <p class="text-base">Gasistas</p> 
                             <span class="absolute inset-0"></span>
                         </a>
 
@@ -59,8 +59,8 @@
         </div>
 
     </div>
-    
-    
+
+
 
     <div class="relative flex lg:flex-1 justify-evenly">
         <a href="#" class="text-sm font-semibold leading-6 textcolor"><p class="text-base">Experiencias</p></a>
@@ -80,7 +80,7 @@
     <div class="relative flex lg:flex-1 justify-evenly" >
         <a href="#" class="text-sm font-semibold leading-6 textcolor"><p class="text-base">Ingresar</p></a>
     </div>
-    
+
     <div class="relative flex lg:flex-1 justify-evenly">
         <button id="reg" type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 textcolor" aria-expanded="false">
             <p class="text-base">Registrate</p>
@@ -97,8 +97,8 @@
                         </svg>
                     </div>
                     <div class="flex-auto">
-                        <a href="#" class="block font-semibold textcolor">
-                           <p class="text-base">Cliente</p> 
+                        <a h:if = "${session.usuariosession == null}" th:href="@{/regUser}" class="block font-semibold textcolor">
+                            <p class="text-base">Usuario</p> 
                             <span class="absolute inset-0"></span>
                         </a>
 
@@ -113,7 +113,7 @@
                         </svg>
                     </div>
                     <div class="flex-auto">
-                        <a th:href="@{/login}" class="block font-semibold textcolor">
+                        <a th:href="@{/regProvider}" class="block font-semibold textcolor">
                             <p class="text-base">Proveedor</p>
                             <span class="absolute inset-0"></span>
                         </a>
@@ -125,5 +125,5 @@
         </div>
 
     </div>
-    
+
 </nav>
