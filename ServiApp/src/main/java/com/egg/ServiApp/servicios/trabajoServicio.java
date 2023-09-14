@@ -67,7 +67,8 @@ public class trabajoServicio {
         if (usuario == null) {
             throw new miException("El usuario del trabajo no puede ser nulo");
         }
-        if (proveedor == null) {
+   
+     if (proveedor == null) {
             throw new miException("Los proveedores del trabajo no pueden ser nulos");
         }
     }
