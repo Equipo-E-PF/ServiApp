@@ -4,10 +4,20 @@
  */
 package com.egg.ServiApp.controladores;
 
+import com.egg.ServiApp.entidades.Especialidad;
+import com.egg.ServiApp.entidades.Proveedor;
+import com.egg.ServiApp.entidades.Usuario;
+import com.egg.ServiApp.servicios.usuarioServicio;
+import excepciones.miException;
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -16,8 +26,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-     @GetMapping("/")
+     
+    @Autowired
+    usuarioServicio us;
+    
+    @GetMapping("/")
     public String index(ModelMap model) {
+        
+        List<Proveedor> listFull = us.listarProveedores();
+        List<Proveedor> listProveedoresFull=null;
+        List<Proveedor> listProveedores=null;
+        for (Proveedor prov : listFull) {
+            if (prov.getPuntuacion()>=3) {
+               listProveedoresFull.add(prov);
+            }
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            int randomIndex = (int) (Math. random() * listProveedoresFull.size());
+            Proveedor p = listProveedoresFull.get(randomIndex);
+            listProveedores.add(p);
+        }
+        
+        model.addAllAttributes(listProveedores);
+        
         return "index.html";
+    }
+    
+    @GetMapping("/registroUsuario")
+    public String registroUsuario(){
+        return "loginClient.html";
+    }
+    
+    @GetMapping("/registroProveedor")
+    public String registroProveedor(){
+        return "loginProvider.html";
+    }
+    
+    @PostMapping("/registrarUsuario")
+    public String registarUsuario(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, ModelMap modelo){
+        try {
+            us.crearUsuario(nombre, email, password, password2, telefono);
+            modelo.put("exito", "Se ha registrado con éxito!");
+        } catch (miException ex) {
+            modelo.put("error", ex.getMessage());
+            return "registroUsuario.html";
+        }
+        return "redirect:/";
+    }
+    
+    @PostMapping("/registrarProveedor")
+    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo){
+        try {
+            us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);
+            modelo.put("exito", "Se ha registrado con éxito!");
+        } catch (miException ex) {
+            modelo.put("error", ex.getMessage());
+            return "registroProveedor.html";
+        }
+        return "redirect:/";
+    }
+    
+    @GetMapping("/login")
+    public String ingreso(ModelMap modeloUsuario, HttpSession session){
+         Usuario logueado = (Usuario) session.getAttribute("usuario");
+        modeloUsuario.addAttribute("modelousuario",logueado);
+        return "redirect:/";
     }
 }

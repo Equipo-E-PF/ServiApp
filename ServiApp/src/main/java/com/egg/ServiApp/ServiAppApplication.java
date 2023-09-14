@@ -20,8 +20,8 @@ public class ServiAppApplication {
     @PostConstruct
     public void init() {
         try {
-            us.crearUsuario("Juan Angulo", "email@email.com", "Password1", 3143760609L);
-            us.crearProveedor("Juan Angulo", "juanpa.angulo98@hotmail.com", "Passwrod2", 3143760609L, 15, null);
+            us.crearUsuario("Juan Angulo", "email@email.com", "Password1", "Password1", 3143760609L);
+            us.crearProveedor("Juan Angulo", "juanpa.angulo98@hotmail.com", "Passwrod2", "Passwrod2", 3143760609L, 15, null);
         } catch (miException e) {
         }
     }
