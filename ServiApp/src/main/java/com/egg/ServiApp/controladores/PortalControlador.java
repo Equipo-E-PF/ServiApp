@@ -11,6 +11,7 @@ import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import com.egg.ServiApp.servicios.especialidadServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,9 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
+
      
     @Autowired
-    usuarioServicio us;
+    private usuarioServicio us;
+  
+    @Autowired
+    private especialidadServicio especialidadServicio;
     
     @GetMapping("/")
     public String index(ModelMap model) {
@@ -51,16 +56,19 @@ public class PortalControlador {
         model.addAllAttributes(listProveedores);
         
         return "index.html";
+
     }
     
     @GetMapping("/registroUsuario")
     public String registroUsuario(){
-        return "loginClient.html";
+        return "regClient.html";
     }
     
     @GetMapping("/registroProveedor")
-    public String registroProveedor(){
-        return "loginProvider.html";
+    public String registroProveedor(ModelMap model){
+      List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
+            model.addAttribute("especialidades", especialidades);
+        return "regProvider.html";
     }
     
     @PostMapping("/registrarUsuario")
