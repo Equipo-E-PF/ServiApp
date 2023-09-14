@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+
+    <head th:replace="/fragments/head :: head"> </head>
+
+    <body>
+
+        <header class="navcolor">
+            <nav th:replace="/fragments/navbar :: nav">  </nav>
+        </header>
+
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Regístrate</h2>
+            </div>
+
+            <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form th:action="@{/regUser}" class="space-y-6" action="#" method="POST">
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                        <div class="mt-2">
+                            <input id="nombre" name="nombre" type="text" th:value="${nombre}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium leading-6 text-gray-900">Telefono</label>
+                        <div class="mt-2">
+                            <input id="telefono" name="telefono" type="text" th:value="${telefono}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                        <div class="mt-2">
+                            <input id="email" name="email" type="email" th:value="${email}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                        <div class="mt-2">
+                            <input id="password" name="password" type="password" th:value="${password}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password2" class="block text-sm font-medium leading-6 text-gray-900">Confirme su Password</label>
+                        <div class="mt-2">
+                            <input id="password2" name="password2" type="password" th:value="${password2}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="flex w-full justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer th:replace="/fragments/footer :: footer">  </footer>
+
+    </body>
+</html>
