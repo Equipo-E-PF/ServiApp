@@ -89,7 +89,7 @@ public class usuarioServicio implements UserDetailsService {
     @Transactional
     public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) throws miException {
         
-        validar(nombre, email, password, telefono);
+        validar(nombre, email, password, password, telefono);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
@@ -125,6 +125,9 @@ public class usuarioServicio implements UserDetailsService {
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
         }
+        if (ur.buscarPorEmail(email)!=null) {
+            throw new miException("El Email ya está siendo utilizado");
+        }
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
         }
@@ -146,6 +149,9 @@ public class usuarioServicio implements UserDetailsService {
         }
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+        if (ur.buscarPorEmail(email)!=null) {
+            throw new miException("El Email ya está siendo utilizado");
         }
          if (!password.equals(password2)) {
              throw new miException("Las contraseñas deben coincidir");
