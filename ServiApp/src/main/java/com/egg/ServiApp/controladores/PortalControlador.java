@@ -12,6 +12,7 @@ import excepciones.miException;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import com.egg.ServiApp.servicios.especialidadServicio;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,20 +40,24 @@ public class PortalControlador {
     public String index(ModelMap model) {
         
         List<Proveedor> listFull = us.listarProveedores();
-        List<Proveedor> listProveedoresFull=null;
-        List<Proveedor> listProveedores=null;
+        List<Proveedor> listProveedoresFull=new ArrayList();
+        List<Proveedor> listProveedores=new ArrayList();
         for (Proveedor prov : listFull) {
-            if (prov.getPuntuacion()>=3) {
-               listProveedoresFull.add(prov);
+           if (prov.getPuntuacion()>=3) {
+              listProveedoresFull.add(prov);
             }
         }
         
-        for (int i = 0; i < 10; i++) {
-            int randomIndex = (int) (Math. random() * listProveedoresFull.size());
+        for (int i = 0; i < 5; i++) {
+            int randomIndex = (int) (Math.random() * listProveedoresFull.size());
             Proveedor p = listProveedoresFull.get(randomIndex);
             listProveedores.add(p);
+            listProveedoresFull.remove(p);
         }
         
+        for (Proveedor listProveedore : listProveedores) {
+            System.out.println(listProveedore.getNombre());
+        }
         model.addAllAttributes(listProveedores);
         
         return "index.html";
