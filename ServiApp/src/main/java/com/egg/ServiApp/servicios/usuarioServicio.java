@@ -37,9 +37,9 @@ public class usuarioServicio implements UserDetailsService {
     private usuarioRepositorio ur;
 
     @Transactional
-    public void crearUsuario(String nombre, String email, String password, Long telefono) throws miException {
+    public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
 
-        validar(nombre, email, password, telefono);
+        validar(nombre, email, password, password2, telefono);
 
         Usuario usuario = new Usuario();
 
@@ -54,9 +54,9 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void crearProveedor(String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void crearProveedor(String nombre, String email, String password, String password2,Long telefono, double costoHora, Especialidad especialidad) throws miException {
 
-        validarP(nombre, email, password, telefono, costoHora);
+        validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
 
@@ -107,7 +107,7 @@ public class usuarioServicio implements UserDetailsService {
         return ur.listaUsuarios(Rol.USUARIO);
     }
 
-    public List<Usuario> listarProveedores() {
+    public List<Proveedor> listarProveedores() {
 
         return ur.listaProveedores(Rol.PROVEEDOR);
     }
@@ -117,7 +117,7 @@ public class usuarioServicio implements UserDetailsService {
         ur.deleteById(id);
     }
 
-    protected void validar(String nombre, String email, String password, Long telefono) throws miException {
+    protected void validar(String nombre, String email, String password, String password2, Long telefono) throws miException {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
@@ -127,13 +127,16 @@ public class usuarioServicio implements UserDetailsService {
         }
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+        if (!password.equals(password2)) {
+             throw new miException("Las contraseñas deben coincidir");
         }
         if (telefono.toString().length() < 6 || telefono.toString().length() > 20) {
             throw new miException("El teléfono no es correcto");
         }
     }
 
-    protected void validarP(String nombre, String email, String password, Long telefono, double costoHora) throws miException {
+    protected void validarP(String nombre, String email, String password, String password2, Long telefono, double costoHora) throws miException {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
@@ -143,6 +146,9 @@ public class usuarioServicio implements UserDetailsService {
         }
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+         if (!password.equals(password2)) {
+             throw new miException("Las contraseñas deben coincidir");
         }
         if (telefono.toString().length() < 6 || telefono.toString().length() > 20) {
             throw new miException("El teléfono no es correcto");

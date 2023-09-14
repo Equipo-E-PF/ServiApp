@@ -4,6 +4,7 @@
  */
 package com.egg.ServiApp.repositorio;
 
+import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import java.util.List;
@@ -29,7 +30,7 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
     public List<Usuario> buscarProveedoresPorServicio(@Param("especialidad") String especialidad);
 
     @Query("SELECT u FROM Usuario u, Proveedor p WHERE u.rol= :PROVEEDOR")
-    public List<Usuario> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
+    public List<Proveedor> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
 
     @Query("SELECT u FROM Usuario u WHERE u.rol= :USUARIO")
     public List<Usuario> listaUsuarios(@Param("USUARIO") Rol rolUsuario);
