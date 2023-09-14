@@ -26,7 +26,7 @@ public class trabajoServicio {
     //Crear Trabajo
     @Transactional
     public void crearTrabajo(Usuario usuario, Proveedor proveedor) throws miException {
-        validar(usuario, proveedor);
+        validar(usuario);
         Trabajo trabajo = new Trabajo();
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
@@ -63,12 +63,9 @@ public class trabajoServicio {
     }
 
     //Validar Trabajo
-    private void validar(Usuario usuario, Proveedor proveedor) throws miException {
+    private void validar(Usuario usuario) throws miException {
         if (usuario == null) {
             throw new miException("El usuario del trabajo no puede ser nulo");
-        }
-        if (proveedor == null) {
-            throw new miException("Los proveedores del trabajo no pueden ser nulos");
         }
     }
 }
