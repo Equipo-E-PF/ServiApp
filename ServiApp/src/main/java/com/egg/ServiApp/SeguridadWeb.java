@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp;
 
 import com.egg.ServiApp.servicios.usuarioServicio;
@@ -20,38 +16,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled =true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 
 public class SeguridadWeb extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     public usuarioServicio us;
-    
+
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(us).passwordEncoder(new BCryptPasswordEncoder());
     }
-     
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/admin/*").hasRole("ADMIN")
-                    .antMatchers("/css/*","/js/*","/img/*","/**")
-                    .permitAll()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/css/*", "/js/*", "/img/*", "/**")
+                .permitAll()
                 .and().formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/logincheck")
-                    .usernameParameter("nombreUsuario")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("/index")
-                    .permitAll()
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("nombreUsuario")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/index")
+                .permitAll()
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
                 .and().csrf()
-                    .disable();
+                .disable();
     }
 }
-

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Especialidad;
@@ -18,44 +14,44 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class especialidadServicio {
-    
+
     @Autowired
     private especialidadRepositorio er;
-    
+
     @Transactional
-    public void crearEspecialidad (String nombre) throws miException{
-        
+    public void crearEspecialidad(String nombre) throws miException {
+
         validar(nombre);
-        
+
         Especialidad especialidad = new Especialidad();
-        
+
         especialidad.setNombre(nombre);
         er.save(especialidad);
     }
-    
+
     @Transactional
-    public void modificarEspecialidad(String id, String nombre){
-        
+    public void modificarEspecialidad(String id, String nombre) {
+
         Especialidad especialidad = er.buscarPorId(id);
         especialidad.setNombre(nombre);
-        
+
         er.save(especialidad);
     }
-    
-    public List<Especialidad> listarEspecialidades(){
+
+    public List<Especialidad> listarEspecialidades() {
         return er.findAll();
     }
-    
-    @Transactional
-    public void eliminarEspecialidadId(String id){
 
-            er.deleteById(id);
-        
+    @Transactional
+    public void eliminarEspecialidadId(String id) {
+
+        er.deleteById(id);
+
     }
-    
-    protected void validar(String nombre) throws miException{
-        
-        if (nombre.isEmpty()||nombre==null) {
+
+    protected void validar(String nombre) throws miException {
+
+        if (nombre.isEmpty() || nombre == null) {
             throw new miException("El nombre no puede ser nulo");
         }
     }
@@ -63,8 +59,5 @@ public class especialidadServicio {
     public Especialidad buscarPorNombre(String especialidad_por_defecto) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
-}
 
+}

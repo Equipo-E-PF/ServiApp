@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Especialidad;
@@ -54,7 +50,7 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void crearProveedor(String nombre, String email, String password, String password2,Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, Especialidad especialidad) throws miException {
 
         validarP(nombre, email, password, password2, telefono, costoHora);
 
@@ -88,7 +84,7 @@ public class usuarioServicio implements UserDetailsService {
 
     @Transactional
     public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) throws miException {
-        
+
         validar(nombre, email, password, password, telefono);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
@@ -125,14 +121,14 @@ public class usuarioServicio implements UserDetailsService {
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
         }
-        if (ur.buscarPorEmail(email)!=null) {
+        if (ur.buscarPorEmail(email) != null) {
             throw new miException("El Email ya está siendo utilizado");
         }
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
         }
         if (!password.equals(password2)) {
-             throw new miException("Las contraseñas deben coincidir");
+            throw new miException("Las contraseñas deben coincidir");
         }
         if (telefono.toString().length() < 6 || telefono.toString().length() > 20) {
             throw new miException("El teléfono no es correcto");
@@ -150,11 +146,11 @@ public class usuarioServicio implements UserDetailsService {
         if (password == null || password.isEmpty() || password.length() <= 5) {
             throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
         }
-        if (ur.buscarPorEmail(email)!=null) {
+        if (ur.buscarPorEmail(email) != null) {
             throw new miException("El Email ya está siendo utilizado");
         }
-         if (!password.equals(password2)) {
-             throw new miException("Las contraseñas deben coincidir");
+        if (!password.equals(password2)) {
+            throw new miException("Las contraseñas deben coincidir");
         }
         if (telefono.toString().length() < 6 || telefono.toString().length() > 20) {
             throw new miException("El teléfono no es correcto");
@@ -167,22 +163,21 @@ public class usuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = ur.buscarPorEmail(email);
-        
+
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
-            
+
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession(true);
             session.setAttribute("usersession", usuario);
-            
+
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-        }else{
-            
+        } else {
+
             return null;
         }
     }
-    
-    
+
 }

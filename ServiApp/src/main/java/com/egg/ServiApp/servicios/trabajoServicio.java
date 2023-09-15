@@ -1,6 +1,6 @@
-
 package com.egg.ServiApp.servicios;
 
+import com.egg.ServiApp.entidades.Calificacion;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
@@ -67,9 +67,21 @@ public class trabajoServicio {
         if (usuario == null) {
             throw new miException("El usuario del trabajo no puede ser nulo");
         }
-   
-     if (proveedor == null) {
+
+        if (proveedor == null) {
             throw new miException("Los proveedores del trabajo no pueden ser nulos");
         }
+    }
+
+    //Asociar Calificación 
+    @Transactional
+    public void asociarCalificacion(String trabajoId, String contenido) throws miException {
+        Trabajo trabajo = trabajoRepo.getOne(trabajoId);
+        Calificacion calificacion = new Calificacion();
+        calificacion.setContenido(contenido);
+
+        // Aquí podrías realizar alguna validación adicional si es necesario
+        trabajo.setCalificacion(calificacion);
+        trabajoRepo.save(trabajo);
     }
 }

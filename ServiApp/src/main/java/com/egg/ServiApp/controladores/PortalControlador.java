@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Especialidad;
@@ -29,55 +25,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PortalControlador {
 
-     
     @Autowired
     private usuarioServicio us;
-  
+
     @Autowired
     private especialidadServicio especialidadServicio;
-    
+
     @GetMapping("/")
     public String index(ModelMap model) {
-        
+
         List<Proveedor> listFull = us.listarProveedores();
-        List<Proveedor> listProveedoresFull=new ArrayList();
-        List<Proveedor> listProveedores=new ArrayList();
+        List<Proveedor> listProveedoresFull = new ArrayList();
+        List<Proveedor> listProveedores = new ArrayList();
         for (Proveedor prov : listFull) {
-           if (prov.getPuntuacion()>=3) {
-              listProveedoresFull.add(prov);
+            if (prov.getPuntuacion() >= 3) {
+                listProveedoresFull.add(prov);
             }
         }
-        
+
         for (int i = 0; i < 5; i++) {
             int randomIndex = (int) (Math.random() * listProveedoresFull.size());
             Proveedor p = listProveedoresFull.get(randomIndex);
             listProveedores.add(p);
             listProveedoresFull.remove(p);
         }
-        
+
         for (Proveedor listProveedore : listProveedores) {
             System.out.println(listProveedore.getNombre());
         }
         model.addAllAttributes(listProveedores);
-        
+
         return "index.html";
 
     }
-    
+
     @GetMapping("/registroUsuario")
-    public String registroUsuario(){
+    public String registroUsuario() {
         return "regClient.html";
     }
-    
+
     @GetMapping("/registroProveedor")
-    public String registroProveedor(ModelMap model){
-      List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
-            model.addAttribute("especialidades", especialidades);
+    public String registroProveedor(ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
         return "regProvider.html";
     }
-    
+
     @PostMapping("/registrarUsuario")
-    public String registarUsuario(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, ModelMap modelo){
+    public String registarUsuario(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, ModelMap modelo) {
         try {
             us.crearUsuario(nombre, email, password, password2, telefono);
             modelo.put("exito", "Se ha registrado con éxito!");
@@ -87,9 +82,9 @@ public class PortalControlador {
         }
         return "redirect:/";
     }
-    
+
     @PostMapping("/registrarProveedor")
-    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo){
+    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo) {
         try {
             us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);
             modelo.put("exito", "Se ha registrado con éxito!");
@@ -99,11 +94,11 @@ public class PortalControlador {
         }
         return "redirect:/";
     }
-    
+
     @GetMapping("/login")
-    public String ingreso(ModelMap modeloUsuario, HttpSession session){
-         Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modeloUsuario.addAttribute("modelousuario",logueado);
+    public String ingreso(ModelMap modeloUsuario, HttpSession session) {
+        Usuario logueado = (Usuario) session.getAttribute("usuario");
+        modeloUsuario.addAttribute("modelousuario", logueado);
         return "redirect:/";
     }
 }

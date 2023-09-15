@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Calificacion;
@@ -19,58 +15,60 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class calificacionServicio {
-    
+
     @Autowired
     private calificacionRepositorio califRepo;
-    
+
     @Transactional
-    public void crearCalificacion(String contenido, double puntuacion) throws miException{
-        
+    public void crearCalificacion(String contenido, double puntuacion) throws miException {
+
         validar(contenido, puntuacion);
-        
+
         Calificacion calif = new Calificacion();
-        
+
         calif.setContenido(contenido);
         calif.setPuntuacion(puntuacion);
-        
+
         califRepo.save(calif);
     }
-    
-    public List<Calificacion> listarCalificaciones(String id){
-        
+
+    public List<Calificacion> listarCalificaciones(String id) {
+
         List<Calificacion> calif = null;
         Optional<Calificacion> respuesta = califRepo.findById(id);
-        
+
         if (respuesta.isPresent()) {
-             calif=(List<Calificacion>) respuesta.get();
+            calif = (List<Calificacion>) respuesta.get();
         }
         return calif;
     }
-    
+
     @Transactional
-    public void modificarCalificacion(String id, String contenido, double puntuacion) throws miException{
-        
+    public void modificarCalificacion(String id, String contenido, double puntuacion) throws miException {
+
         validar(contenido, puntuacion);
         Optional<Calificacion> respuesta = califRepo.findById(id);
-        
+
         if (respuesta.isPresent()) {
-             Calificacion calif = respuesta.get();
-             calif.setContenido(contenido);
-             calif.setPuntuacion(puntuacion);
-             
-             califRepo.save(calif);
+            Calificacion calif = respuesta.get();
+            calif.setContenido(contenido);
+            calif.setPuntuacion(puntuacion);
+
+            califRepo.save(calif);
         }
     }
-        
-    public Calificacion getOne(String id){return califRepo.getOne(id);}
-    
+
+    public Calificacion getOne(String id) {
+        return califRepo.getOne(id);
+    }
+
     @Transactional
-    public void eliminarCalificacion(String id){
+    public void eliminarCalificacion(String id) {
         califRepo.deleteById(id);
     }
-    
-    private void validar(String contenido, double puntuacion) throws miException{
-        
+
+    private void validar(String contenido, double puntuacion) throws miException {
+
         if (contenido == null || contenido.isEmpty()) {
             throw new miException("El contenido no puede estar vacio /n");
         }
