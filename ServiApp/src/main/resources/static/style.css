@@ -1,3 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Open Sans", sans-serif;
+    background: #F8F7F2;
+
+}
+
 .navcolor{
     background-color: #F8F0E5;
 }
@@ -77,18 +87,16 @@
 }
 
 .box {
-    width: 25%;
     height: 100%;
-    background-color: #ccc;
+    background-color: #E1E3E6;
     margin-right: 10px;
     display: inline-block;
     vertical-align: top;
     align-items: center;
+    color: #0f2c59;
 }
 
-.box > h4 {
-    text-align: center;
-}
+
 
 .box:last-child {
     margin-right: 0;
@@ -112,7 +120,7 @@
 }
 
 .footer-links h4 {
-    font-size: 10px;
+    font-size: 14px;
 
     color: #dac0a3;
     margin-bottom: 15px;
@@ -143,7 +151,7 @@
 }
 
 .social-link a {
-    display: inline-block;
+   
     min-height: 40px;
     width: 40px;
     background-color: rgb(255, 255, 255, 0.2);
