@@ -1,0 +1,14 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:action": {
+            "context": "form"
+        },
+        "th:replace": {
+            "context": "head"
+        },
+        "th:value": {
+            "context": "input"
+        }
+    }
+}
