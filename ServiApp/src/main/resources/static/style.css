@@ -1,3 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Open Sans", sans-serif;
+    background: #F8F7F2;
+
+}
+
 .navcolor{
     background-color: #F8F0E5;
 }
@@ -36,6 +46,7 @@
     stroke-width: 0px;
 }
 
+
 .cls-12 {
     font-family: Espiritu-Condensed, Espiritu;
     font-size: 60px;
@@ -48,10 +59,6 @@
 .cls-22 {
     stroke-width: 0px;
 }
-
-
-
-
 
 .container {
     max-width: 1200px;
@@ -69,7 +76,9 @@
 .caracteristicas {
     display: flex;
     justify-content: center;
+
     margin-bottom: 15px;
+
 }
 
 .interior-caracteristicas {
@@ -78,25 +87,20 @@
 }
 
 .box {
-    width: 25%;
     height: 100%;
-    background-color: #ccc;
+    background-color: #E1E3E6;
     margin-right: 10px;
     display: inline-block;
     vertical-align: top;
     align-items: center;
+    color: #0f2c59;
 }
 
-.box > h4 {
-    text-align: center;
-}
+
 
 .box:last-child {
     margin-right: 0;
 }
-
-
-
 
 .footer {
     background-color: #0f2c59;
@@ -111,11 +115,13 @@
 }
 
 .footer-links {
+
     padding:  15px;
 }
 
 .footer-links h4 {
-    font-size: 10px;
+    font-size: 14px;
+
     color: #dac0a3;
     margin-bottom: 15px;
     font-weight: 500;
@@ -125,23 +131,27 @@
 }
 
 .footer-links ul li a {
+
     font-size: 12px;
+
     text-decoration: none;
     color: #f8f0e5;
     display: block;
     margin-bottom: 5px;
     transition: all 0.3s ease;
 }
+
 .logo-foot {
     padding-top: 30px;
 }
+
 .footer-links ul li a:hover {
     color: white;
     padding-left: 6px;
 }
 
 .social-link a {
-    display: inline-block;
+   
     min-height: 40px;
     width: 40px;
     background-color: rgb(255, 255, 255, 0.2);

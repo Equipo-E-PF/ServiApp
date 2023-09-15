@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form th:action="@{/registrarProveedor}" class="space-y-6" action="#" method="POST">
+                <form th:action="@{/regUser}" class="space-y-6" action="#" method="POST">
                     <div>
                         <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
                         <div class="mt-2">
@@ -54,22 +54,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <input id="password2" name="password2" type="password" th:value="${password2}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         </div>
                     </div>
-                    <div>
-                        <label for="costoHora" class="block text-sm font-medium leading-6 text-gray-900">Indique cuanto va a cobrar por hora</label>
-                        <div class="mt-2">
-                            <input id="costoHora" name="costoHora" type="number" th:value="${costoHora}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="especialidad" class="block text-sm font-medium leading-6 text-gray-900">Especialidad</label>
-                        <br>
-                        <select class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="especialidad" id="especialidad">
-                            <option >Seleccione</option>
-                            <option th:each="especialidad : ${especialidades}" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></option>
-                        </select>
 
-                    </div>
                     <div>
                         <button type="submit" class="flex w-full justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
                     </div>
@@ -81,8 +66,3 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
  <script  src="/index.js"></script>
     </body>
 </html>
-
-
-
-
-
