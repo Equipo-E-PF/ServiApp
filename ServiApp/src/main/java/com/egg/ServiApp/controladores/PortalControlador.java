@@ -66,7 +66,7 @@ public class PortalControlador {
     
     @GetMapping("/registroUsuario")
     public String registroUsuario(){
-        return "regClient.html";
+        return "regUser.html";
     }
     
     @GetMapping("/registroProveedor")
