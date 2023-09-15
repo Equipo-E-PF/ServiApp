@@ -78,7 +78,9 @@
     </div>
 
     <div class="relative flex lg:flex-1 justify-evenly" >
-        <a href="#" class="text-sm font-semibold leading-6 textcolor"><p class="text-base">Ingresar</p></a>
+        <a th:href="@{/login}" class="text-sm font-semibold leading-6 textcolor">
+            <p class="text-base">Ingresar</p>
+        </a>
     </div>
 
     <div class="relative flex lg:flex-1 justify-evenly">
@@ -97,7 +99,7 @@
                         </svg>
                     </div>
                     <div class="flex-auto">
-                        <a h:if = "${session.usuariosession == null}" th:href="@{/regUser}" class="block font-semibold textcolor">
+                        <a h:if = "${session.usuariosession == null}" th:href="@{/registroUsuario}" class="block font-semibold textcolor">
                             <p class="text-base">Usuario</p> 
                             <span class="absolute inset-0"></span>
                         </a>

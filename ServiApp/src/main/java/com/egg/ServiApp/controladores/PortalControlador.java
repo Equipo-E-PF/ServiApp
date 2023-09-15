@@ -66,7 +66,7 @@ public class PortalControlador {
     
     @GetMapping("/registroUsuario")
     public String registroUsuario(){
-        return "regClient.html";
+        return "regUser.html";
     }
     
     @GetMapping("/registroProveedor")
@@ -83,7 +83,7 @@ public class PortalControlador {
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
             modelo.put("error", ex.getMessage());
-            return "registroUsuario.html";
+            return "regUser.html";
         }
         return "redirect:/";
     }
@@ -104,6 +104,6 @@ public class PortalControlador {
     public String ingreso(ModelMap modeloUsuario, HttpSession session){
          Usuario logueado = (Usuario) session.getAttribute("usuario");
         modeloUsuario.addAttribute("modelousuario",logueado);
-        return "redirect:/";
+        return "login.html";
     }
 }
