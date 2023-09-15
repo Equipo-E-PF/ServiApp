@@ -158,3 +158,87 @@
 .social-link a:hover {
     background-color: aqua;
 }
+
+.oculto {
+  display: none;
+}
+.main-perfil {
+  padding: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.topbar {
+  background-color: #dac0a3;
+  color: #0f2c59;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.topbar a {
+  float: right;
+  color: #0f2c59;
+  text-align: center;
+  padding: 20px 26px;
+  text-decoration: none;
+  font-size: 26px;
+}
+.sidebar {
+  background-color: #0f2c59;
+  color: #f8f0e5;
+  height: 100%;
+  border-radius: 20px;
+}
+.sidebar a {
+  margin-left: 10px;
+  display: block;
+  color: white;
+  padding-bottom: 10px;
+  font-size: 30px;
+  text-decoration: none;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+.container {
+  background-color: whitesmoke;
+}
+
+#botones > h3 > button {
+  border-radius: 10px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+#botones > h3 > button:hover {
+  background-color: aqua;
+  transition: all 0.5s ease;
+  color: #0f2c59;
+  padding-left: 6px;
+}
+
+#botones-usuario > h3 > button {
+  border-radius: 10px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+#botones-usuario > h3 > button:hover {
+  background-color: chartreuse;
+  transition: all 0.5s ease;
+  color: #0f2c59;
+  padding-left: 6px;
+}
+
+#botones-servicio > h3 > button {
+  border-radius: 10px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+#botones-servicio > h3 > button:hover {
+  background-color: yellow;
+  transition: all 0.5s ease;
+  color: #0f2c59;
+  padding-left: 6px;
+}
