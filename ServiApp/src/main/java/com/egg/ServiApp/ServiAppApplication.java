@@ -17,7 +17,7 @@ public class ServiAppApplication {
         SpringApplication.run(ServiAppApplication.class, args);
     }
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         try {
             us.crearUsuario("Pedrito", "email@email.com", "Password1", "Password1", 3143760609L);
@@ -32,6 +32,7 @@ public class ServiAppApplication {
             
         } catch (miException e) {
         }
-    }
+
+    }*/
 
 }

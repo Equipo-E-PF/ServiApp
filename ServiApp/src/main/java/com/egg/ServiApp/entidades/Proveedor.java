@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
@@ -13,19 +9,17 @@ import javax.persistence.OneToOne;
  *
  * @author Juanp
  */
-
 @Entity
 public class Proveedor extends Usuario implements Serializable {
-    
+
     private double puntuacion;
     private double costoHora;
-    
+
     @OneToOne
     private Especialidad especialidad;
 
     public Proveedor() {
     }
-    
 
     public double getPuntuacion() {
         return puntuacion;
@@ -42,7 +36,7 @@ public class Proveedor extends Usuario implements Serializable {
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
-    
+
     public double getCostoHora() {
         return costoHora;
     }
@@ -86,5 +80,4 @@ public class Proveedor extends Usuario implements Serializable {
         super.setBaja(baja);
     }
 
-    
 }

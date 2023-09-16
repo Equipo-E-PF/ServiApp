@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
@@ -22,27 +18,25 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     protected String id;
-    
+
     protected String nombre;
     protected String email;
     protected String Password;
     protected Long telefono;
     protected boolean baja;
-    
+
     @Enumerated(EnumType.STRING)
     protected Rol rol;
-    
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "imagen", columnDefinition = "BLOB")
     protected byte[] imagen;
-    
-    
 
     public Usuario() {
     }
@@ -111,6 +105,7 @@ public class Usuario {
         this.imagen = imagen;
     }
 
+
     public Proveedor convertirEnProveedor() {
         Proveedor proveedor = new Proveedor();
         proveedor.setId(this.getId());
@@ -123,9 +118,5 @@ public class Usuario {
         proveedor.setImagen(this.imagen);
         return proveedor;
     }
-    
-    
-    
-    
     
 }

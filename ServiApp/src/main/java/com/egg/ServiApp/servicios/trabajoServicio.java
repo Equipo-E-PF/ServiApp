@@ -80,4 +80,16 @@ public class trabajoServicio {
             throw new miException("Los proveedores del trabajo no pueden ser nulos");
         }
     }
+
+    //Asociar Calificación 
+    @Transactional
+    public void asociarCalificacion(String trabajoId, String contenido) throws miException {
+        Trabajo trabajo = trabajoRepo.getOne(trabajoId);
+        Calificacion calificacion = new Calificacion();
+        calificacion.setContenido(contenido);
+
+        // Aquí podrías realizar alguna validación adicional si es necesario
+        trabajo.setCalificacion(calificacion);
+        trabajoRepo.save(trabajo);
+    }
 }

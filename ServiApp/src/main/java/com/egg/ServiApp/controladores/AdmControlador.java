@@ -3,7 +3,6 @@ package com.egg.ServiApp.controladores;
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
-import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
