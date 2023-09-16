@@ -38,7 +38,8 @@ public class PortalControlador {
     
     @GetMapping("/")
     public String index(ModelMap model) {
-        
+        List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
+         model.addAttribute("especialidades", especialidades);
         List<Proveedor> listFull = us.listarProveedores();
         List<Proveedor> listProveedoresFull=new ArrayList();
         List<Proveedor> listProveedores=new ArrayList();
@@ -48,7 +49,7 @@ public class PortalControlador {
             }
         }
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             int randomIndex = (int) (Math.random() * listProveedoresFull.size());
             Proveedor p = listProveedoresFull.get(randomIndex);
             listProveedores.add(p);
@@ -56,17 +57,22 @@ public class PortalControlador {
         }
         
         for (Proveedor listProveedore : listProveedores) {
-            System.out.println(listProveedore.getNombre());
+            System.out.println(listProveedore.getNombre()+ " " + listProveedore.getEspecialidad().getNombre()
+                    + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
         }
-        model.addAllAttributes(listProveedores);
-        
+        //model.addAllAttributes(listProveedores); Asi no funciona necesito el nombre del atributo para iterar en la vista
+        model.addAttribute("proveedores", listProveedores);
         return "index.html";
 
     }
     
     @GetMapping("/registroUsuario")
-    public String registroUsuario(){
-        return "regClient.html";
+
+    public String registroUsuario(ModelMap model){
+        List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
+         model.addAttribute("especialidades", especialidades);
+
+        return "regUser.html";
     }
     
     @GetMapping("/registroProveedor")
@@ -83,7 +89,7 @@ public class PortalControlador {
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
             modelo.put("error", ex.getMessage());
-            return "registroUsuario.html";
+            return "regUser.html";
         }
         return "redirect:/";
     }
@@ -101,9 +107,13 @@ public class PortalControlador {
     }
     
     @GetMapping("/login")
-    public String ingreso(ModelMap modeloUsuario, HttpSession session){
+    public String ingreso(ModelMap model, HttpSession session){
+        List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
+         model.addAttribute("especialidades", especialidades);
          Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modeloUsuario.addAttribute("modelousuario",logueado);
+
+        model.addAttribute("modelousuario",logueado);
         return "redirect:/";
+
     }
 }

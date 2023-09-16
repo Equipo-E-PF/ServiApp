@@ -1,61 +1,27 @@
-
 <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 " aria-label="Global">
     <div class="relative flex lg:flex-1 justify-evenly">
-        <button id="servicios" type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 textcolor " aria-expanded="false">
+        <button id="servicios" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor " aria-expanded="false">
             <p class="text-base">Servicios</p>
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
         </button>
-        <div id="menu" class="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+        <div id="menu" class="absolute -left-8 top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 menu">
             <div class="p-4">
-                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50" th:each="especialidad : ${especialidades}">
                     <div class="flex h-11 w-11 flex-none items-center justify-center">
-                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371 263">
-
-                            <path class="cls-3" d="m185.5,0L0,263h371L185.5,0Zm-2.11,25.51l141.23,217.86H42.16L183.39,25.51Z"/>
-                            <polygon class="cls-3" points="223.44 160.94 223.44 164.18 215.22 176.64 194.52 208.04 204.75 208.04 157.34 234.07 153.23 208.04 168.36 208.04 189.06 176.64 153.54 176.64 120.15 175.01 120.15 174.97 129.72 160.94 172.77 97.7 215.03 99.76 173.38 160.94 223.44 160.94"/>
-                        </svg>
-                    </div>
-                    <div class="flex-auto">
-                        <a href="#" class="block font-semibold textcolor">
-                            <p class="text-base">Electricistas</p> 
-                            <span class="absolute inset-0"></span>
+                         <a th:href="@{/registroProveedor}">
+                                <i class="fa-solid fa-bolt"></i>
                         </a>
                     </div>
-                </div>
-                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-                    <div class="flex h-11 w-11 flex-none items-center justify-center ">
-                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="30" height="30" viewBox="0 0 362.59 275.9">
-                            <path class="cls-3" d="m182.07,138.55l.13-87.47,45.87.07c6.35,7.92,16.62,13.08,28.21,13.1,19.35.03,35.05-14.27,35.07-31.94.03-17.66-15.64-32.01-34.98-32.04-12.81-.02-24.03,6.25-30.13,15.62l-43.99-.06.02-15.67-36.37-.05-.02,15.67-42.64-.06C97.16,6.31,85.96.02,73.15,0c-19.35-.03-35.05,14.27-35.07,31.94-.03,17.66,15.64,32.01,34.98,32.04,11.59.02,21.87-5.11,28.24-13.02l44.52.06-.13,87.47-107.78-.16.05-35.25-37.72-.05-.25,172.34,37.72.05.05-33.95,218.25.31-.05,33.95,106.43.15.2-137.09-180.52-.26Zm142.65,103.35l-33.68-.05.05-33.95-253.27-.36.05-36.56,286.95.41-.1,70.5Z"/>
-                        </svg>
-                    </div>
                     <div class="flex-auto">
-                        <a href="#" class="block font-semibold textcolor">
-                            <p class="text-base">Plomeros</p> 
+                        <a href="#" class="block font-sans textcolor">
+                            <p class="text-base" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></p> 
                             <span class="absolute inset-0"></span>
                         </a>
-
-                    </div>
-                </div>
-                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-                    <div class="flex h-11 w-11 flex-none items-center justify-center ">
-                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="30" height="30" viewBox="0 0 235 270.85">
-
-                            <polygon class="cls-3" points="235 240.01 235 270.85 0 270.85 0 240.01 35.67 240.01 35.67 256.46 50.36 256.46 50.36 240.01 86.03 240.01 86.03 256.46 100.71 256.46 100.71 240.01 136.38 240.01 136.38 256.46 146.88 256.46 146.88 240.01 182.54 240.01 182.54 256.46 199.33 256.46 199.33 240.01 235 240.01"/>
-                            <path class="cls-3" d="m219.33,197.8c-17.08,24.95-45.96,32.76-71.53,34.09,4.44-1.59,8.62-3.75,12.34-6.49,39.58-29.07,6.95-106.83-6.96-107.14-10.84-.24-18.82,46.46-24.37,45.45-7.19-1.31-40.04-3.25-5.22-86.03,5.52-13.1-50.19,26.31-59.19,64.93-.77,3.28-12.72,58.52,24.79,82.56C42.89,210.84-.75,171.25,3.48,134.5c1.17-10.13,5.76-18.25,17.41-32.47C54.54,60.96,185.86-29.38,156.67,9.5c-24.37,32.47,56.33,82.29,57.44,89.28,21.76,32.66,24.14,71.38,5.22,99.02Z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-auto">
-                        <a href="#" class="block font-semibold textcolor">
-                            <p class="text-base">Gasistas</p> 
-                            <span class="absolute inset-0"></span>
-                        </a>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -63,42 +29,51 @@
 
 
     <div class="relative flex lg:flex-1 justify-evenly">
-        <a href="#" class="text-sm font-semibold leading-6 textcolor"><p class="text-base">Experiencias</p></a>
+        <a href="#" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Experiencias</p></a>
     </div>
+
 
     <div class="relative flex lg:flex-1 justify-evenly">
-
-        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="70" height="70" viewBox="0 0 395 263">
-            <text class="cls-1" transform="translate(269.13 206.23) scale(.95 1)"><tspan x="0" y="0">A P P</tspan></text>
-            <text class="cls-1" transform="translate(50.44 206.82) scale(.95 1)"><tspan x="0" y="0">S E R V</tspan></text>
-            <path class="cls-3" d="m152.43,0l-45.71,36.98-.9.73-.41-14.39h-46.01v51.96L0,123.35l7.04,8.98,32.14-25.6.31,156.27h222.54v-34.41h-12.48l.15,23.4-198.38.15V98.09L150.39,17.29l99.17,81.35.11,35.96c1.86-.84,3.88-1.3,5.99-1.3,2.25,0,4.4.52,6.36,1.47v-27.81l30.91,25.6,8.16-7.98L152.43,0Zm-82.02,66.37V31.9l23.47.1.08,15.31-23.56,19.06Z"/>
-            <path class="cls-2" d="m265.06,201.1v-37.93c3.62-2.68,5.95-6.83,5.95-11.49,0-8.08-7-14.64-15.64-14.64s-15.64,6.55-15.64,14.64c0,4.66,2.32,8.81,5.95,11.49v37.93c-4.15,2.72-6.85,7.15-6.85,12.16,0,5.88,3.73,10.97,9.16,13.43l-1.02-11.37,4.01-3.02,4.65-3.51,4.95,3.51,4.1,2.9-1.8,11.44c5.36-2.48,9.04-7.54,9.04-13.37,0-5-2.7-9.43-6.85-12.16Zm-6.98-3.57h-5.56v-30.48h5.56v30.48Zm-2.78-52.5c3.89,0,7.04,2.95,7.04,6.59s-3.15,6.59-7.04,6.59-7.04-2.95-7.04-6.59,3.15-6.59,7.04-6.59Z"/>
-        </svg>
-
+        <a th:href="@{/}">
+            <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="70" height="70" viewBox="0 0 395 263">
+                <text class="cls-1" transform="translate(269.13 206.23) scale(.95 1)"><tspan x="0" y="0">A P P</tspan></text>
+                <text class="cls-1" transform="translate(50.44 206.82) scale(.95 1)"><tspan x="0" y="0">S E R V</tspan></text>
+                <path class="cls-3" d="m152.43,0l-45.71,36.98-.9.73-.41-14.39h-46.01v51.96L0,123.35l7.04,8.98,32.14-25.6.31,156.27h222.54v-34.41h-12.48l.15,23.4-198.38.15V98.09L150.39,17.29l99.17,81.35.11,35.96c1.86-.84,3.88-1.3,5.99-1.3,2.25,0,4.4.52,6.36,1.47v-27.81l30.91,25.6,8.16-7.98L152.43,0Zm-82.02,66.37V31.9l23.47.1.08,15.31-23.56,19.06Z"/>
+                <path class="cls-2" d="m265.06,201.1v-37.93c3.62-2.68,5.95-6.83,5.95-11.49,0-8.08-7-14.64-15.64-14.64s-15.64,6.55-15.64,14.64c0,4.66,2.32,8.81,5.95,11.49v37.93c-4.15,2.72-6.85,7.15-6.85,12.16,0,5.88,3.73,10.97,9.16,13.43l-1.02-11.37,4.01-3.02,4.65-3.51,4.95,3.51,4.1,2.9-1.8,11.44c5.36-2.48,9.04-7.54,9.04-13.37,0-5-2.7-9.43-6.85-12.16Zm-6.98-3.57h-5.56v-30.48h5.56v30.48Zm-2.78-52.5c3.89,0,7.04,2.95,7.04,6.59s-3.15,6.59-7.04,6.59-7.04-2.95-7.04-6.59,3.15-6.59,7.04-6.59Z"/>
+            </svg>
+        </a>
     </div>
+
+
 
     <div class="relative flex lg:flex-1 justify-evenly" >
-        <a href="#" class="text-sm font-semibold leading-6 textcolor"><p class="text-base">Ingresar</p></a>
+
+        <a th:href="@{/login}" class="text-sm font-semibold leading-6 textcolor">
+            <p class="text-base">Ingresar</p>
+        </a>
+
     </div>
 
-    <div class="relative flex lg:flex-1 justify-evenly">
-        <button id="reg" type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 textcolor" aria-expanded="false">
+    <div th:if = "${session.usuariosession == null}" class="relative flex lg:flex-1 justify-evenly">
+        <button id="reg" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <p class="text-base">Registrate</p>
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
         </button>
-        <div id="menuReg" class="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+        <div id="menuReg" class="absolute -left-8 top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
             <div class="p-4">
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                     <div class="flex h-11 w-11 flex-none items-center justify-center ">
-                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="30" height="30" viewBox="0 0 362.59 275.9">
-                            <path class="cls-3" d="m182.07,138.55l.13-87.47,45.87.07c6.35,7.92,16.62,13.08,28.21,13.1,19.35.03,35.05-14.27,35.07-31.94.03-17.66-15.64-32.01-34.98-32.04-12.81-.02-24.03,6.25-30.13,15.62l-43.99-.06.02-15.67-36.37-.05-.02,15.67-42.64-.06C97.16,6.31,85.96.02,73.15,0c-19.35-.03-35.05,14.27-35.07,31.94-.03,17.66,15.64,32.01,34.98,32.04,11.59.02,21.87-5.11,28.24-13.02l44.52.06-.13,87.47-107.78-.16.05-35.25-37.72-.05-.25,172.34,37.72.05.05-33.95,218.25.31-.05,33.95,106.43.15.2-137.09-180.52-.26Zm142.65,103.35l-33.68-.05.05-33.95-253.27-.36.05-36.56,286.95.41-.1,70.5Z"/>
-                        </svg>
+                        <a th:href="@{/registroUsuario}">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
                     </div>
                     <div class="flex-auto">
-                        <a h:if = "${session.usuariosession == null}" th:href="@{/regUser}" class="block font-semibold textcolor">
+
+                        <a h:if = "${session.usuariosession == null}" th:href="@{/registroUsuario}" class="block font-semibold textcolor">
                             <p class="text-base">Usuario</p> 
+
                             <span class="absolute inset-0"></span>
                         </a>
 
@@ -106,14 +81,12 @@
                 </div>
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                     <div class="flex h-11 w-11 flex-none items-center justify-center ">
-                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" widht="30" height="30" viewBox="0 0 235 270.85">
-
-                            <polygon class="cls-3" points="235 240.01 235 270.85 0 270.85 0 240.01 35.67 240.01 35.67 256.46 50.36 256.46 50.36 240.01 86.03 240.01 86.03 256.46 100.71 256.46 100.71 240.01 136.38 240.01 136.38 256.46 146.88 256.46 146.88 240.01 182.54 240.01 182.54 256.46 199.33 256.46 199.33 240.01 235 240.01"/>
-                            <path class="cls-3" d="m219.33,197.8c-17.08,24.95-45.96,32.76-71.53,34.09,4.44-1.59,8.62-3.75,12.34-6.49,39.58-29.07,6.95-106.83-6.96-107.14-10.84-.24-18.82,46.46-24.37,45.45-7.19-1.31-40.04-3.25-5.22-86.03,5.52-13.1-50.19,26.31-59.19,64.93-.77,3.28-12.72,58.52,24.79,82.56C42.89,210.84-.75,171.25,3.48,134.5c1.17-10.13,5.76-18.25,17.41-32.47C54.54,60.96,185.86-29.38,156.67,9.5c-24.37,32.47,56.33,82.29,57.44,89.28,21.76,32.66,24.14,71.38,5.22,99.02Z"/>
-                        </svg>
+                        <a th:href="@{/registroProveedor}">
+                                <i class="fas fa-wrench"></i>
+                        </a>
                     </div>
                     <div class="flex-auto">
-                        <a th:href="@{/regProvider}" class="block font-semibold textcolor">
+                        <a th:href="@{/registroProveedor}" class="block font-sans textcolor">
                             <p class="text-base">Proveedor</p>
                             <span class="absolute inset-0"></span>
                         </a>
