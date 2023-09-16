@@ -1,6 +1,7 @@
 const btn = document.getElementById("servicios");
 const menu = document.getElementById("menu");
 
+
 btn.addEventListener('click', (event) => {
   event.stopPropagation();
   menu.classList.toggle('hidden');
@@ -15,8 +16,6 @@ document.addEventListener('click', (event) => {
 menu.addEventListener('click', (event) => {
   event.stopPropagation();
 });
-
-
 
 const btnReg = document.getElementById("reg");
 const menuReg = document.getElementById("menuReg");
@@ -131,4 +130,5 @@ switch (numero) {
 }
 
 estrellitas.appendChild(ul);
+
 });

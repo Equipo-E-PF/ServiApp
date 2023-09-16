@@ -67,9 +67,11 @@ public class PortalControlador {
     }
     
     @GetMapping("/registroUsuario")
+
     public String registroUsuario(ModelMap model){
         List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
          model.addAttribute("especialidades", especialidades);
+
         return "regUser.html";
     }
     
@@ -87,7 +89,7 @@ public class PortalControlador {
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
             modelo.put("error", ex.getMessage());
-            return "registroUsuario.html";
+            return "regUser.html";
         }
         return "redirect:/";
     }
@@ -109,7 +111,9 @@ public class PortalControlador {
         List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
          model.addAttribute("especialidades", especialidades);
          Usuario logueado = (Usuario) session.getAttribute("usuario");
+
         model.addAttribute("modelousuario",logueado);
         return "redirect:/";
+
     }
 }
