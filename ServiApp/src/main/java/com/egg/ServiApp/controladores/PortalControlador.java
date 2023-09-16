@@ -44,6 +44,7 @@ public class PortalControlador {
         }
 
         for (int i = 0; i < 5; i++) {
+
             int randomIndex = (int) (Math.random() * listProveedoresFull.size());
             Proveedor p = listProveedoresFull.get(randomIndex);
             listProveedores.add(p);
@@ -51,9 +52,11 @@ public class PortalControlador {
         }
 
         for (Proveedor listProveedore : listProveedores) {
-            System.out.println(listProveedore.getNombre());
+            System.out.println(listProveedore.getNombre()+ " " + listProveedore.getEspecialidad().getNombre()
+                    + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
         }
-        model.addAllAttributes(listProveedores);
+
+        model.addAttribute("proveedores", listProveedores);
 
         return "index.html";
 
@@ -61,7 +64,9 @@ public class PortalControlador {
 
     @GetMapping("/registroUsuario")
     public String registroUsuario() {
-        return "regClient.html";
+
+        return "regUser.html";
+
     }
 
     @GetMapping("/registroProveedor")
@@ -78,7 +83,7 @@ public class PortalControlador {
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
             modelo.put("error", ex.getMessage());
-            return "registroUsuario.html";
+            return "regUser.html";
         }
         return "redirect:/";
     }
@@ -96,9 +101,12 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-    public String ingreso(ModelMap modeloUsuario, HttpSession session) {
+
+    public String ingreso(ModelMap model, HttpSession session){
         Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modeloUsuario.addAttribute("modelousuario", logueado);
+        model.addAttribute("modelousuario",logueado);
+
         return "redirect:/";
+
     }
 }

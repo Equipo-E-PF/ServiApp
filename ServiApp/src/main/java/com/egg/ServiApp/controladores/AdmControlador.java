@@ -1,6 +1,7 @@
 package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Especialidad;
+import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Ale y Choy
  */
 @Controller
-
+@RequestMapping("/admin")
 public class AdmControlador {
 
     @Autowired
@@ -29,23 +31,32 @@ public class AdmControlador {
     private especialidadServicio especialidadServicio;
 
     // Mostrar lista de usuarios
-    @GetMapping("/admin/usuarios")
+    @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         model.addAttribute("usuarios", usuarios);
         return "listaUsuarios.html";
     }
+    
+    @GetMapping("/proveedores")
+    public String listarProveedores(ModelMap model) {
+        List<Proveedor> proveedores = usuarioServicio.listarProveedores();
+        model.addAttribute("proveedores", proveedores);
+        return "listaUsuarios.html";
+    }
 
     // Mostrar lista de especialidades
-    @GetMapping("/admin/especialidades")
+    @GetMapping("/especialidades")
     public String listarEspecialidades(ModelMap model) {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
         return "listaEspecialidades.html";
     }
 
+    @GetMapping
+    
     // Agregar una nueva especialidad
-    @PostMapping("/admin/agregarEspecialidad")
+    @PostMapping("/agregarEspecialidad")
     public String modificarEspecialidad(@RequestParam String nombre, RedirectAttributes redirectAttributes) {
         try {
             especialidadServicio.crearEspecialidad(nombre);
@@ -53,22 +64,22 @@ public class AdmControlador {
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/admin/especialidades";
+        return "redirect:/especialidades";
     }
 
     // Eliminar una especialidad
-    @GetMapping("/admin/eliminarEspecialidad")
+    @GetMapping("/eliminarEspecialidad")
     public String eliminarEspecialidad(@RequestParam String id, RedirectAttributes redirectAttributes) {
         especialidadServicio.eliminarEspecialidadId(id);
         redirectAttributes.addFlashAttribute("exito", "Especialidad eliminada con éxito");
-        return "redirect:/admin/especialidades";
+        return "redirect:/especialidades";
     }
 
     // Eliminar un usuario
-    @GetMapping("/admin/eliminarUsuario")
+    @GetMapping("/eliminarUsuario")
     public String eliminarUsuario(@RequestParam String id, RedirectAttributes redirectAttributes) {
         usuarioServicio.eliminarUsuarioId(id);
         redirectAttributes.addFlashAttribute("exito", "Usuario eliminado con éxito");
-        return "redirect:/admin/usuarios";
+        return "redirect:/usuarios";
     }
 }

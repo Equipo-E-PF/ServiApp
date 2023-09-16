@@ -21,9 +21,8 @@ import org.springframework.stereotype.Service;
 public class trabajoServicio {
 
     @Autowired
-    private trabajoRepositorio trabajoRepo;
+    private trabajoRepositorio tr;
 
-    //Crear Trabajo
     @Transactional
     public void crearTrabajo(Usuario usuario, Proveedor proveedor) throws miException {
         validar(usuario, proveedor);
@@ -31,38 +30,47 @@ public class trabajoServicio {
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
         trabajo.setProveedor(proveedor);
+        trabajo.setCalificacion(new Calificacion());
 
-        trabajoRepo.save(trabajo);
+        tr.save(trabajo);
     }
 
-    //Modificar Trabajo
     @Transactional
-    public void modificarTrabajo(String id, Estado estado) {
-        Optional<Trabajo> trabajoOptional = trabajoRepo.findById(id);
+    public void modificarEstado(String id, Estado estado) {
+        Optional<Trabajo> trabajoOptional = tr.findById(id);
 
         if (trabajoOptional.isPresent()) {
             Trabajo trabajo = trabajoOptional.get();
             trabajo.setEstado(estado);
-            trabajoRepo.save(trabajo);
+            tr.save(trabajo);
+        }
+    }
+    
+    @Transactional
+    public void terminarTrabajo(String id, Estado estado, Calificacion calificacion) {
+        Optional<Trabajo> trabajoOptional = tr.findById(id);
+
+        if (trabajoOptional.isPresent()) {
+            Trabajo trabajo = trabajoOptional.get();
+            trabajo.setEstado(estado);
+            trabajo.setCalificacion(calificacion);
+            tr.save(trabajo);
         }
     }
 
-    //Listar Trabajo
     public List<Trabajo> listarTrabajos() {
-        return trabajoRepo.findAll();
+        return tr.findAll();
     }
 
     public Trabajo getTrabajo(String id) {
-        return trabajoRepo.findById(id).orElse(null);
+        return tr.findById(id).orElse(null);
     }
 
-    //Eliminar Trabajo
     @Transactional
     public void eliminarTrabajo(String id) {
-        trabajoRepo.deleteById(id);
+        tr.deleteById(id);
     }
 
-    //Validar Trabajo
     private void validar(Usuario usuario, Proveedor proveedor) throws miException {
         if (usuario == null) {
             throw new miException("El usuario del trabajo no puede ser nulo");
