@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Estado;
@@ -9,10 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -20,23 +15,23 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Trabajo {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
+
     @Enumerated(EnumType.STRING)
     private Estado estado;
-    
+
     @OneToOne
     private Calificacion calificacion;
-    
+
     @OneToOne
     private Usuario usuario;
-    
+
     @OneToOne
     private Proveedor proveedor;
-    
 
     public Trabajo() {
     }
@@ -80,5 +75,5 @@ public class Trabajo {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-    
+
 }
