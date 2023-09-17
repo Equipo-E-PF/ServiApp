@@ -35,6 +35,11 @@ public class PortalControlador {
   
     @Autowired
     private especialidadServicio especialidadServicio;
+     @Autowired
+    private usuarioServicio usuarioServicio;
+
+    
+    
     
     @GetMapping("/")
     public String index(ModelMap model) {
