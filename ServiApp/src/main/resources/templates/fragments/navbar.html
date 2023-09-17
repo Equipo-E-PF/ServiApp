@@ -1,4 +1,5 @@
 <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 " aria-label="Global">
+
     <div class="relative flex lg:flex-1 justify-evenly">
         <button id="servicios" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor " aria-expanded="false">
             <p class="text-base">Servicios</p>
@@ -10,8 +11,8 @@
             <div class="p-4">
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50" th:each="especialidad : ${especialidades}">
                     <div class="flex h-11 w-11 flex-none items-center justify-center">
-                         <a th:href="@{/registroProveedor}">
-                                <i class="fa-solid fa-bolt"></i>
+                        <a th:href="@{/registroProveedor}">
+                            <i class="fa-solid fa-bolt"></i>
                         </a>
                     </div>
                     <div class="flex-auto">
@@ -25,9 +26,6 @@
         </div>
 
     </div>
-
-
-
     <div class="relative flex lg:flex-1 justify-evenly">
         <a href="#" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Experiencias</p></a>
     </div>
@@ -42,9 +40,8 @@
         </svg>
 
     </div>
-
     <div class="relative flex lg:flex-1 justify-evenly" >
-        <a th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
+        <a th:if = "${session.usuariosession == null}" th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
     </div>
 
     <div th:if = "${session.usuariosession == null}" class="relative flex lg:flex-1 justify-evenly">
@@ -73,7 +70,7 @@
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                     <div class="flex h-11 w-11 flex-none items-center justify-center ">
                         <a th:href="@{/registroProveedor}">
-                                    <i class="fas fa-wrench"></i>
+                            <i class="fas fa-wrench"></i>
                         </a>
                     </div>
                     <div class="flex-auto">
@@ -86,6 +83,12 @@
                 </div>
             </div>
 
+        </div>
+        <div class="relative flex lg:flex-1 justify-evenly" >
+            <a th:if = "${session.usuariosession != null}" href="/perfil" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Perfil</p></a>
+        </div>
+        <div class="relative flex lg:flex-1 justify-evenly" >
+            <a th:if = "${session.usuariosession != null}" href="/logout" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Cerrar sesión</p></a>
         </div>
 
     </div>

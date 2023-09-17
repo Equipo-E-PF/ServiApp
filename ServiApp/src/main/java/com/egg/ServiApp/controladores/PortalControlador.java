@@ -98,15 +98,17 @@ public class PortalControlador {
     }
     
     @PostMapping("/registrarProveedor")
-    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo){
+    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2,ModelMap model, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo){
         try {
             us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
+            List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
+         model.addAttribute("especialidades", especialidades);
             modelo.put("error", ex.getMessage());
-            return "registroProveedor.html";
+            return "regProvider.html";
         }
-        return "redirect:/";
+        return "redirect:/registrarProveedor";
     }
     
     @GetMapping("/login")
@@ -115,6 +117,6 @@ public class PortalControlador {
          model.addAttribute("especialidades", especialidades);
          Usuario logueado = (Usuario) session.getAttribute("usuario");
         model.addAttribute("modelousuario",logueado);
-        return "redirect:/";
+        return "login.html";
     }
 }

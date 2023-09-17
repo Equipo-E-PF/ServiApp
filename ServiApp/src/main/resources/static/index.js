@@ -131,7 +131,7 @@ switch (numero) {
 estrellitas.appendChild(ul);
 });
 
-const rol = document.getElementById("rol");
+/*const rol = document.getElementById("nuevoRol");
 const guardar = document.getElementsByClassName("guardar");
 
 function mostrar (){
@@ -141,8 +141,4 @@ function mostrar (){
   }
 }
 
-rol.addEventListener('click', mostrar);
-
-
-
-
+rol.addEventListener('click', mostrar);*/
