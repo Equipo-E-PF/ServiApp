@@ -35,7 +35,7 @@ public class AdmControlador {
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         model.addAttribute("usuarios", usuarios);
-        return "listaUsuarios.html";
+        return "user_list.html";
     }
     
     @GetMapping("/proveedores")

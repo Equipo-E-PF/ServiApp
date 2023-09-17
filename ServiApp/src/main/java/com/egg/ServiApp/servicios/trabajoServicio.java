@@ -84,12 +84,12 @@ public class trabajoServicio {
     //Asociar Calificación 
     @Transactional
     public void asociarCalificacion(String trabajoId, String contenido) throws miException {
-        Trabajo trabajo = trabajoRepo.getOne(trabajoId);
+        Trabajo trabajo = tr.getOne(trabajoId);
         Calificacion calificacion = new Calificacion();
         calificacion.setContenido(contenido);
 
         // Aquí podrías realizar alguna validación adicional si es necesario
         trabajo.setCalificacion(calificacion);
-        trabajoRepo.save(trabajo);
+        tr.save(trabajo);
     }
 }

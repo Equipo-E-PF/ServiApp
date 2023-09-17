@@ -36,27 +36,18 @@ menuReg.addEventListener('click', (event) => {
   event.stopPropagation();
 });
 
-
-
-
-
-
 const listEstrellas=document.querySelectorAll(".estrellas");
-
 
 listEstrellas.forEach(estrellitas => {
 
     const puntuacion = estrellitas.previousElementSibling; 
 
     const numero = parseInt(puntuacion.textContent);
-    console.log(numero);
-  
- 
+
 const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
     
 
-})
 
 
 const $usuario = document.querySelector("#usuarios");
@@ -178,4 +169,16 @@ switch (numero) {
 estrellitas.appendChild(ul);
 
 });
+
+/*const rol = document.getElementById("nuevoRol");
+const guardar = document.getElementsByClassName("guardar");
+
+function mostrar (){
+     for (let i = 0; i < guardar.length; i++) {
+    guardar[i].classList.remove('hidden');
+
+  }
+}
+
+rol.addEventListener('click', mostrar);*/
 

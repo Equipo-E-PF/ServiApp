@@ -1,6 +1,5 @@
 package com.egg.ServiApp.controladores;
 
-import com.egg.ServiApp.enumeraciones.Estado;
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import excepciones.miException;
@@ -30,7 +29,7 @@ public class UsuarioControlador {
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        trabajoServicio.modificarTrabajo(trabajoId, Estado.FINALIZADO);
+        //trabajoServicio.modificarTrabajo(trabajoId, Estado.FINALIZADO);
         redirectAttributes.addFlashAttribute("exito", "Trabajo marcado como realizado");
         return "redirect:/";
     }
@@ -38,7 +37,7 @@ public class UsuarioControlador {
     // Cancelar un trabajo
     @GetMapping("/cancelarTrabajo")
     public String cancelarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        trabajoServicio.modificarTrabajo(trabajoId, Estado.CANCELADO);
+        //trabajoServicio.modificarTrabajo(trabajoId, Estado.CANCELADO);
         redirectAttributes.addFlashAttribute("exito", "Trabajo cancelado con éxito");
         return "redirect:/";
     }
