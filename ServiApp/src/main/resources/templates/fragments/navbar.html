@@ -41,20 +41,9 @@
             </svg>
         </a>
     </div>
-<<<<<<< HEAD
 
-
-
-    <div class="relative flex lg:flex-1 justify-evenly" >
-
-        <a th:href="@{/login}" class="text-sm font-semibold leading-6 textcolor">
-            <p class="text-base">Ingresar</p>
-        </a>
-
-=======
     <div class="relative flex lg:flex-1 justify-evenly" >
         <a th:if = "${session.usuariosession == null}" th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
->>>>>>> a6758645b7bfc0a287647986d3d005b0cdb017be
     </div>
 
     <div th:if = "${session.usuariosession == null}" class="relative flex lg:flex-1 justify-evenly">

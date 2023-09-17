@@ -40,14 +40,11 @@ public class UsuariosControlador {
         List<Proveedor> proveedores = usuarioServicio.listarProveedores();
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
+        
         Rol[] rol = Rol.values();
-        for (Proveedor listProveedore : proveedores) {
-            System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
-                    + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
-        }
-
-        //esta lista genera un buble infinito de proveedores, no la hice, la traje de admcontrolador
         model.addAttribute("rol", rol);
+        
+        
         model.addAttribute("proveedores", proveedores);
         model.addAttribute("usuarios", usuarios);
         return "user_list.html";

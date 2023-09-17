@@ -9,21 +9,22 @@
 
         <section >
 
-            <div class="min-h-screen flex items-center justify-center ">
+            <div class="min-h-min flex items-stretch justify-center ">
                 <div class=" shadow-md rounded-lg">
-                    <table class="w-full divide-y divide-gray-200 rounded-md">
+                    <table class="w-auto divide-y divide-gray-200 rounded-md mx-4 my-4">
                         <caption class="caption-top">
                             Usuarios Registrados
                         </caption>
                         <thead>
                             <tr>
                                 <th scope="col" class="hidden">ID</th>
-                                <th class=" px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Cambiar Rol</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Dar de baja</th>
+                                <th class=" px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Modificar</th>
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Dar de baja</th>
                             </tr>
                         </thead>
                         <tbody class="bg-blue-50 divide-y divide-gray-200" th:each="usuario : ${usuarios}">
@@ -35,8 +36,8 @@
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.telefono}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" >
                                     <select id="nuevoRol" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
-                                        <option th:value="${usuario.rol}" th:text="${usuario.rol.valor}"></option>
-                                        <option  th:each="rol : ${rol}" th:value="${rol.codigo}" th:text="${rol.valor}" th:unless="${rol == usuario.rol}" ></option>
+                                        <option th:value="${usuario.rol}" th:text="${usuario.rol}"></option>
+                                        <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == usuario.rol}" ></option>
                                     </select>
 
                                 </td>
@@ -45,9 +46,11 @@
                                     <a th:href="@{/perfil/usuarioAproveedor/{id}(id=${usuario.id})}">Cambiar</a>
 
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/eliminarUsuario/__${usuario.id}__}"><i class="fas fa-trash"></i>Dar de Baja</a>
+                                    <a  th:href="@{/perfil/modificarUsuario/__${usuario.id}__}"><i class="fa-solid fa-pen-to-square"></i>Modificar</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap">
+                                    <a  th:href="@{/perfil/eliminarUsuario/__${usuario.id}__}"><i class="fa-solid fa-trash"></i>Dar de Baja</a>
                                 </td>
 
                             </tr>
@@ -65,24 +68,24 @@
 
         <section >
 
-            <div class="min-h-screen flex items-center justify-center ">
+            <div class="min-h-min flex items-stretch justify-center ">
                 <div class=" shadow-md rounded-lg">
-                    <table class="w-full divide-y divide-gray-200 rounded-md">
+                    <table class="w-auto divide-y divide-gray-200 rounded-md mx-4 my-4">
                         <caption class="caption-top">
                             Proveedores Registrados
                         </caption>
                         <thead>
                             <tr>
                                 <th scope="col" class="hidden">ID</th>
-                                <th class=" px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Cambiar Rol</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
-                               <!-- <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" > Servicio</th>
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Costo Hora</th>-->
-                                <th class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Modificar</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Dar de baja</th>
+                                <th class=" px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" > Servicio</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Costo Hora</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Modificar</th>
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Dar de baja</th>
                             </tr>
                         </thead>
                         <tbody class="bg-blue-50 divide-y divide-gray-200" th:each="proveedor : ${proveedores}">
@@ -94,8 +97,8 @@
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.telefono}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" >
                                     <select id="nuevoRolP" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
-                                        <option th:value="${proveedor.rol}" th:text="${proveedor.rol.valor}"></option>
-                                        <option  th:each="rol : ${rol}" th:value="${rol.codigo}" th:text="${rol.valor}" th:unless="${rol == proveedor.rol}" ></option>
+                                        <option th:value="${proveedor.rol}" th:text="${proveedor.rol}"></option>
+                                        <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == proveedor.rol}" ></option>
                                     </select>
 
                                 </td>
@@ -104,13 +107,13 @@
                                     <a th:href="@{/perfil/proveedorAusuario/{id}(id=${proveedor.id})}">Cambiar</a>
 
                                 </td>
-                              <!--  <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.especialidad.nombre}"></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.costoHora}"></td>-->
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.especialidad.nombre}"></td>
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.costoHora}"></td>
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/modificarUsuario/__${proveedor.id}__}"><i class="fas fa-trash"></i>Modificar</a>
+                                    <a  th:href="@{/perfil/modificarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-pen-to-square"></i>Modificar</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/eliminarUsuario/__${proveedor.id}__}"><i class="fas fa-trash"></i>Dar de Baja</a>
+                                    <a  th:href="@{/perfil/eliminarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-trash"></i>Dar de Baja</a>
                                 </td>
 
                             </tr>

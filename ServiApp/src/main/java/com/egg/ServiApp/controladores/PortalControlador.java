@@ -34,6 +34,9 @@ public class PortalControlador {
     @GetMapping("/")
     public String index(ModelMap model) {
 
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
+
         List<Proveedor> listFull = us.listarProveedores();
         List<Proveedor> listProveedoresFull = new ArrayList();
         List<Proveedor> listProveedores = new ArrayList();
@@ -52,7 +55,7 @@ public class PortalControlador {
         }
 
         for (Proveedor listProveedore : listProveedores) {
-            System.out.println(listProveedore.getNombre()+ " " + listProveedore.getEspecialidad().getNombre()
+            System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
                     + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
         }
 
@@ -96,8 +99,8 @@ public class PortalControlador {
             us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);
             modelo.put("exito", "Se ha registrado con éxito!");
         } catch (miException ex) {
-            List<Especialidad> especialidades=especialidadServicio.listarEspecialidades();
-         modelo.addAttribute("especialidades", especialidades);
+            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+            modelo.addAttribute("especialidades", especialidades);
             modelo.put("error", ex.getMessage());
             return "regProvider.html";
         }
@@ -105,11 +108,14 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-
-    public String ingreso(ModelMap model, HttpSession session){
+    public String login(String error, ModelMap modelo, HttpSession session) {
+        
         Usuario logueado = (Usuario) session.getAttribute("usuario");
-        model.addAttribute("modelousuario",logueado);
+        modelo.addAttribute("modelousuario",logueado);
+        if (error != null) {
+            System.out.println("Error en login");
+            modelo.put("error", "Usuario o Contrasena invalidos");
+        }
         return "login.html";
-
     }
 }
