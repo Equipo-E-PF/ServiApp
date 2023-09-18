@@ -46,7 +46,7 @@ public class PortalControlador {
             }
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
 
             int randomIndex = (int) (Math.random() * listProveedoresFull.size());
             Proveedor p = listProveedoresFull.get(randomIndex);
@@ -88,7 +88,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "regUser.html";
         }
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @PostMapping("/registrarProveedor")
@@ -104,7 +104,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "regProvider.html";
         }
-        return "redirect:/registrarProveedor";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
