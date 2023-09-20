@@ -4,6 +4,7 @@ import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import excepciones.miException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Ale y Choy
  */
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USUARIO', 'ROLE_PROVEEDOR')")
 @RequestMapping("/usuario")
 
 public class UsuarioControlador {
@@ -25,6 +27,11 @@ public class UsuarioControlador {
 
     @Autowired
     private calificacionServicio calificacionServicio;
+    
+    @GetMapping("/perfil")
+    public String cargarPerfil(){
+        return "profileUser.html";
+    }
 
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")

@@ -12,6 +12,7 @@ import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author catal
  */
 @Controller
-@RequestMapping("/perfil")
-public class UsuariosControlador {
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@RequestMapping("/admin")
+public class AdminControlador {
 
     @Autowired
     private usuarioServicio usuarioServicio;
@@ -39,8 +41,7 @@ public class UsuariosControlador {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         List<Proveedor> proveedores = usuarioServicio.listarProveedores();
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        model.addAttribute("especialidades", especialidades);
-        
+        model.addAttribute("especialidades", especialidades);    
         Rol[] rol = Rol.values();
         model.addAttribute("rol", rol);
         model.addAttribute("proveedores", proveedores);
@@ -73,7 +74,7 @@ public class UsuariosControlador {
         return "modifyUser.html";
     }
 
-    @PostMapping("/modificarUsuario/{id}")
+    @PostMapping("/modificarProveedor/{id}")
     public String modificar(@PathVariable String id, double costoHora, Especialidad especialidad, ModelMap model) {
         System.out.println(id + "//////////////" + costoHora + "///////////" + especialidad);
 
