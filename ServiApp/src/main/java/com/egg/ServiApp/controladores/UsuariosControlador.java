@@ -43,8 +43,6 @@ public class UsuariosControlador {
         
         Rol[] rol = Rol.values();
         model.addAttribute("rol", rol);
-        
-        
         model.addAttribute("proveedores", proveedores);
         model.addAttribute("usuarios", usuarios);
         return "user_list.html";

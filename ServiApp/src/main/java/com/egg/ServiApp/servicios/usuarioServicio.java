@@ -4,6 +4,7 @@ import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import com.egg.ServiApp.repositorio.especialidadRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
+    
+    @Autowired
+    private especialidadRepositorio er;
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -51,12 +55,13 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, String especialidad) throws miException {
 
         validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
-
+        Especialidad esp = er.buscarPorId(especialidad);
+        
         p.setNombre(nombre);
         p.setEmail(email);
         p.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -64,22 +69,24 @@ public class usuarioServicio implements UserDetailsService {
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
-        p.setEspecialidad(especialidad);
+        p.setEspecialidad(esp);
 
         ur.save(p);
     }
 
     @Transactional
-    public void modificarProveedor(String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void modificarProveedor(String id, String nombre, String email, String password, Long telefono, double costoHora, String especialidad) throws miException {
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(Rol.PROVEEDOR, id);
+            Especialidad esp = er.buscarPorId(especialidad);
+            
             p.setNombre(nombre);
             p.setEmail(email);
             p.setPassword(password);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
-            p.setEspecialidad(especialidad);
+            p.setEspecialidad(esp);
             ur.save(p);
         }
     }
