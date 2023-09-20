@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -41,7 +42,7 @@ public class usuarioServicio implements UserDetailsService {
 
         usuario.setNombre(nombre);
         usuario.setEmail(email);
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setTelefono(telefono);
         usuario.setBaja(false);
         usuario.setRol(Rol.USUARIO);
@@ -58,7 +59,7 @@ public class usuarioServicio implements UserDetailsService {
 
         p.setNombre(nombre);
         p.setEmail(email);
-        p.setPassword(password);
+        p.setPassword(new BCryptPasswordEncoder().encode(password));
         p.setTelefono(telefono);
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);

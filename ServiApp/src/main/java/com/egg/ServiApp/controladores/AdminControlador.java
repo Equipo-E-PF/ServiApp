@@ -26,8 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author catal
  */
 @Controller
-@RequestMapping("/perfil")
-public class UsuariosControlador {
+@RequestMapping("/admin")
+public class AdminControlador {
 
     @Autowired
     private usuarioServicio usuarioServicio;
@@ -39,12 +39,9 @@ public class UsuariosControlador {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         List<Proveedor> proveedores = usuarioServicio.listarProveedores();
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        model.addAttribute("especialidades", especialidades);
-        
+        model.addAttribute("especialidades", especialidades);    
         Rol[] rol = Rol.values();
         model.addAttribute("rol", rol);
-        
-        
         model.addAttribute("proveedores", proveedores);
         model.addAttribute("usuarios", usuarios);
         return "user_list.html";
@@ -75,7 +72,7 @@ public class UsuariosControlador {
         return "modifyUser.html";
     }
 
-    @PostMapping("/modificarUsuario/{id}")
+    @PostMapping("/modificarProveedor/{id}")
     public String modificar(@PathVariable String id, double costoHora, Especialidad especialidad, ModelMap model) {
         System.out.println(id + "//////////////" + costoHora + "///////////" + especialidad);
 
