@@ -25,6 +25,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
  *
  * @author Juanp
@@ -100,6 +101,7 @@ public class usuarioServicio implements UserDetailsService {
             ur.save(p);
 
         }
+        
     }
 
     @Transactional
