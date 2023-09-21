@@ -22,7 +22,7 @@
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
+<!--                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>-->
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Modificar</th>
                                 <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Dar de baja</th>
                             </tr>
@@ -34,8 +34,8 @@
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.nombre}"></td> 
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.email}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.telefono}"></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" >
-                                    <select id="nuevoRol" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.rol}"></td>
+<!--                                    <select id="nuevoRol" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
                                         <option th:value="${usuario.rol}" th:text="${usuario.rol}"></option>
                                         <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == usuario.rol}" ></option>
                                     </select>
@@ -43,9 +43,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap guardar ">
                                     <i class="fas fa-save"></i>
-                                    <a th:href="@{/perfil/usuarioAproveedor/{id}(id=${usuario.id})}">Cambiar</a>
+                                    <a th:href="@{/perfil/cambiarRol/{id}(id=${usuario.id})}">Cambiar</a>
 
-                                </td>
+                                </td>-->
                                 <td class="px-6 py-4 whitespace-no-wrap">
                                     <a  th:href="@{/perfil/modificarUsuario/__${usuario.id}__}"><i class="fa-solid fa-pen-to-square"></i>Modificar</a>
                                 </td>
@@ -81,7 +81,7 @@
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
-                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>
+                                <!--<th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>-->
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" > Servicio</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Costo Hora</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Modificar</th>
@@ -95,8 +95,8 @@
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.nombre}"></td> 
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.email}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.telefono}"></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" >
-                                    <select id="nuevoRolP" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.rol}"></td>
+<!--                                    <select id="nuevoRolP" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
                                         <option th:value="${proveedor.rol}" th:text="${proveedor.rol}"></option>
                                         <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == proveedor.rol}" ></option>
                                     </select>
@@ -106,7 +106,7 @@
                                     <i class="fas fa-save"></i>
                                     <a th:href="@{/perfil/proveedorAusuario/{id}(id=${proveedor.id})}">Cambiar</a>
 
-                                </td>
+                                </td>-->
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.especialidad.nombre}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.costoHora}"></td>
                                 <td class="px-6 py-4 whitespace-no-wrap">

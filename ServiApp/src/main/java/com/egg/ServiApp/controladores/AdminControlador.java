@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author catal
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/perfil")
 public class AdminControlador {
 
     @Autowired
@@ -47,22 +47,23 @@ public class AdminControlador {
         return "user_list.html";
     }
 
-    @GetMapping("/usuarioAproveedor/{id}")
-    public String usuarioAproveedor(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        //necesito aqui yo traigo el id de un usuario, cambiar a proveedor, dejar atributos especialidad y costo hora a null
-        System.out.println(id);
+    @GetMapping("/cambiarRol/{id}")
+    public String cambiarRol(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        System.out.println("Aqui");
+        Usuario user = usuarioServicio.GetById(id);
+        usuarioServicio.usuarioCambioProveedor(user);
         redirectAttributes.addFlashAttribute("exito", " Proceso éxitoso");
         return "redirect:../usuarios";
     }
 
-    @GetMapping("/eliminarUsuario/{id}")
+    @PostMapping("/eliminarUsuario/{id}")
     public String eliminarUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
         usuarioServicio.eliminarUsuarioId(id);
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
     }
 
-    @GetMapping("/modificarUsuario/{id}")
+    @PostMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
         //necesito aqui enviar el objeto a la vista para luego poder enviarlo al posmapping estoy usando solo el id
         model.put("usuario", id);

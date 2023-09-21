@@ -85,10 +85,9 @@ public class usuarioServicio implements UserDetailsService {
     }
     
     @Transactional
-    public void usuarioCambioProveedor(Usuario usuario, double costoHora, Especialidad especialidad){
+    public void usuarioCambioProveedor(Usuario usuario){
         Proveedor p = usuario.convertirEnProveedor();
-        p.setCostoHora(costoHora);
-        p.setEspecialidad(especialidad);
+        p.setCostoHora(0);
         ur.save(p);
     }
 
@@ -106,6 +105,11 @@ public class usuarioServicio implements UserDetailsService {
 
             ur.save(usuario);
         }
+    }
+    
+    public Usuario GetById(String id){
+        System.out.println("Metodo get");
+        return ur.getById(id);
     }
 
     public List<Usuario> listarUsuarios() {
