@@ -1,6 +1,7 @@
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Especialidad;
+import com.egg.ServiApp.entidades.Imagen;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
@@ -22,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -32,6 +34,8 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
+    @Autowired
+    private ImagenServicio iS;
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -70,7 +74,7 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarProveedor(String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void modificarProveedor(MultipartFile archivo, String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(Rol.PROVEEDOR, id);
@@ -80,12 +84,26 @@ public class usuarioServicio implements UserDetailsService {
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
             p.setEspecialidad(especialidad);
+
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (p.getImagen() != null) {
+                idImagen = p.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            p.setImagen(imagen);
             ur.save(p);
+
         }
     }
-    
+
     @Transactional
-    public void usuarioCambioProveedor(Usuario usuario, double costoHora, Especialidad especialidad){
+    public void usuarioCambioProveedor(Usuario usuario, double costoHora, Especialidad especialidad) {
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(costoHora);
         p.setEspecialidad(especialidad);
@@ -93,7 +111,7 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) throws miException {
+    public void modificarUsuario(MultipartFile archivo, String id, String nombre, String email, String password, Long telefono) throws miException {
 
         validar(nombre, email, password, password, telefono);
         Optional<Usuario> respuesta = ur.findById(id);
@@ -104,7 +122,20 @@ public class usuarioServicio implements UserDetailsService {
             usuario.setPassword(password);
             usuario.setTelefono(telefono);
 
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            usuario.setImagen(imagen);
             ur.save(usuario);
+
         }
     }
 
@@ -190,4 +221,7 @@ public class usuarioServicio implements UserDetailsService {
         }
     }
 
+    public Usuario getOne(String id) {
+        return ur.getOne(id);
+    }
 }
