@@ -152,6 +152,15 @@ switch (numero) {
 estrellitas.appendChild(ul);
 });
 
+
+const aviso= document.getElementById("avisos");
+const cerrarAviso= document.getElementById("cerrarAvisos");
+if(aviso!==null){
+cerrarAviso.addEventListener('click', ()=>{
+    aviso.classList.add('hidden');
+});
+}
+
 /*const rol = document.getElementById("nuevoRol");
 const guardar = document.getElementsByClassName("guardar");
 
