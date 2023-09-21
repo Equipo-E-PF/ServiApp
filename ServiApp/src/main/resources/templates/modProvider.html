@@ -15,7 +15,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" th:text="${user.email}"></h2>
+                <h3 class="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" th:text="${provider.rol}"></h3>
+                <h3 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" th:text="${provider.email}"></h3>
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -48,25 +49,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div>
                         <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
                         <div class="mt-2">
-                            <input id="nombre" name="nombre" type="text" th:value="${user.nombre}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <input id="nombre" name="nombre" type="text" th:value="${provider.nombre}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         </div>
                     </div>
 
                     <div>
                         <label for="telefono" class="block text-sm font-medium leading-6 text-gray-900">Telefono</label>
                         <div class="mt-2">
-                            <input id="telefono" name="telefono" type="text" th:value="${user.telefono}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <input id="telefono" name="telefono" type="text" th:value="${provider.telefono}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         </div>
                     </div>
 
-<!--                    <div>
-                        <label for="costoHora" class="block text-sm font-medium leading-6 text-gray-900">Indique cuanto va a cobrar por hora</label>
+                    <div >
+                        <label for="costoHora" class="block text-sm font-medium leading-6 text-gray-900">Costo por Hora</label>
                         <div class="mt-2">
-                            <input id="costoHora" name="costoHora" type="number" th:value="${costoHora}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <input id="costoHora" name="costoHora" type="number" th:value="${Provider.costoHora}" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         </div>
                     </div>
 
-                    <div>
+<!--                    <div th:if="${user.rol == 'proveedor'}">
                         <label for="especialidad" class="block text-sm font-medium leading-6 text-gray-900">Especialidad</label>
                         <br>
                         <select class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="especialidad" id="especialidad">

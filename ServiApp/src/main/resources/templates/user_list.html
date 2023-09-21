@@ -28,11 +28,11 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="hidden">ID</th>
-                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
-<!--                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>-->
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Cambios</th>
                                 <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" colspan = "2">Gestionar</th>
 
                             </tr>
@@ -41,27 +41,18 @@
 
                             <tr>
                                 <td class="px-6 py-4 whitespace-no-wrap hidden" scope="row" th:text="${usuario.id}" ></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.nombre}"></td> 
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.email}"></td>
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.email}"></td> 
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.nombre}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.telefono}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${usuario.rol}"></td>
-<!--                                    <select id="nuevoRol" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
-                                        <option th:value="${usuario.rol}" th:text="${usuario.rol}"></option>
-                                        <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == usuario.rol}" ></option>
-                                    </select>
-
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap guardar ">
-                                    <i class="fas fa-save"></i>
-                                    <a th:href="@{/perfil/cambiarRol/{id}(id=${usuario.id})}">Cambiar</a>
-
-<<<<<<< HEAD
-                                </td>-->
-                                <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/modificarUsuario/__${usuario.id}__}"><i class="fa-solid fa-pen-to-square"></i>Modificar</a>
+                                <td class="px-6 py-4 whitespace-no-wrap guardar ">   
+                                    <a th:href="@{/perfil/cambiarRol/{id}(id=${usuario.id})}"><i class="fa-solid fa-arrows-rotate"></i> Cambiar Rol</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/eliminarUsuario/__${usuario.id}__}"><i class="fa-solid fa-trash"></i>Dar de Baja</a>
+                                    <a  th:href="@{/perfil/modificarUsuario/__${usuario.id}__}"><i class="fa-solid fa-pen-to-square"></i> Modificar</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap">
+                                    <a  th:href="@{/perfil/eliminarUsuario/__${usuario.id}__}"><i class="fa-solid fa-trash"></i> Dar de Baja</a>
                                 </td>
 
                             </tr>
@@ -88,13 +79,13 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="hidden">ID</th>
-                                <th class=" px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
-                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
+                                <th class=" px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Email</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Nombre</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col">Telefono</th>
-                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
-                                <!--<th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Guardar cambios</th>-->
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" > Servicio</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider " scope="col" >Costo Hora</th>
+                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Rol</th>
+                                <th  class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider  guardar" scope="col" >Cambios</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" scope="col" >Gestionar</th>
                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider hidden" scope="col" >Dar de baja</th>
                             </tr>
@@ -103,29 +94,18 @@
 
                             <tr>
                                 <td class="px-6 py-4 whitespace-no-wrap hidden" scope="row" th:text="${proveedor.id}" ></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.nombre}"></td> 
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.email}"></td>
+                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.email}"></td> 
+                                <td class="font-thin px-2 py-4 whitespace-no-wrap" th:text="${proveedor.nombre}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.telefono}"></td>
+                                <td class="font-thin px-2 py-4 whitespace-no-wrap" th:text="${proveedor.especialidad.nombre}"></td>
+                                <td class="font-thin px-10 py-4 whitespace-no-wrap " th:text="${proveedor.costoHora}"></td>
                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.rol}"></td>
-<!--                                    <select id="nuevoRolP" class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="nuevoRol" >
-                                        <option th:value="${proveedor.rol}" th:text="${proveedor.rol}"></option>
-                                        <option  th:each="rol : ${rol}" th:value="${rol.name}" th:text="${rol.name}" th:unless="${rol == proveedor.rol}" ></option>
-                                    </select>
-
-                                </td>
                                 <td class="px-6 py-4 whitespace-no-wrap guardar ">
-                                    <i class="fas fa-save"></i>
-                                    <a th:href="@{/perfil/proveedorAusuario/{id}(id=${proveedor.id})}">Cambiar</a>
-
-                                </td>-->
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${proveedor.especialidad.nombre}"></td>
-                                <td class="font-thin px-6 py-4 whitespace-no-wrap " th:text="${proveedor.costoHora}"></td>
-                                <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a  th:href="@{/perfil/modificarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-pen-to-square"></i>Modificar</a><br><br>
-                                    <a  th:href="@{/perfil/eliminarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-trash"></i>Dar de Baja</a>
+                                    <a th:href="@{/perfil/proveedorAusuario/{id}(id=${proveedor.id})}"><i class="fa-solid fa-arrows-rotate"></i> Cambiar Rol</a>
                                 </td>
-                                <td class="px-6 py-4 whitespace-no-wrap hidden">
-                                    <a  th:href="@{/perfil/eliminarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-trash"></i>Dar de Baja</a>
+                                <td class="px-6 py-4 whitespace-no-wrap">
+                                    <a  th:href="@{/perfil/modificarProveedor/__${proveedor.id}__}"><i class="fa-solid fa-pen-to-square"></i> Modificar</a><br><br>
+                                    <a  th:href="@{/perfil/eliminarUsuario/__${proveedor.id}__}"><i class="fa-solid fa-trash"></i> Dar de Baja</a>
                                 </td>
 
                             </tr>

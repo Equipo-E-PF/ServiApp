@@ -106,13 +106,11 @@ public class usuarioServicio implements UserDetailsService {
     }
     
     public Usuario UserById(String id){
-        System.out.println("Metodo get");
         return ur.getById(id);
         
     }
     
     public Proveedor ProviderById(String id){
-        System.out.println("Metodo get");
         return ur.proveedorPorId(id);
         
     }

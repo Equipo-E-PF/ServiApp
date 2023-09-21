@@ -67,7 +67,7 @@ public class AdminControlador {
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
         model.put("user", usuarioServicio.UserById(id));
 
-        return "modifUser.html";
+        return "modUser.html";
     }
     
     @PostMapping("/modificarUsuario/{id}")
@@ -77,7 +77,7 @@ public class AdminControlador {
             return "redirect:../usuarios";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
-            return "modifUser.html";
+            return "modUser.html";
         }
     }
 
@@ -85,7 +85,7 @@ public class AdminControlador {
     public String modificarProveedor(@PathVariable String id, ModelMap model) {
         model.addAttribute("provider", usuarioServicio.ProviderById(id));
 
-        return "modifUser.html";
+        return "modProvider.html";
     }
 
     @GetMapping("/proveedorAusuario/{id}")
