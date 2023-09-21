@@ -73,7 +73,7 @@ public class usuarioServicio implements UserDetailsService {
     public void modificarProveedor(String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
-            Proveedor p = ur.proveedorPorId(Rol.PROVEEDOR, id);
+            Proveedor p = ur.proveedorPorId(id);
             p.setNombre(nombre);
             p.setEmail(email);
             p.setPassword(password);
@@ -92,24 +92,29 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(String id, String nombre, String email, String password, Long telefono) throws miException {
+    public void modificarUsuario(String id, String nombre, Long telefono) throws miException {
 
-        validar(nombre, email, password, password, telefono);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
-            usuario.setEmail(email);
-            usuario.setPassword(password);
             usuario.setTelefono(telefono);
+            
 
             ur.save(usuario);
         }
     }
     
-    public Usuario GetById(String id){
+    public Usuario UserById(String id){
         System.out.println("Metodo get");
         return ur.getById(id);
+        
+    }
+    
+    public Proveedor ProviderById(String id){
+        System.out.println("Metodo get");
+        return ur.proveedorPorId(id);
+        
     }
 
     public List<Usuario> listarUsuarios() {

@@ -10,7 +10,10 @@ import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
+import excepciones.miException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,12 +51,9 @@ public class AdminControlador {
     }
 
     @GetMapping("/cambiarRol/{id}")
-    public String cambiarRol(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        System.out.println("Aqui");
-        Usuario user = usuarioServicio.GetById(id);
-        usuarioServicio.usuarioCambioProveedor(user);
-        redirectAttributes.addFlashAttribute("exito", " Proceso éxitoso");
-        return "redirect:../usuarios";
+    public String cambiarRol(@PathVariable String id, RedirectAttributes redirectAttributes, ModelMap model) {
+        
+        return "modifUser.html";
     }
 
     @PostMapping("/eliminarUsuario/{id}")
@@ -63,22 +63,29 @@ public class AdminControlador {
         return "redirect:../usuarios";
     }
 
-    @PostMapping("/modificarUsuario/{id}")
+    @GetMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
-        //necesito aqui enviar el objeto a la vista para luego poder enviarlo al posmapping estoy usando solo el id
-        model.put("usuario", id);
-        System.out.println(id);
-        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        model.addAttribute("especialidades", especialidades);
-        return "modifyUser.html";
+        model.put("user", usuarioServicio.UserById(id));
+
+        return "modifUser.html";
+    }
+    
+    @PostMapping("/modificarUsuario/{id}")
+    public String modificarUsuario(@PathVariable String id, String nombre, Long telefono, ModelMap model){
+        try {
+            usuarioServicio.modificarUsuario(id, nombre, telefono);
+            return "redirect:../usuarios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modifUser.html";
+        }
     }
 
-    @PostMapping("/modificarProveedor/{id}")
-    public String modificar(@PathVariable String id, double costoHora, Especialidad especialidad, ModelMap model) {
-        System.out.println(id + "//////////////" + costoHora + "///////////" + especialidad);
+    @GetMapping("/modificarProveedor/{id}")
+    public String modificarProveedor(@PathVariable String id, ModelMap model) {
+        model.addAttribute("provider", usuarioServicio.ProviderById(id));
 
-        //logica de modificar settear el rol a proveedor y convertir usuario a proveedor para poder asignar costoHora y Especialidad
-        return "redirect:../usuarios";
+        return "modifUser.html";
     }
 
     @GetMapping("/proveedorAusuario/{id}")
