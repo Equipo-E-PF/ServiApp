@@ -140,6 +140,29 @@ public class usuarioServicio implements UserDetailsService {
 
         }
     }
+    @Transactional
+    public void actualizarFoto(MultipartFile archivo, String id) throws miException {
+
+        Optional<Usuario> respuesta = ur.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            usuario.setImagen(imagen);
+            ur.save(usuario);
+
+        }
+    }
 
     public List<Usuario> listarUsuarios() {
 
@@ -226,4 +249,5 @@ public class usuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return ur.getOne(id);
     }
+    
 }
