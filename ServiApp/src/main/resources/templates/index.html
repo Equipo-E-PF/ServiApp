@@ -13,7 +13,7 @@
                     <p class="text-lg font-sans leading-6 textcolor gap-x-1">Necesitás reparar algo en casa? <br> Los mejores profesionales los encontrás acá.</p>
                 </div>
                 <div class="flex-grow grid grid-flow-row-2 grid-cols-4 m-y-4 gap-4 ">
-                    <div class="col-span-4">
+                    <div  class="col-span-4">
                         <label class="text-lg font-sans leading-6 textcolor gap-x-1" for="buscarServicio">¿QUE QUIERES HACER HOY?</label>
                     </div>
                     <div class="col-start-1 col-end-4 text-gray-600">
@@ -35,11 +35,10 @@
                     <div class="w-full interior-caracteristicas grid  grid-cols-3 m-y-4 gap-4  ">
                         <div class="box w-full gap-x-1 w-full lg:w-100 p-2 border rounded-md drop-shadow-md " th:each="item: ${proveedores}">
                             <h4 class="font-sans " th:text="${item.nombre}"></h4>
-                            <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden">
-                            <ul class="flex space-x-1 estrellas" ></ul>
-                            </p>
+                            <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden"></p>
+                            <ul class="estrellas" ></ul>
                             <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
-                            <p class="text-base font-sans " th:if="${session.usuariosession != null}" th:text="${item.telefono}"></p>
+                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
                             <a class="underline text-blue-500 text-xs" th:href="@{#}">Conoce más de este proveedor</a>
                         </div>
                     </div>
