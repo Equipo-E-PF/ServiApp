@@ -28,7 +28,7 @@ public class UsuarioControlador {
     
     @GetMapping("/perfil")
     public String cargarPerfil(){
-        return "perfil.html";
+        return "profileUser.html";
     }
 
     // Cambiar el estado del trabajo a "Realizado"
