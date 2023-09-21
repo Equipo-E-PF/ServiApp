@@ -42,11 +42,11 @@
         </a>
     </div>
 
-    <div class="relative flex lg:flex-1 justify-evenly" >
-        <a th:if = "${session.usuariosession == null}" th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
+    <div th:if = "${session.usersession == null}" class="relative flex lg:flex-1 justify-evenly" >
+        <a  th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
     </div>
 
-    <div th:if = "${session.usuariosession == null}" class="relative flex lg:flex-1 justify-evenly">
+    <div th:if = "${session.usersession == null}" class="relative flex lg:flex-1 justify-evenly">
         <button id="reg" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <p class="text-base">Registrate</p>
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="flex-auto">
 
-                        <a h:if = "${session.usuariosession == null}" th:href="@{/registroUsuario}" class="block font-semibold textcolor">
+                        <a th:href="@{/registroUsuario}" class="block font-sans textcolor">
                             <p class="text-base">Usuario</p> 
 
                             <span class="absolute inset-0"></span>
@@ -88,13 +88,72 @@
             </div>
 
         </div>
-        <div class="relative flex lg:flex-1 justify-evenly" >
-            <a th:if = "${session.usuariosession != null}" href="/perfil" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Perfil</p></a>
+    </div>
+    <div  th:if = "${session.usersession != null}"  class="relative flex lg:flex-1 justify-evenly"> 
+        <div   th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'ADMIN')}" class="relative flex lg:flex-1 justify-evenly" >
+            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Gestionar</p></a>
         </div>
-        <div class="relative flex lg:flex-1 justify-evenly" >
-            <a th:if = "${session.usuariosession != null}" href="/logout" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Cerrar sesión</p></a>
+        <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'USUARIO')}" class="relative flex lg:flex-1 justify-evenly" >
+            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base" >Contratar</p></a>
         </div>
+        <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}"  class="relative flex lg:flex-1 justify-evenly"  >
+            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Ofertas</p></a>
+        </div>
+    </div>
+    <div th:if = "${session.usersession != null}" class="relative flex lg:flex-1 justify-evenly">
+        <button id="btnPerfil" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
+            <div th:if="${session.usersession.imagen == null}">
+                <a href="#"  class="flex items-center gap-1" >
+                    <img class="w-8 h-8 bg-gray-100 rounded-full" alt="user " srcset="https://image.canva.com/qmQiDtB6HIEYy119mXWIfQ%3D%3D/criAPDObnbY3yLh0M-zCPw%3D%3D.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAQYCGKMUH25PN7VSL%2F20230919%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230919T133336Z&amp;X-Amz-Expires=40064&amp;X-Amz-Signature=a75612fb66b601c8adfcd48d89d09a73599bf9dba5f5d6a4312b34579618f000&amp;X-Amz-SignedHeaders=host&amp;response-expires=Wed%2C%2020%20Sep%202023%2000%3A41%3A20%20GMT 800w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 20vw, 20px" src="./user - Iconos de Canva_files/criAPDObnbY3yLh0M-zCPw==.png">
+                        <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.nombre}"></p>
+                </a>
+            </div>
+            <div th:if="${session.usersession.imagen !=null}">
+                <a href="#"  class="flex items-center gap-1" >
+                    <img class="w-8 h-8 bg-gray-100 rounded-full" th:src="@{/imagen/perfil/__${session.usersession.id}__}" >
+                        <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.nombre}"></p>
+                </a>
+            </div>
 
+            <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+        </button>
+        <div id="menuPerfil" class="absolute -left-8 top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+            <div class="p-4">
+                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                    <div class="flex h-11 w-11 flex-none items-center justify-center ">
+                        <a href="#">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                    </div>
+                    <div class="flex-auto">
+
+                        <a href="#" class="block font-sans textcolor">
+                            <p class="text-base">Ver perfil</p> 
+
+                            <span class="absolute inset-0"></span>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                    <div class="flex h-11 w-11 flex-none items-center justify-center ">
+                        <a href="/logout" >
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                    <div class="flex-auto">
+                        <a href="/logout" class="block font-sans textcolor">
+                            <p class="text-base">Cerrar sesión</p>
+                            <span class="absolute inset-0"></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </nav>
