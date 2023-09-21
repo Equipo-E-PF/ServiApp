@@ -26,6 +26,11 @@ public class UsuarioControlador {
 
     @Autowired
     private calificacionServicio calificacionServicio;
+    
+    @GetMapping("/perfil")
+    public String cargarPerfil(){
+        return "profileUser.html";
+    }
 
     @GetMapping("/perfil")
     public String cargarPerfil() {

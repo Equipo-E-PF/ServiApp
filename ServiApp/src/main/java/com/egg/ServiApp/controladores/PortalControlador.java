@@ -109,14 +109,14 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-    public String login(String error, ModelMap modelo, HttpSession session) {
+    public String login(ModelMap modelo, HttpSession session) {
         
         Usuario logueado = (Usuario) session.getAttribute("usuario");
         modelo.addAttribute("modelousuario",logueado);
-        if (error != null) {
-            System.out.println("Error en login");
-            modelo.put("error", "Usuario o Contrasena invalidos");
-        }
+//        if (error != null) {
+//            System.out.println("Error en login");
+//            modelo.put("error", "Usuario o Contrasena invalidos");
+//        }
         return "login.html";
     }
 }
