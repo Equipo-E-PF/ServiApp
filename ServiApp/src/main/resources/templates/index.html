@@ -38,7 +38,7 @@
                             <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden"></p>
                             <ul class="estrellas" ></ul>
                             <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
-                            <p class="text-base font-sans " th:if="${session.usuariosession != null}" th:text="${item.telefono}"></p>
+                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
                             <a class="underline text-blue-500 text-xs" th:href="@{#}">Conoce más de este proveedor</a>
                         </div>
                     </div>
