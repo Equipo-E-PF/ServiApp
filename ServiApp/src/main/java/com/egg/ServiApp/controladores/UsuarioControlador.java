@@ -32,11 +32,6 @@ public class UsuarioControlador {
         return "profileUser.html";
     }
 
-    @GetMapping("/perfil")
-    public String cargarPerfil() {
-        return "perfil.html";
-    }
-
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
