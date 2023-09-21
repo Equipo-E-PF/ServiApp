@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  * @author Ale y Choy
  */
+
 @Controller
 @RequestMapping("/usuario")
 
@@ -25,6 +26,11 @@ public class UsuarioControlador {
 
     @Autowired
     private calificacionServicio calificacionServicio;
+
+    @GetMapping("/perfil")
+    public String cargarPerfil() {
+        return "perfil.html";
+    }
 
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
@@ -55,8 +61,5 @@ public class UsuarioControlador {
         }
         return "redirect:/";
     }
+
 }
-
-
-
-

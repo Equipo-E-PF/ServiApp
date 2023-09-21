@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author catal
  */
+
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
