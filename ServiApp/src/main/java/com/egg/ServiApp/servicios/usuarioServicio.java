@@ -37,6 +37,8 @@ public class usuarioServicio implements UserDetailsService {
     @Autowired
     private especialidadRepositorio er;
     
+    @Autowired
+    private especialidadServicio es;
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -105,8 +107,26 @@ public class usuarioServicio implements UserDetailsService {
     public void usuarioCambioProveedor(Usuario usuario){
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(0);
+        List<Especialidad> especialidades = es.listarEspecialidades();
+        p.setEspecialidad(especialidades.get(0));
         ur.save(p);
     }
+    
+    @Transactional
+    public void proveedorCambioUsuario(Proveedor proveedor){
+        
+        proveedor.setRol(Rol.USUARIO);
+        ur.save(proveedor);
+    }
+    
+    @Transactional
+    public void bajaUsuario(Usuario usuario){
+        
+        usuario.setBaja(true);
+        ur.save(usuario);
+    }
+    
+    
     
     public Usuario UserById(String id){
         return ur.getById(id);

@@ -50,15 +50,26 @@ public class AdminControlador {
         return "user_list.html";
     }
 
-    @GetMapping("/cambiarRol/{id}")
-    public String cambiarRol(@PathVariable String id, RedirectAttributes redirectAttributes, ModelMap model) {
+    @GetMapping("/userToProv/{id}")
+    public String userToProv(@PathVariable String id, RedirectAttributes redirectAttributes) {
         
-        return "modifUser.html";
+        usuarioServicio.usuarioCambioProveedor(usuarioServicio.UserById(id));
+        usuarioServicio.eliminarUsuarioId(id);
+        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
+        return "redirect:../usuarios";
+    }
+    
+    @GetMapping("/provToUser/{id}")
+    public String provToUser(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        
+        usuarioServicio.proveedorCambioUsuario(usuarioServicio.ProviderById(id));
+        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
+        return "redirect:../usuarios";
     }
 
-    @PostMapping("/eliminarUsuario/{id}")
-    public String eliminarUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        usuarioServicio.eliminarUsuarioId(id);
+    @GetMapping("/bajaUsuario/{id}")
+    public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
     }
