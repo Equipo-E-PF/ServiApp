@@ -4,6 +4,7 @@ import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import com.egg.ServiApp.repositorio.especialidadRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
+    
+    @Autowired
+    private especialidadRepositorio er;
+    
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -68,17 +73,29 @@ public class usuarioServicio implements UserDetailsService {
 
         ur.save(p);
     }
+    
+    @Transactional
+    public void modificarUsuario(String id, String nombre, Long telefono) throws miException {
+
+        Optional<Usuario> respuesta = ur.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setTelefono(telefono);
+         
+            ur.save(usuario);
+        }
+    }
 
     @Transactional
-    public void modificarProveedor(String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void modificarProveedor(String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(id);
             p.setNombre(nombre);
-            p.setEmail(email);
-            p.setPassword(password);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
+            Especialidad especialidad = er.getById(idEsp);
             p.setEspecialidad(especialidad);
             ur.save(p);
         }
@@ -89,20 +106,6 @@ public class usuarioServicio implements UserDetailsService {
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(0);
         ur.save(p);
-    }
-
-    @Transactional
-    public void modificarUsuario(String id, String nombre, Long telefono) throws miException {
-
-        Optional<Usuario> respuesta = ur.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setTelefono(telefono);
-            
-
-            ur.save(usuario);
-        }
     }
     
     public Usuario UserById(String id){

@@ -83,17 +83,21 @@ public class AdminControlador {
 
     @GetMapping("/modificarProveedor/{id}")
     public String modificarProveedor(@PathVariable String id, ModelMap model) {
-        model.addAttribute("provider", usuarioServicio.ProviderById(id));
+        model.put("provider", usuarioServicio.ProviderById(id));
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
 
         return "modProvider.html";
     }
 
-    @GetMapping("/proveedorAusuario/{id}")
-    public String proveedorAusuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        //necesito aqui yo traigo el id de un proveedor, cambiar a usuario, dejar atributos especialidad y costo hora a null
-
-        System.out.println(id);
-        redirectAttributes.addFlashAttribute("exito", "Proceso éxitoso");
-        return "redirect:../usuarios";
+    @PostMapping("/modificarProveedor/{id}")
+    public String modificarProveedor(@PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+        try {
+            usuarioServicio.modificarProveedor(id, nombre, telefono, costoHora, idEsp);
+            return "redirect:../usuarios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modProvider.html";
+        }
     }
 }
