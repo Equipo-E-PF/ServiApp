@@ -2,6 +2,7 @@
 
 const btn = document.getElementById("servicios");
 const menu = document.getElementById("menu");
+
 if (btn !== null) {
     btn.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -18,10 +19,12 @@ if (btn !== null) {
         event.stopPropagation();
     });
 
+
 }
 
 const btnReg = document.getElementById("reg");
 const menuReg = document.getElementById("menuReg");
+
 if (btnReg !== null) {
     btnReg.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -37,7 +40,6 @@ if (btnReg !== null) {
     menuReg.addEventListener('click', (event) => {
         event.stopPropagation();
     });
-}
 
 const btnPerfil = document.getElementById("btnPerfil");
 const menuPerfil = document.getElementById("menuPerfil");
@@ -68,6 +70,7 @@ if(fotoPerfil!==null){
     opcionesAbrir.classList.toggle('hidden');
     iconoCamara.classList.toggle('hidden');
 });
+}
 
 opcionesAbrir.addEventListener('click', () => {
     opcionesAbrir.classList.toggle('hidden');
@@ -83,13 +86,11 @@ document.addEventListener('click', (event) => {
         }
     });
 
+
     opcionesFoto.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 }
-
-
-
 
 const listEstrellas = document.querySelectorAll(".estrellas");
 listEstrellas.forEach(estrellitas => {
@@ -179,14 +180,16 @@ listEstrellas.forEach(estrellitas => {
     estrellitas.appendChild(ul);
 });
 
-
-const aviso = document.getElementById("avisos");
-const cerrarAviso = document.getElementById("cerrarAvisos");
-if (aviso !== null) {
-    cerrarAviso.addEventListener('click', () => {
-        aviso.classList.add('hidden');
-    });
+const aviso= document.getElementById("avisos");
+const cerrarAviso= document.getElementById("cerrarAvisos");
+if(aviso!==null){
+cerrarAviso.addEventListener('click', ()=>{
+    aviso.classList.add('hidden');
+});
 }
+
+/*const rol = document.getElementById("nuevoRol");
+const guardar = document.getElementsByClassName("guardar");
 
 function toggleAdminDropdown() {
     const button = document.getElementById('administrarButton');
