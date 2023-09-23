@@ -1,6 +1,7 @@
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Especialidad;
+import com.egg.ServiApp.entidades.Imagen;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
@@ -23,6 +24,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  *
@@ -39,6 +42,9 @@ public class usuarioServicio implements UserDetailsService {
     
     @Autowired
     private especialidadServicio es;
+
+    @Autowired
+    private ImagenServicio iS;
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -77,20 +83,33 @@ public class usuarioServicio implements UserDetailsService {
     }
     
     @Transactional
-    public void modificarUsuario(String id, String nombre, Long telefono) throws miException {
+    public void modificarUsuario(MultipartFile archivo, String id, String nombre, Long telefono) throws miException {
 
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setTelefono(telefono);
-         
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            usuario.setImagen(imagen);
             ur.save(usuario);
         }
     }
 
     @Transactional
-    public void modificarProveedor(String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
+
+    public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
+
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(id);
@@ -99,12 +118,29 @@ public class usuarioServicio implements UserDetailsService {
             p.setCostoHora(costoHora);
             Especialidad especialidad = er.getById(idEsp);
             p.setEspecialidad(especialidad);
+
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (p.getImagen() != null) {
+                idImagen = p.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            p.setImagen(imagen);
             ur.save(p);
+
         }
+        
     }
-    
+
     @Transactional
+
     public void usuarioCambioProveedor(Usuario usuario){
+
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(0);
         List<Especialidad> especialidades = es.listarEspecialidades();
@@ -113,6 +149,7 @@ public class usuarioServicio implements UserDetailsService {
     }
     
     @Transactional
+
     public void proveedorCambioUsuario(Proveedor proveedor){
         
         proveedor.setRol(Rol.USUARIO);
@@ -126,8 +163,6 @@ public class usuarioServicio implements UserDetailsService {
         ur.save(usuario);
     }
     
-    
-    
     public Usuario UserById(String id){
         return ur.getById(id);
         
@@ -136,6 +171,29 @@ public class usuarioServicio implements UserDetailsService {
     public Proveedor ProviderById(String id){
         return ur.proveedorPorId(id);
         
+    @Transactional
+    public void actualizarFoto(MultipartFile archivo, String id) throws miException {
+
+        Optional<Usuario> respuesta = ur.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            usuario.setImagen(imagen);
+            ur.save(usuario);
+
+        }
+
     }
 
     public List<Usuario> listarUsuarios() {
@@ -220,4 +278,8 @@ public class usuarioServicio implements UserDetailsService {
         }
     }
 
+    public Usuario getOne(String id) {
+        return ur.getOne(id);
+    }
+    
 }
