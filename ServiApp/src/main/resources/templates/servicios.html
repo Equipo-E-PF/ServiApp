@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head th:replace="/fragments/head :: head"> </head>
+    <body>
+        <header class="navcolor">
+            <nav th:replace="/fragments/navbar :: nav">  </nav>
+        </header>
+        <div class="container">
+            <h1 class="text-4xl font-extrabold dark:text-white text-center my-4">Lista de Servicios</h1>
+            <div th:if="${mensaje}" th:text="${mensaje}" class="success-message"></div>
+            <table class="w-50 text-left text-sm font-light m-auto">
+                <thead class="border-b font-medium dark:border-neutral-500">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-b">Nº</th>
+                        <th scope="col" class="px-6 py-4">Servicio</th>
+                        <th scope="col" class="px-6 py-4">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${especialidades}" class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                        <td th:text="${item.id}" class="whitespace-nowrap px-6 py-4"></td>
+                        <td th:text="${item.nombre}" class="whitespace-nowrap px-6 py-4"></td>
+                        <td class="whitespace-nowrap px-6 py-4 d-flex flex-auto gap-4">
+                            <a class="flex justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" th:href="@{/editarServicio/{id}(id=${item.id})}">Editar</a>
+                            <a class="flex justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" th:href="@{/eliminarServicio/{id}(id=${item.id})}">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="flex w-25 mx-auto justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 my-4" th:href="@{/nuevoServicio}">Nuevo Servicio</a>
+        </div>
+        <footer th:replace="/fragments/footer :: footer">  </footer>
+
+        <script  src="/index.js"></script>
+    </body>
+</html>
