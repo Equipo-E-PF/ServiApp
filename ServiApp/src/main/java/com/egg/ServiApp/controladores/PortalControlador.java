@@ -10,18 +10,19 @@ import javax.servlet.http.HttpSession;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
  * @author catal
  */
+
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -78,6 +79,14 @@ public class PortalControlador {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
         return "regProvider.html";
+    }
+
+    @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
+    @GetMapping("/perfil")
+    public String perfil(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+        return "usuario_modificar.html";
     }
 
     @PostMapping("/registrarUsuario")
