@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -82,9 +83,9 @@ public class AdminControlador {
     }
     
     @PostMapping("/modificarUsuario/{id}")
-    public String modificarUsuario(@PathVariable String id, String nombre, Long telefono, ModelMap model){
+    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
         try {
-            usuarioServicio.modificarUsuario(id, nombre, telefono);
+            usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
             return "redirect:../usuarios";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
@@ -102,9 +103,9 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(@PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
         try {
-            usuarioServicio.modificarProveedor(id, nombre, telefono, costoHora, idEsp);
+            usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
             return "redirect:../usuarios";
         } catch (miException ex) {
             model.put("error", ex.getMessage());

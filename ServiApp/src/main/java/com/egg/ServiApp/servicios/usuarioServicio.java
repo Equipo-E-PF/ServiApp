@@ -171,7 +171,7 @@ public class usuarioServicio implements UserDetailsService {
     public Proveedor ProviderById(String id){
         return ur.proveedorPorId(id);
         
-    @Transactional
+    }
     public void actualizarFoto(MultipartFile archivo, String id) throws miException {
 
         Optional<Usuario> respuesta = ur.findById(id);
