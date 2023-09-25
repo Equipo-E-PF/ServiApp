@@ -25,12 +25,12 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.rol = :PROVEEDOR AND u.especialidad.nombre = :especialidad")
     public List<Usuario> buscarProveedoresPorServicio(@Param("especialidad") String especialidad);
 
-    @Query("SELECT u FROM Usuario u, Proveedor p WHERE u.rol= :PROVEEDOR AND p.id= :id")
-    public Proveedor proveedorPorId(@Param("PROVEEDOR") Rol rolProveedor, @Param("id")String id);
+    @Query("SELECT p FROM Proveedor p WHERE p.id= :id")
+    public Proveedor proveedorPorId(@Param("id") String id);
 
-    @Query("SELECT u FROM Usuario u WHERE u.rol= :USUARIO")
+    @Query("SELECT u FROM Usuario u WHERE u.rol= :USUARIO AND u.baja= 0")
     public List<Usuario> listaUsuarios(@Param("USUARIO") Rol rolUsuario);
     
-    @Query("SELECT u FROM Usuario u WHERE u.rol= :PROVEEDOR")
+    @Query("SELECT u FROM Usuario u WHERE u.rol= :PROVEEDOR AND u.baja= 0")
     public List<Proveedor> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
 }

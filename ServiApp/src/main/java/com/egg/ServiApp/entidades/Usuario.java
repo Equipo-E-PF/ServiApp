@@ -103,13 +103,12 @@ public class Usuario {
    
     public Proveedor convertirEnProveedor() {
         Proveedor proveedor = new Proveedor();
-        proveedor.setId(this.getId());
         proveedor.setNombre(this.getNombre());
         proveedor.setEmail(this.getEmail());
         proveedor.setPassword(this.getPassword());
         proveedor.setTelefono(this.getTelefono());
         proveedor.setBaja(this.isBaja());
-        proveedor.setRol(this.getRol());
+        proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setImagen(this.imagen);
         return proveedor;
     }
