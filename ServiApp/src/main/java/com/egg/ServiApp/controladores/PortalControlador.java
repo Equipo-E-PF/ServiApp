@@ -110,13 +110,14 @@ public class PortalControlador {
         try {
             us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);
             modelo.put("exito", "Se ha registrado con éxito!");
+            return "login.html";
         } catch (miException ex) {
             List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
             modelo.addAttribute("especialidades", especialidades);
             modelo.put("error", ex.getMessage());
             return "regProvider.html";
         }
-        return "redirect:/login";
+        
     }
 
     @GetMapping("/login")
