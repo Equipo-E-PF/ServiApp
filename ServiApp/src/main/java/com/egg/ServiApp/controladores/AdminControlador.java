@@ -10,7 +10,10 @@ import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
+import excepciones.miException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author catal
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/perfil")
 public class AdminControlador {
 
     @Autowired
@@ -47,45 +50,65 @@ public class AdminControlador {
         return "user_list.html";
     }
 
-    @GetMapping("/usuarioAproveedor/{id}")
-    public String usuarioAproveedor(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        //necesito aqui yo traigo el id de un usuario, cambiar a proveedor, dejar atributos especialidad y costo hora a null
-        System.out.println(id);
-        redirectAttributes.addFlashAttribute("exito", " Proceso éxitoso");
+    @GetMapping("/userToProv/{id}")
+    public String userToProv(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        
+        usuarioServicio.usuarioCambioProveedor(usuarioServicio.UserById(id));
+        usuarioServicio.eliminarUsuarioId(id);
+        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
+        return "redirect:../usuarios";
+    }
+    
+    @GetMapping("/provToUser/{id}")
+    public String provToUser(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        
+        usuarioServicio.proveedorCambioUsuario(usuarioServicio.ProviderById(id));
+        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
     }
 
-    @GetMapping("/eliminarUsuario/{id}")
-    public String eliminarUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        usuarioServicio.eliminarUsuarioId(id);
+    @GetMapping("/bajaUsuario/{id}")
+    public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
     }
 
     @GetMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
-        //necesito aqui enviar el objeto a la vista para luego poder enviarlo al posmapping estoy usando solo el id
-        model.put("usuario", id);
-        System.out.println(id);
+        model.put("user", usuarioServicio.UserById(id));
+
+        return "modUser.html";
+    }
+    
+    @PostMapping("/modificarUsuario/{id}")
+    public String modificarUsuario(@PathVariable String id, String nombre, Long telefono, ModelMap model){
+        try {
+            usuarioServicio.modificarUsuario(id, nombre, telefono);
+            return "redirect:../usuarios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modUser.html";
+        }
+    }
+
+    @GetMapping("/modificarProveedor/{id}")
+    public String modificarProveedor(@PathVariable String id, ModelMap model) {
+        model.put("provider", usuarioServicio.ProviderById(id));
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-        return "modifyUser.html";
+
+        return "modProvider.html";
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificar(@PathVariable String id, double costoHora, Especialidad especialidad, ModelMap model) {
-        System.out.println(id + "//////////////" + costoHora + "///////////" + especialidad);
-
-        //logica de modificar settear el rol a proveedor y convertir usuario a proveedor para poder asignar costoHora y Especialidad
-        return "redirect:../usuarios";
-    }
-
-    @GetMapping("/proveedorAusuario/{id}")
-    public String proveedorAusuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        //necesito aqui yo traigo el id de un proveedor, cambiar a usuario, dejar atributos especialidad y costo hora a null
-
-        System.out.println(id);
-        redirectAttributes.addFlashAttribute("exito", "Proceso éxitoso");
-        return "redirect:../usuarios";
+    public String modificarProveedor(@PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+        try {
+            usuarioServicio.modificarProveedor(id, nombre, telefono, costoHora, idEsp);
+            return "redirect:../usuarios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modProvider.html";
+        }
     }
 }

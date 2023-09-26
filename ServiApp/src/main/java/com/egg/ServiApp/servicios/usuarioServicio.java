@@ -5,6 +5,7 @@ import com.egg.ServiApp.entidades.Imagen;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import com.egg.ServiApp.repositorio.especialidadRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
@@ -35,6 +36,13 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
+    
+    @Autowired
+    private especialidadRepositorio er;
+    
+    @Autowired
+    private especialidadServicio es;
+
     @Autowired
     private ImagenServicio iS;
 
@@ -73,17 +81,42 @@ public class usuarioServicio implements UserDetailsService {
 
         ur.save(p);
     }
-
+    
     @Transactional
-    public void modificarProveedor(MultipartFile archivo, String id, String nombre, String email, String password, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void modificarUsuario(MultipartFile archivo, String id, String nombre, Long telefono) throws miException {
+
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
-            Proveedor p = ur.proveedorPorId(Rol.PROVEEDOR, id);
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setTelefono(telefono);
+            Imagen imagen = null;
+            String idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                imagen = iS.actualizar(archivo, idImagen);
+            } else {
+                imagen = iS.guardar(archivo);
+
+            }
+
+            usuario.setImagen(imagen);
+            ur.save(usuario);
+        }
+    }
+
+    @Transactional
+
+    public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
+
+        Optional<Usuario> respuesta = ur.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor p = ur.proveedorPorId(id);
             p.setNombre(nombre);
-            p.setEmail(email);
-            p.setPassword(password);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
+            Especialidad especialidad = er.getById(idEsp);
             p.setEspecialidad(especialidad);
 
             Imagen imagen = null;
@@ -105,24 +138,45 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void usuarioCambioProveedor(Usuario usuario, double costoHora, Especialidad especialidad) {
+
+    public void usuarioCambioProveedor(Usuario usuario){
+
         Proveedor p = usuario.convertirEnProveedor();
-        p.setCostoHora(costoHora);
-        p.setEspecialidad(especialidad);
+        p.setCostoHora(0);
+        List<Especialidad> especialidades = es.listarEspecialidades();
+        p.setEspecialidad(especialidades.get(0));
         ur.save(p);
     }
-
+    
     @Transactional
-    public void modificarUsuario(MultipartFile archivo, String id, String nombre, String email, String password, Long telefono) throws miException {
 
-        validar(nombre, email, password, password, telefono);
+    public void proveedorCambioUsuario(Proveedor proveedor){
+        
+        proveedor.setRol(Rol.USUARIO);
+        ur.save(proveedor);
+    }
+    
+    @Transactional
+    public void bajaUsuario(Usuario usuario){
+        
+        usuario.setBaja(true);
+        ur.save(usuario);
+    }
+    
+    public Usuario UserById(String id){
+        return ur.getById(id);
+        
+    }
+    
+    public Proveedor ProviderById(String id){
+        return ur.proveedorPorId(id);
+        
+    @Transactional
+    public void actualizarFoto(MultipartFile archivo, String id) throws miException {
+
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setEmail(email);
-            usuario.setPassword(password);
-            usuario.setTelefono(telefono);
 
             Imagen imagen = null;
             String idImagen = null;
@@ -139,6 +193,7 @@ public class usuarioServicio implements UserDetailsService {
             ur.save(usuario);
 
         }
+
     }
 
     public List<Usuario> listarUsuarios() {
@@ -226,4 +281,5 @@ public class usuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return ur.getOne(id);
     }
+    
 }

@@ -24,7 +24,7 @@ public class ImagenControlador {
     @Autowired
     usuarioServicio usuarioServicio;
     
-    @GetMapping("/perfil{id}")
+    @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
         Usuario usuario = usuarioServicio.getOne(id);
 
