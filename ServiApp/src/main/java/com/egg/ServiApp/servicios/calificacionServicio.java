@@ -20,9 +20,8 @@ public class calificacionServicio {
     private calificacionRepositorio califRepo;
 
     @Transactional
-    public void crearCalificacion(String contenido, double puntuacion) throws miException {
+    public Calificacion crearCalificacion(String contenido, double puntuacion) throws miException {
 
-        validar(contenido, puntuacion);
 
         Calificacion calif = new Calificacion();
 
@@ -30,6 +29,7 @@ public class calificacionServicio {
         calif.setPuntuacion(puntuacion);
 
         califRepo.save(calif);
+        return calif;
     }
 
     public List<Calificacion> listarCalificaciones(String id) {
