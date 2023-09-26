@@ -104,7 +104,7 @@ public class PortalControlador {
 
     @PostMapping("/registrarProveedor")
 
-    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, Especialidad especialidad, ModelMap modelo) {
+    public String registarProveedor(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, double costoHora, String especialidad, ModelMap modelo) {
 
         try {
             us.crearProveedor(nombre, email, password, password2, telefono, costoHora, especialidad);

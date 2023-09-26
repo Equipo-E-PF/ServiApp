@@ -65,13 +65,13 @@
                             <div class="flex flex-wrap justify-center">
                                 <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                                     <div class="relative">
-                                        <img id="fotoPerfil" th:if="${session.usersession.imagen.id ==null}"
+                                        <img id="fotoPerfil" th:if="${session.usersession.imagen == null}"
                                              alt="..."
                                              src="https://i.pinimg.com/564x/84/90/2c/84902cdd8579de857eab0b29e95f753a.jpg"
                                              class="shadow-xl rounded-full w-auto h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                                              style="max-width: 150px;"
                                              />
-                                        <img id="fotoPerfil" th:if="${session.usersession.imagen.id !=null}"  th:src="@{/imagen/perfil/__${session.usersession.id}__}" class="shadow-xl rounded-full w-auto h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
+                                        <img id="fotoPerfil" th:if="${session.usersession.imagen !=null}"  th:src="@{/imagen/perfil/__${session.usersession}__}" class="shadow-xl rounded-full w-auto h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                                              style="max-width: 150px;">
                                         <div id="opcionesFoto" class="hidden sticky -left-8 top-full z-10 mt-3 w-max max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                                             <div class="p-4 relative w-full">
