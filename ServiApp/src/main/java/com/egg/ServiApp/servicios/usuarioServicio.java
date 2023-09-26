@@ -218,6 +218,9 @@ public class usuarioServicio implements UserDetailsService {
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
         }
+        if (ur.buscarPorNombre(nombre) != null) {
+            throw new miException("El nombre ya está siendo utilizado");
+        }
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
         }
@@ -239,6 +242,9 @@ public class usuarioServicio implements UserDetailsService {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
+        }
+        if (ur.buscarPorNombre(nombre) != null) {
+            throw new miException("El nombre ya está siendo utilizado");
         }
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
@@ -276,7 +282,7 @@ public class usuarioServicio implements UserDetailsService {
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
 
-            return null;
+            throw new UsernameNotFoundException("Usuario no encontrado");
         }
     }
 
