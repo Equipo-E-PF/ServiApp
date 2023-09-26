@@ -14,11 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -96,11 +94,12 @@ public class PortalControlador {
         try {
             us.crearUsuario(nombre, email, password, password2, telefono);
             modelo.put("exito", "Se ha registrado con éxito!");
+            return "login.html";
         } catch (miException ex) {
             modelo.put("error", ex.getMessage());
             return "regUser.html";
         }
-        return "redirect:/login";
+
     }
 
     @PostMapping("/registrarProveedor")
@@ -117,18 +116,26 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "regProvider.html";
         }
-        
+
     }
 
     @GetMapping("/login")
     public String login(ModelMap modelo, HttpSession session) {
-        
+
         Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modelo.addAttribute("modelousuario",logueado);
+        modelo.addAttribute("modelousuario", logueado);
 //        if (error != null) {
 //            System.out.println("Error en login");
 //            modelo.put("error", "Usuario o Contrasena invalidos");
 //        }
         return "login.html";
     }
+    
+    @GetMapping("/servicios")
+    public String getServicios(ModelMap modelo) {
+            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+            modelo.addAttribute("especialidades", especialidades);
+            return "servicios.html";
+    }
 }
+ 
