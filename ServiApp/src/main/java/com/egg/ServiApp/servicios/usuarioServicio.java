@@ -39,7 +39,7 @@ public class usuarioServicio implements UserDetailsService {
     
     @Autowired
     private especialidadRepositorio er;
-    
+  
     @Autowired
     private especialidadServicio es;
 
@@ -64,12 +64,13 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, String especialidad) throws miException {
 
         validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
-
+        Especialidad esp = er.buscarPorId(especialidad);
+        
         p.setNombre(nombre);
         p.setEmail(email);
         p.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -77,7 +78,7 @@ public class usuarioServicio implements UserDetailsService {
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
-        p.setEspecialidad(especialidad);
+        p.setEspecialidad(esp);
 
         ur.save(p);
     }
@@ -107,6 +108,7 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
+
 
     public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
 
