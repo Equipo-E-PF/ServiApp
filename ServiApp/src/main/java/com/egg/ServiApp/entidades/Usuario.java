@@ -1,15 +1,12 @@
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -29,14 +26,12 @@ public class Usuario {
     protected String Password;
     protected Long telefono;
     protected boolean baja;
+    
+    @OneToOne
+    protected Imagen imagen;
 
     @Enumerated(EnumType.STRING)
     protected Rol rol;
-
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "imagen", columnDefinition = "BLOB")
-    protected byte[] imagen;
 
     public Usuario() {
     }
@@ -97,26 +92,25 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public byte[] getImagen() {
+    public Imagen getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
 
-
+   
     public Proveedor convertirEnProveedor() {
         Proveedor proveedor = new Proveedor();
-        proveedor.setId(this.getId());
         proveedor.setNombre(this.getNombre());
         proveedor.setEmail(this.getEmail());
         proveedor.setPassword(this.getPassword());
         proveedor.setTelefono(this.getTelefono());
         proveedor.setBaja(this.isBaja());
-        proveedor.setRol(this.getRol());
+        proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setImagen(this.imagen);
         return proveedor;
     }
-    
+
 }

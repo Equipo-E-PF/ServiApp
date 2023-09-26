@@ -71,7 +71,7 @@ public class Proveedor extends Usuario implements Serializable {
     }
 
     @Override
-    public void setImagen(byte[] imagen) {
+    public void setImagen(Imagen imagen) {
         super.setImagen(imagen);
     }
 
