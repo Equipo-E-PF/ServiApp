@@ -16,7 +16,7 @@ public class ServiAppApplication {
     public static void main(String[] args) throws miException {
         SpringApplication.run(ServiAppApplication.class, args);
     }
-
+    
     @PostConstruct
     public void init() {
         try {

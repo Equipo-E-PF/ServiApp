@@ -41,7 +41,8 @@ public class AdminControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-
+    
+    
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
@@ -116,4 +117,6 @@ public class AdminControlador {
             return "modProvider.html";
         }
     }
+    
+  
 }
