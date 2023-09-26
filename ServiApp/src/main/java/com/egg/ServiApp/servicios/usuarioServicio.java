@@ -26,7 +26,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-
 /**
  *
  * @author Juanp
@@ -36,10 +35,10 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private usuarioRepositorio ur;
-    
+
     @Autowired
     private especialidadRepositorio er;
-    
+
     @Autowired
     private especialidadServicio es;
 
@@ -64,11 +63,29 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, Especialidad especialidad) throws miException {
+    public void crearAdmin(String nombre, String email, String password, String password2, Long telefono) throws miException {
+
+        validar(nombre, email, password, password2, telefono);
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setTelefono(telefono);
+        usuario.setBaja(false);
+        usuario.setRol(Rol.ADMIN);
+
+        ur.save(usuario);
+    }
+
+    @Transactional
+    public void crearProveedor(String nombre, String email, String password, String password2, Long telefono, double costoHora, String especialidad) throws miException {
 
         validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
+        Especialidad esp = er.buscarPorNombre(especialidad);
 
         p.setNombre(nombre);
         p.setEmail(email);
@@ -77,11 +94,11 @@ public class usuarioServicio implements UserDetailsService {
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
-        p.setEspecialidad(especialidad);
+        p.setEspecialidad(esp);
 
         ur.save(p);
     }
-    
+
     @Transactional
     public void modificarUsuario(MultipartFile archivo, String id, String nombre, Long telefono) throws miException {
 
@@ -107,7 +124,6 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-
     public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
 
         Optional<Usuario> respuesta = ur.findById(id);
@@ -134,12 +150,29 @@ public class usuarioServicio implements UserDetailsService {
             ur.save(p);
 
         }
-        
+
+    }
+
+    @Transactional
+    public void calificarProveedor(String id, double calificacion) throws miException {
+        Optional<Usuario> respuesta = ur.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor p = ur.proveedorPorId(id);
+            if (p.getPuntuacion() == 0) {
+                p.setPuntuacion(calificacion);
+            } else {
+                double nuevaCalificacion = (p.getPuntuacion() + calificacion) / 2;
+                p.setPuntuacion(nuevaCalificacion);
+            }
+            
+            ur.save(p);
+
+        }
     }
 
     @Transactional
 
-    public void usuarioCambioProveedor(Usuario usuario){
+    public void usuarioCambioProveedor(Usuario usuario) {
 
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(0);
@@ -147,31 +180,32 @@ public class usuarioServicio implements UserDetailsService {
         p.setEspecialidad(especialidades.get(0));
         ur.save(p);
     }
-    
+
     @Transactional
 
-    public void proveedorCambioUsuario(Proveedor proveedor){
-        
+    public void proveedorCambioUsuario(Proveedor proveedor) {
+
         proveedor.setRol(Rol.USUARIO);
         ur.save(proveedor);
     }
-    
+
     @Transactional
-    public void bajaUsuario(Usuario usuario){
-        
+    public void bajaUsuario(Usuario usuario) {
+
         usuario.setBaja(true);
         ur.save(usuario);
     }
-    
-    public Usuario UserById(String id){
+
+    public Usuario UserById(String id) {
         return ur.getById(id);
-        
+
     }
-    
-    public Proveedor ProviderById(String id){
+
+    public Proveedor ProviderById(String id) {
         return ur.proveedorPorId(id);
-        
-    @Transactional
+
+    }
+
     public void actualizarFoto(MultipartFile archivo, String id) throws miException {
 
         Optional<Usuario> respuesta = ur.findById(id);
@@ -216,6 +250,9 @@ public class usuarioServicio implements UserDetailsService {
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
         }
+        if (ur.buscarPorNombre(nombre) != null) {
+            throw new miException("El nombre ya está siendo utilizado");
+        }
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
         }
@@ -237,6 +274,9 @@ public class usuarioServicio implements UserDetailsService {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
+        }
+        if (ur.buscarPorNombre(nombre) != null) {
+            throw new miException("El nombre ya está siendo utilizado");
         }
         if (email == null || email.isEmpty()) {
             throw new miException("El email no puede ser nulo");
@@ -274,12 +314,12 @@ public class usuarioServicio implements UserDetailsService {
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
 
-            return null;
+            throw new UsernameNotFoundException("Usuario no encontrado");
         }
     }
 
     public Usuario getOne(String id) {
         return ur.getOne(id);
     }
-    
+
 }

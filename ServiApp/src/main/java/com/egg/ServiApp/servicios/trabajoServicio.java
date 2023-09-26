@@ -22,6 +22,10 @@ public class trabajoServicio {
 
     @Autowired
     private trabajoRepositorio tr;
+    @Autowired
+    private calificacionServicio cs;
+    @Autowired
+    private usuarioServicio us;
 
     @Transactional
     public void crearTrabajo(Usuario usuario, Proveedor proveedor) throws miException {
@@ -30,7 +34,7 @@ public class trabajoServicio {
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
         trabajo.setProveedor(proveedor);
-        trabajo.setCalificacion(new Calificacion());
+        trabajo.setCalificacion(cs.crearCalificacion(null, 0));
 
         tr.save(trabajo);
     }
@@ -47,13 +51,14 @@ public class trabajoServicio {
     }
     
     @Transactional
-    public void terminarTrabajo(String id, Estado estado, Calificacion calificacion) {
+    public void terminarTrabajo(String id, Estado estado, String contenidoPuntuacion, double puntuacion) throws miException {
         Optional<Trabajo> trabajoOptional = tr.findById(id);
 
         if (trabajoOptional.isPresent()) {
             Trabajo trabajo = trabajoOptional.get();
             trabajo.setEstado(estado);
-            trabajo.setCalificacion(calificacion);
+            cs.modificarCalificacion(trabajoOptional.get().getCalificacion().getId(), contenidoPuntuacion, puntuacion);
+            us.calificarProveedor(trabajoOptional.get().getProveedor().getId(), puntuacion);
             tr.save(trabajo);
         }
     }
