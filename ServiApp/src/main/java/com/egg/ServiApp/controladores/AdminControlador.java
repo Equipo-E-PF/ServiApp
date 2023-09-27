@@ -41,7 +41,8 @@ public class AdminControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-
+    
+    
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
@@ -116,4 +117,35 @@ public class AdminControlador {
             return "modProvider.html";
         }
     }
+    
+    @GetMapping("/servicios")
+    public String mostrarEspecialidad(ModelMap modelo) {
+            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+            modelo.addAttribute("especialidades", especialidades);
+            return "servicios.html";
+    }
+    
+    @PostMapping("/servicios")
+    public String crearEspecialidad(@RequestParam String nombre, ModelMap model) {
+        try {
+            especialidadServicio.crearEspecialidad(nombre);
+            return "redirect:../servicios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "error.html";
+        }
+    }
+
+    @PostMapping("/servicios/{id}")
+    public String modificarEspecialidad(@PathVariable String id, @RequestParam String nombre, ModelMap model) {
+        try {
+            especialidadServicio.modificarEspecialidad(id, nombre);
+            return "redirect:../servicios";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            model.put("user", usuarioServicio.UserById(id)); // Para mantener los datos en el formulario
+            return "error.html";
+        }
+    }
+  
 }

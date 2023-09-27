@@ -4,14 +4,15 @@ import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.usuarioServicio;
+import com.egg.ServiApp.servicios.especialidadServicio;
 import excepciones.miException;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import com.egg.ServiApp.servicios.especialidadServicio;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author catal
  */
-
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -46,6 +46,9 @@ public class PortalControlador {
             if (prov.getPuntuacion() >= 3) {
                 listProveedoresFull.add(prov);
             }
+        }
+        if (listProveedoresFull.size() < 6) {
+            listProveedoresFull = listFull;
         }
 
         for (int i = 0; i < 6; i++) {
@@ -79,6 +82,17 @@ public class PortalControlador {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
         return "regProvider.html";
+    }
+
+    @PostMapping("/buscarEspecialidad")
+    public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
+        Especialidad especialidadEncontrada = especialidadServicio.buscarPorNombre(nombre);
+        List<Especialidad> especialidadesEncontradas = new ArrayList<>();
+        if (especialidadEncontrada != null) {
+            especialidadesEncontradas.add(especialidadEncontrada);
+        }
+        model.addAttribute("especialidades", especialidadesEncontradas);
+        return "listEspecialidad.html";
     }
 
     @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
@@ -130,12 +144,5 @@ public class PortalControlador {
 //        }
         return "login.html";
     }
-    
-    @GetMapping("/servicios")
-    public String getServicios(ModelMap modelo) {
-            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-            modelo.addAttribute("especialidades", especialidades);
-            return "servicios.html";
-    }
+
 }
- 
