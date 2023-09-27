@@ -47,6 +47,9 @@ public class PortalControlador {
                 listProveedoresFull.add(prov);
             }
         }
+        if (listProveedoresFull.size()<6) {
+                listProveedoresFull=listFull;
+            }
 
         for (int i = 0; i < 6; i++) {
 

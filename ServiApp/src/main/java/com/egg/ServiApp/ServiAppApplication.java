@@ -25,13 +25,11 @@ public class ServiAppApplication {
 //    
 //    @Autowired
 //    private trabajoServicio ts;
-//
+
     public static void main(String[] args) throws miException {
         SpringApplication.run(ServiAppApplication.class, args);
     }
 
-    
-//
 //    @PostConstruct
 //    public void init() {
 //        try {
@@ -48,7 +46,7 @@ public class ServiAppApplication {
 //            
 //            // Creación de administrador
 //            
-//            us.crearAdmin("Admin Supremo", "admin", "admin2023", "admin2023", 3143760609L);
+//            us.crearAdmin("Admin Supremo", "admin@admin.com", "admin2023", "admin2023", 3143760609L);
 //            
 //            // Creación de usuarios
 //            
