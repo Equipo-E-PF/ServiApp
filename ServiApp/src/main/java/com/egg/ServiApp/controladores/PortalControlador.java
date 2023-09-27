@@ -134,11 +134,6 @@ public class PortalControlador {
         return "login.html";
     }
     
-    @GetMapping("/servicios")
-    public String getServicios(ModelMap modelo) {
-            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-            modelo.addAttribute("especialidades", especialidades);
-            return "servicios.html";
-    }
+    
 }
  
