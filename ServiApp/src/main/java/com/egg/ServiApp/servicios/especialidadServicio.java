@@ -31,7 +31,7 @@ public class especialidadServicio {
 
     @Transactional
     public void modificarEspecialidad(String id, String nombre) throws miException {
-        
+
         validar(nombre);
         Especialidad especialidad = er.buscarPorId(id);
         especialidad.setNombre(nombre);
@@ -59,6 +59,6 @@ public class especialidadServicio {
 
     public Especialidad buscarPorNombre(String especialidad) {
         return er.buscarPorNombre(especialidad);
-    }
 
+    }
 }
