@@ -58,7 +58,7 @@ public class PortalControlador {
             listProveedores.add(p);
             listProveedoresFull.remove(p);
         }
-
+        
         for (Proveedor listProveedore : listProveedores) {
             System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
                     + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());

@@ -1,6 +1,7 @@
 package com.egg.ServiApp.repositorio;
 
 import com.egg.ServiApp.entidades.Trabajo;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +19,9 @@ public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
 
     @Query("SELECT a FROM Trabajo a WHERE a.proveedor = :proveedor")
     public Trabajo buscarPorProveedor(@Param("proveedor") String proveedor);
+    
+    @Query("SELECT a FROM Trabajo a WHERE a.proveedor = :proveedor")
+    public List<Trabajo> listarPorProveedor(@Param("proveedor") String proveedor);
 
     @Query("SELECT a FROM Trabajo a WHERE a.estado = :estado")
     public Trabajo buscarPorEstado(@Param("estado") String estado);
