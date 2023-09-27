@@ -47,6 +47,9 @@ public class PortalControlador {
                 listProveedoresFull.add(prov);
             }
         }
+        if (listProveedoresFull.size()<6) {
+                listProveedoresFull=listFull;
+            }
 
         for (int i = 0; i < 6; i++) {
 
@@ -131,11 +134,6 @@ public class PortalControlador {
         return "login.html";
     }
     
-    @GetMapping("/servicios")
-    public String getServicios(ModelMap modelo) {
-            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-            modelo.addAttribute("especialidades", especialidades);
-            return "servicios.html";
-    }
+    
 }
  
