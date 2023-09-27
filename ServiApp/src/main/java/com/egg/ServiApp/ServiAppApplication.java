@@ -25,11 +25,11 @@ public class ServiAppApplication {
 //    
 //    @Autowired
 //    private trabajoServicio ts;
-//
+
     public static void main(String[] args) throws miException {
         SpringApplication.run(ServiAppApplication.class, args);
     }
-//
+
 //    @PostConstruct
 //    public void init() {
 //        try {
