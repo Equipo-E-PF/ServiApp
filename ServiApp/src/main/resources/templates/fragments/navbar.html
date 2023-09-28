@@ -62,13 +62,10 @@
                         </a>
                     </div>
                     <div class="flex-auto">
-
                         <a th:href="@{/registroUsuario}" class="block font-sans textcolor">
                             <p class="text-base">Usuario</p> 
-
                             <span class="absolute inset-0"></span>
                         </a>
-
                     </div>
                 </div>
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
@@ -82,25 +79,97 @@
                             <p class="text-base">Proveedor</p>
                             <span class="absolute inset-0"></span>
                         </a>
-
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-    <div  th:if = "${session.usersession != null}"  class="relative flex lg:flex-1 justify-evenly"> 
+
+
+    <!--    Opciones cuando se ingresa con sus credenciales -->
+
+    <div  th:if = "${session.usersession != null}"  class="relative lg:flex-1 justify-evenly">
+
+        <button id="gest" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
+            <p class="text-base">Gestionar</p>
+            <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+        </button>
+
+        <!--meu desplegable de GESTIONAR para USUARIO SUPREMO-->
+
         <div   th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'ADMIN')}" class="relative flex lg:flex-1 justify-evenly" >
-            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Gestionar</p></a>
+
+            <!--parte interna del menu gestionar US-->
+            <div id="menuGest" class="absolute -left-8 top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                <div class="p-4">
+
+                    <!--gestionar usuario-->
+
+                    <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                        <div class="flex h-11 w-11 flex-none items-center justify-center ">
+                            <a th:href="@{/gestionarUsuario}">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        </div>
+                        <div class="flex-auto">
+                            <a th:href="@{/gestionarUsuario}" class="block font-sans textcolor">
+                                <p class="text-base">Gestionar Usuario</p> 
+                                <span class="absolute inset-0"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--gestionar proveedor-->
+
+                    <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                        <div class="flex h-11 w-11 flex-none items-center justify-center ">
+                            <a th:href="@{/gestionarProveedor}">
+                                <i class="fas fa-wrench"></i>
+                            </a>
+                        </div>
+                        <div class="flex-auto">
+                            <a th:href="@{/gestionarProveedor}" class="block font-sans textcolor">
+                                <p class="text-base">Gestionar Proveedor</p>
+                                <span class="absolute inset-0"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--gestionar trabajos-->
+
+                    <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
+                        <div class="flex h-11 w-11 flex-none items-center justify-center ">
+                            <a th:href="@{/gestionarTrabajo}">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                        </div>
+                        <div class="flex-auto">
+                            <a th:href="@{/gestionarTrabajo}" class="block font-sans textcolor">
+                                <p class="text-base">Gestionar Trabajos</p>
+                                <span class="absolute inset-0"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!--meu desplegable de GESTIONAR para USUARIO-->
+        
         <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'USUARIO')}" class="relative flex lg:flex-1 justify-evenly" >
-            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base" >Contratar</p></a>
+            
         </div>
+        
         <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}"  class="relative flex lg:flex-1 justify-evenly"  >
-            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Ofertas</p></a>
+            <a  href="#" class="text-sm font-sans leading-6 textcolor "><p class="text-base">Gestionar Contrataciones</p></a>
         </div>
     </div>
+
     <div th:if = "${session.usersession != null}" class="relative flex lg:flex-1 justify-evenly">
+
         <button id="btnPerfil" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <div th:if="${session.usersession.imagen == null}">
                 <a href="#"  class="flex items-center gap-1" >
@@ -108,13 +177,13 @@
                         <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.nombre}"></p>
                 </a>
             </div>
-            <div th:if="${session.usersession.imagen !=null}">
+
+            <div th:if="${session.usersession.imagen != null}">
                 <a href="#"  class="flex items-center gap-1" >
                     <img class="w-8 h-8 bg-gray-100 rounded-full" th:src="@{/imagen/perfil/__${session.usersession.id}__}" >
                         <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.nombre}"></p>
                 </a>
             </div>
-
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>

@@ -1,45 +1,80 @@
 
-
 const btn = document.getElementById("servicios");
 const menu = document.getElementById("menu");
-
-if (btn !== null) {
-    btn.addEventListener('click', (event) => {
-        event.stopPropagation();
-        menu.classList.toggle('hidden');
-    });
-
-    document.addEventListener('click', (event) => {
-        if (!menu.contains(event.target) && event.target !== btn) {
-            menu.classList.add('hidden');
-        }
-    });
-
-    menu.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
-
-
-}
 
 const btnReg = document.getElementById("reg");
 const menuReg = document.getElementById("menuReg");
 
-if (btnReg !== null) {
+const btnGest = document.getElementById("gest");
+const menuGest = document.getElementById("menuGest");
+
+function ocultarMenus() {
+    menu.classList.add('hidden');
+    menuReg.classList.add('hidden');
+    menuGest.classList.add('hidden');
+}
+
+//ocultar menus del inicio
+
+if (btn !== null && btnReg !== null) {
+    btn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menu.classList.toggle('hidden');
+        menuReg.classList.add('hidden'); // Oculta el menú de btnReg
+    });
+
     btnReg.addEventListener('click', (event) => {
         event.stopPropagation();
         menuReg.classList.toggle('hidden');
+        menu.classList.add('hidden'); // Oculta el menú de btn
     });
 
     document.addEventListener('click', (event) => {
-        if (!menuReg.contains(event.target) && event.target !== btnReg) {
-            menuReg.classList.add('hidden');
+        if (!menu.contains(event.target) && event.target !== btn && !menuReg.contains(event.target) && event.target !== btnReg) {
+            ocultarMenus(); // Oculta todos los menús si se hace clic fuera de ellos
         }
+    });
+
+    // Agrega eventos de clic a los menús para detener la propagación
+    menu.addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     menuReg.addEventListener('click', (event) => {
         event.stopPropagation();
     });
+}
+
+//ocultar menus del User
+
+if (btnGest !== null && btn !== null) {
+    btn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menuGest.classList.toggle('hidden');
+        menu.classList.toggle('hidden');
+    });
+
+    btnGest.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menuGest.classList.toggle('hidden');
+        menu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && event.target !== btn && !menuGest.contains(event.target) && event.target !== btnGest) {
+            ocultarMenus();
+        }
+    });
+
+    menuGest.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+    
+    menu.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+}
 
 const btnPerfil = document.getElementById("btnPerfil");
 const menuPerfil = document.getElementById("menuPerfil");
@@ -64,12 +99,12 @@ const opcionesFoto = document.getElementById("opcionesFoto");
 const opcionesAbrir = document.getElementById("opcionesAbrir");
 const opcionesFormulario = document.getElementById("opcionesFormulario");
 const iconoCamara = document.getElementById("iconoCamara");
-if(fotoPerfil!==null){
+if (fotoPerfil !== null) {
     fotoPerfil.addEventListener('click', () => {
-    opcionesFoto.classList.toggle('hidden');
-    opcionesAbrir.classList.toggle('hidden');
-    iconoCamara.classList.toggle('hidden');
-});
+        opcionesFoto.classList.toggle('hidden');
+        opcionesAbrir.classList.toggle('hidden');
+        iconoCamara.classList.toggle('hidden');
+    });
 }
 
 opcionesAbrir.addEventListener('click', () => {
@@ -78,19 +113,19 @@ opcionesAbrir.addEventListener('click', () => {
     opcionesFormulario.classList.toggle('hidden');
 });
 document.addEventListener('click', (event) => {
-        if (!opcionesFoto.contains(event.target) && event.target !== fotoPerfil) {
-            opcionesAbrir.classList.add('hidden');
-            iconoCamara.classList.add('hidden');
-            opcionesFoto.classList.add('hidden');
-            opcionesFormulario.classList.add('hidden');
-        }
-    });
+    if (!opcionesFoto.contains(event.target) && event.target !== fotoPerfil) {
+        opcionesAbrir.classList.add('hidden');
+        iconoCamara.classList.add('hidden');
+        opcionesFoto.classList.add('hidden');
+        opcionesFormulario.classList.add('hidden');
+    }
+});
 
 
-    opcionesFoto.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
-}
+opcionesFoto.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
 
 const listEstrellas = document.querySelectorAll(".estrellas");
 listEstrellas.forEach(estrellitas => {
@@ -180,40 +215,40 @@ listEstrellas.forEach(estrellitas => {
     estrellitas.appendChild(ul);
 });
 
-const aviso= document.getElementById("avisos");
-const cerrarAviso= document.getElementById("cerrarAvisos");
-if(aviso!==null){
-cerrarAviso.addEventListener('click', ()=>{
-    aviso.classList.add('hidden');
-});
+const aviso = document.getElementById("avisos");
+const cerrarAviso = document.getElementById("cerrarAvisos");
+if (aviso !== null) {
+    cerrarAviso.addEventListener('click', () => {
+        aviso.classList.add('hidden');
+    });
 }
 
 /*const rol = document.getElementById("nuevoRol");
-const guardar = document.getElementsByClassName("guardar");
-
-function toggleAdminDropdown() {
-    const button = document.getElementById('administrarButton');
-    const dropdown = document.getElementById('administrarDropdown');
-if(button!==null){
-    button.addEventListener('click', () => {
-        dropdown.classList.toggle('hidden');
-    });
-
-    // Ocultar el menú cuando se hace clic fuera de él
-    document.addEventListener('click', (e) => {
-        if (!button.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.classList.add('hidden');
-        }
-    });
-}
-}
-
-// Inicializar el botón Administrar
-toggleAdminDropdown();
-
-
-
-/*const rol = document.getElementById("nuevoRol");
+ const guardar = document.getElementsByClassName("guardar");
+ 
+ function toggleAdminDropdown() {
+ const button = document.getElementById('administrarButton');
+ const dropdown = document.getElementById('administrarDropdown');
+ if(button!==null){
+ button.addEventListener('click', () => {
+ dropdown.classList.toggle('hidden');
+ });
+ 
+ // Ocultar el menú cuando se hace clic fuera de él
+ document.addEventListener('click', (e) => {
+ if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+ dropdown.classList.add('hidden');
+ }
+ });
+ }
+ }
+ 
+ // Inicializar el botón Administrar
+ toggleAdminDropdown();
+ 
+ 
+ 
+ /*const rol = document.getElementById("nuevoRol");
  const guardar = document.getElementsByClassName("guardar");
  
  function mostrar (){
