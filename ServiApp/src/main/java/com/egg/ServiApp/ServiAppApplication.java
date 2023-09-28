@@ -1,13 +1,13 @@
 package com.egg.ServiApp;
 
-//import com.egg.ServiApp.enumeraciones.Estado;
-//import com.egg.ServiApp.servicios.calificacionServicio;
-//import com.egg.ServiApp.servicios.especialidadServicio;
-//import com.egg.ServiApp.servicios.trabajoServicio;
-//import com.egg.ServiApp.servicios.usuarioServicio;
+import com.egg.ServiApp.enumeraciones.Estado;
+import com.egg.ServiApp.servicios.calificacionServicio;
+import com.egg.ServiApp.servicios.especialidadServicio;
+import com.egg.ServiApp.servicios.trabajoServicio;
+import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
-//import javax.annotation.PostConstruct;
-//import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -29,7 +29,7 @@ public class ServiAppApplication {
     public static void main(String[] args) throws miException {
         SpringApplication.run(ServiAppApplication.class, args);
     }
-//
+
 //    @PostConstruct
 //    public void init() {
 //        try {
