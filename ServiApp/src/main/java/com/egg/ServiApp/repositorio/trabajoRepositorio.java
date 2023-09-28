@@ -1,6 +1,7 @@
 package com.egg.ServiApp.repositorio;
 
 import com.egg.ServiApp.entidades.Trabajo;
+import com.egg.ServiApp.enumeraciones.Estado;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,6 @@ public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
 
     @Query("SELECT a FROM Trabajo a WHERE a.usuario = :usuario")
     public Trabajo buscarPorUsuario(@Param("usuario") String usaurio);
+
+    public List<Trabajo> findByEstado(Estado estado);
 }
