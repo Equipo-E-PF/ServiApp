@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author marco
  */
+
 @Repository
 public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
 
@@ -30,5 +31,6 @@ public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
     @Query("SELECT a FROM Trabajo a WHERE a.usuario = :usuario")
     public Trabajo buscarPorUsuario(@Param("usuario") String usaurio);
 
-    public List<Trabajo> findByEstado(Estado estado);
+    @Query ("SELECT a FROM Trabajo a WHERE a.estado = :estado")
+    public List<Trabajo> findByEstado(@Param("estado")Estado estado);
 }
