@@ -86,10 +86,10 @@ public class PortalControlador {
 
     @PostMapping("/buscarEspecialidad")
     public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
-        Especialidad especialidadEncontrada = especialidadServicio.buscarPorNombre(nombre);
+        Especialidad encontrada = especialidadServicio.buscarPorNombre(nombre);
         List<Especialidad> especialidadesEncontradas = new ArrayList<>();
-        if (especialidadEncontrada != null) {
-            especialidadesEncontradas.add(especialidadEncontrada);
+        if (encontrada != null) {
+            especialidadesEncontradas.add(encontrada);
         }
         model.addAttribute("especialidades", especialidadesEncontradas);
         return "listEspecialidad.html";
