@@ -96,17 +96,6 @@ public class PortalControlador {
         List<Proveedor> listSearch = us.proveedorSearch(search);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
-
-    @PostMapping("/buscarEspecialidad")
-    public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
-        Especialidad encontrada = especialidadServicio.buscarPorNombre(nombre);
-        List<Especialidad> especialidadesEncontradas = new ArrayList<>();
-        if (encontrada != null) {
-            especialidadesEncontradas.add(encontrada);
-        }
-        model.addAttribute("especialidades", especialidadesEncontradas);
-        return "listEspecialidad.html";
-
     }
 
     @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
