@@ -40,7 +40,7 @@ if (btnReg !== null) {
     menuReg.addEventListener('click', (event) => {
         event.stopPropagation();
     });
-
+    }
 const btnPerfil = document.getElementById("btnPerfil");
 const menuPerfil = document.getElementById("menuPerfil");
 if (btnPerfil !== null) {
@@ -70,8 +70,6 @@ if(fotoPerfil!==null){
     opcionesAbrir.classList.toggle('hidden');
     iconoCamara.classList.toggle('hidden');
 });
-}
-
 opcionesAbrir.addEventListener('click', () => {
     opcionesAbrir.classList.toggle('hidden');
     iconoCamara.classList.toggle('hidden');
@@ -91,6 +89,7 @@ document.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 }
+
 
 const listEstrellas = document.querySelectorAll(".estrellas");
 listEstrellas.forEach(estrellitas => {

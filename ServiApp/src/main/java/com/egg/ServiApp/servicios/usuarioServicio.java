@@ -46,7 +46,7 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio is;
-    
+
     @Autowired
     private trabajoRepositorio tr;
 
@@ -166,12 +166,12 @@ public class usuarioServicio implements UserDetailsService {
             if (p.getPuntuacion() == 0) {
                 p.setPuntuacion(calificacion);
             } else {
-                List<Trabajo>listaTrabajos=tr.listarPorProveedor(id);
-                int trabajos=listaTrabajos.size();
+                List<Trabajo> listaTrabajos = tr.listarPorProveedor(id);
+                int trabajos = listaTrabajos.size();
                 double nuevaCalificacion = Math.round((p.getPuntuacion() + calificacion) / trabajos);
                 p.setPuntuacion(nuevaCalificacion);
             }
-            
+
             ur.save(p);
 
         }

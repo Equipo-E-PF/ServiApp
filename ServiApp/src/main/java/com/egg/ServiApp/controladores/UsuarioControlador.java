@@ -43,12 +43,12 @@ public class UsuarioControlador {
         try {
             usuarioServicio.actualizarFoto(archivo, id);
             modelo.put("exito", "Actualización correcta");
-return "profileUser.html";
+            return "profileUser.html";
         } catch (miException e) {
             modelo.put("error", e.getMessage());
 
         }
-return "profileUser.html";
+        return "profileUser.html";
 
     }
 
