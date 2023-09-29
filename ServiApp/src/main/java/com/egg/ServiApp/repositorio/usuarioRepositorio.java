@@ -36,4 +36,7 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
     
     @Query("SELECT u FROM Usuario u WHERE u.rol= :PROVEEDOR AND u.baja= 0")
     public List<Proveedor> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
+    
+    @Query("SELECT p FROM Proveedor p WHERE p.especialidad.nombre LIKE %:search%")
+    public List<Proveedor> search(@Param("search") String search);
 }

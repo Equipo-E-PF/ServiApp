@@ -324,6 +324,10 @@ public class usuarioServicio implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
     }
+    
+    public List<Proveedor> proveedorSearch(String search) {
+        return ur.search(search);
+    }
 
     public Usuario getOne(String id) {
         return ur.getOne(id);

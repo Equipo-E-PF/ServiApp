@@ -15,7 +15,6 @@ import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,15 +53,15 @@ public class PortalControlador {
             }
         }
         if (listProveedoresFull.size() < 6) {
-            listProveedoresFull = listFull;
-        }
+            listProveedores = listProveedoresFull;
+        } else {
+            for (int i = 0; i < 6; i++) {
 
-        for (int i = 0; i < 6; i++) {
-
-            int randomIndex = (int) (Math.random() * listProveedoresFull.size());
-            Proveedor p = listProveedoresFull.get(randomIndex);
-            listProveedores.add(p);
-            listProveedoresFull.remove(p);
+                int randomIndex = (int) (Math.random() * listProveedoresFull.size());
+                Proveedor p = listProveedoresFull.get(randomIndex);
+                listProveedores.add(p);
+                listProveedoresFull.remove(p);
+            }
         }
         
         for (Proveedor listProveedore : listProveedores) {
@@ -77,8 +76,9 @@ public class PortalControlador {
     }
 
     @GetMapping("/registroUsuario")
-    public String registroUsuario() {
-
+    public String registroUsuario(ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
         return "regUser.html";
 
     }
@@ -90,6 +90,13 @@ public class PortalControlador {
         return "regProvider.html";
     }
 
+
+    @PostMapping("/busqueda")
+    public String buscarEspecialidad(@RequestParam String search, ModelMap model) {
+        List<Proveedor> listSearch = us.proveedorSearch(search);
+        model.addAttribute("listSearch", listSearch);
+        return "busqueda.html";
+
     @PostMapping("/buscarEspecialidad")
     public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
         Especialidad encontrada = especialidadServicio.buscarPorNombre(nombre);
@@ -99,6 +106,7 @@ public class PortalControlador {
         }
         model.addAttribute("especialidades", especialidadesEncontradas);
         return "listEspecialidad.html";
+
     }
 
     @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
