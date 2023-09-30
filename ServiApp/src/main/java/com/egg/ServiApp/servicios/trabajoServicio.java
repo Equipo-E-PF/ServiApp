@@ -49,7 +49,7 @@ public class trabajoServicio {
             tr.save(trabajo);
         }
     }
-    
+
     @Transactional
     public void terminarTrabajo(String id, Estado estado, String contenidoPuntuacion, double puntuacion) throws miException {
         Optional<Trabajo> trabajoOptional = tr.findById(id);
@@ -84,6 +84,40 @@ public class trabajoServicio {
         if (proveedor == null) {
             throw new miException("Los proveedores del trabajo no pueden ser nulos");
         }
+    }
+
+    @Transactional
+    public void aceptarTrabajo(String id) {
+        Optional<Trabajo> trabajoOptional = tr.findById(id);
+
+        if (trabajoOptional.isPresent()) {
+            Trabajo trabajo = trabajoOptional.get();
+            trabajo.setEstado(Estado.ACEPTADO);
+            tr.save(trabajo);
+        }
+    }
+
+    @Transactional
+    public void rechazarTrabajo(String id) {
+        Optional<Trabajo> trabajoOptional = tr.findById(id);
+
+        if (trabajoOptional.isPresent()) {
+            Trabajo trabajo = trabajoOptional.get();
+            trabajo.setEstado(Estado.CANCELADO);
+            tr.save(trabajo);
+        }
+    }
+
+    public List<Trabajo> listarTrabajosPendientes() {
+        return tr.findByEstado(Estado.PENDIENTE);
+    }
+
+    public List<Trabajo> listarTrabajosAceptados() {
+        return tr.findByEstado(Estado.ACEPTADO);
+    }
+
+    public List<Trabajo> listarTrabajosCompletados() {
+        return tr.findByEstado(Estado.FINALIZADO);
     }
 
     //Asociar Calificación 

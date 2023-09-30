@@ -32,15 +32,9 @@ public class calificacionServicio {
         return calif;
     }
 
-    public List<Calificacion> listarCalificaciones(String id) {
+    public List<Calificacion> listarCalificaciones() {
 
-        List<Calificacion> calif = null;
-        Optional<Calificacion> respuesta = califRepo.findById(id);
-
-        if (respuesta.isPresent()) {
-            calif = (List<Calificacion>) respuesta.get();
-        }
-        return calif;
+        return califRepo.findAll();
     }
 
     @Transactional

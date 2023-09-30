@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServiAppApplication {
 
-    //    @Autowired
+//    @Autowired
 //    private usuarioServicio us;
 //    
 //    @Autowired
@@ -81,6 +81,5 @@ public class ServiAppApplication {
 //            e.getStackTrace();
 //        }
 //    }
-
 
 }

@@ -2,17 +2,19 @@ package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
+import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
+import com.egg.ServiApp.servicios.trabajoServicio;
 import excepciones.miException;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,9 @@ public class PortalControlador {
     @Autowired
     private especialidadServicio especialidadServicio;
 
+    @Autowired
+    private trabajoServicio ts;
+
     @GetMapping("/")
     public String index(ModelMap model) {
 
@@ -48,17 +53,17 @@ public class PortalControlador {
             }
         }
         if (listProveedoresFull.size() < 6) {
-            listProveedoresFull = listFull;
+            listProveedores = listProveedoresFull;
+        } else {
+            for (int i = 0; i < 6; i++) {
+
+                int randomIndex = (int) (Math.random() * listProveedoresFull.size());
+                Proveedor p = listProveedoresFull.get(randomIndex);
+                listProveedores.add(p);
+                listProveedoresFull.remove(p);
+            }
         }
-
-        for (int i = 0; i < 6; i++) {
-
-            int randomIndex = (int) (Math.random() * listProveedoresFull.size());
-            Proveedor p = listProveedoresFull.get(randomIndex);
-            listProveedores.add(p);
-            listProveedoresFull.remove(p);
-        }
-
+        
         for (Proveedor listProveedore : listProveedores) {
             System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
                     + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
@@ -71,8 +76,9 @@ public class PortalControlador {
     }
 
     @GetMapping("/registroUsuario")
-    public String registroUsuario() {
-
+    public String registroUsuario(ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
         return "regUser.html";
 
     }
@@ -84,15 +90,12 @@ public class PortalControlador {
         return "regProvider.html";
     }
 
-    @PostMapping("/buscarEspecialidad")
-    public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
-        Especialidad especialidadEncontrada = especialidadServicio.buscarPorNombre(nombre);
-        List<Especialidad> especialidadesEncontradas = new ArrayList<>();
-        if (especialidadEncontrada != null) {
-            especialidadesEncontradas.add(especialidadEncontrada);
-        }
-        model.addAttribute("especialidades", especialidadesEncontradas);
-        return "listEspecialidad.html";
+
+    @PostMapping("/busqueda")
+    public String buscarEspecialidad(@RequestParam String search, ModelMap model) {
+        List<Proveedor> listSearch = us.proveedorSearch(search);
+        model.addAttribute("listSearch", listSearch);
+        return "busqueda.html";
     }
 
     @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
@@ -143,6 +146,21 @@ public class PortalControlador {
 //            modelo.put("error", "Usuario o Contrasena invalidos");
 //        }
         return "login.html";
+    }
+
+    @GetMapping("/experiencias")
+    public String experiencias(ModelMap model) {
+
+        List<Trabajo> trabajos = ts.listarTrabajos();
+        Collections.sort(trabajos, (trabajo1, trabajo2) ->
+                Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
+
+        int limite = Math.min(9, trabajos.size());
+        List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
+
+        model.addAttribute("trabajos", trabajosTop9);
+
+        return "experiencias.html";
     }
 
 }

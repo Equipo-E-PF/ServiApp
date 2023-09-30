@@ -3,9 +3,11 @@ package com.egg.ServiApp.servicios;
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Imagen;
 import com.egg.ServiApp.entidades.Proveedor;
+import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
 import com.egg.ServiApp.repositorio.especialidadRepositorio;
+import com.egg.ServiApp.repositorio.trabajoRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
@@ -43,7 +45,10 @@ public class usuarioServicio implements UserDetailsService {
     private especialidadServicio es;
 
     @Autowired
-    private ImagenServicio iS;
+    private ImagenServicio is;
+
+    @Autowired
+    private trabajoRepositorio tr;
 
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2, Long telefono) throws miException {
@@ -112,9 +117,9 @@ public class usuarioServicio implements UserDetailsService {
 
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
-                imagen = iS.actualizar(archivo, idImagen);
+                imagen = is.actualizar(archivo, idImagen);
             } else {
-                imagen = iS.guardar(archivo);
+                imagen = is.guardar(archivo);
 
             }
 
@@ -140,9 +145,9 @@ public class usuarioServicio implements UserDetailsService {
 
             if (p.getImagen() != null) {
                 idImagen = p.getImagen().getId();
-                imagen = iS.actualizar(archivo, idImagen);
+                imagen = is.actualizar(archivo, idImagen);
             } else {
-                imagen = iS.guardar(archivo);
+                imagen = is.guardar(archivo);
 
             }
 
@@ -161,10 +166,12 @@ public class usuarioServicio implements UserDetailsService {
             if (p.getPuntuacion() == 0) {
                 p.setPuntuacion(calificacion);
             } else {
-                double nuevaCalificacion = (p.getPuntuacion() + calificacion) / 2;
+                List<Trabajo> listaTrabajos = tr.listarPorProveedor(id);
+                int trabajos = listaTrabajos.size();
+                double nuevaCalificacion = Math.round((p.getPuntuacion() + calificacion) / trabajos);
                 p.setPuntuacion(nuevaCalificacion);
             }
-            
+
             ur.save(p);
 
         }
@@ -217,9 +224,9 @@ public class usuarioServicio implements UserDetailsService {
 
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
-                imagen = iS.actualizar(archivo, idImagen);
+                imagen = is.actualizar(archivo, idImagen);
             } else {
-                imagen = iS.guardar(archivo);
+                imagen = is.guardar(archivo);
 
             }
 
@@ -316,6 +323,10 @@ public class usuarioServicio implements UserDetailsService {
 
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
+    }
+    
+    public List<Proveedor> proveedorSearch(String search) {
+        return ur.search(search);
     }
 
     public Usuario getOne(String id) {

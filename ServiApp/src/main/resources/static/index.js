@@ -74,8 +74,6 @@ if (btnGest !== null && btn !== null) {
         event.stopPropagation();
     });
 
-}
-
 const btnPerfil = document.getElementById("btnPerfil");
 const menuPerfil = document.getElementById("menuPerfil");
 if (btnPerfil !== null) {
@@ -101,12 +99,12 @@ const opcionesFormulario = document.getElementById("opcionesFormulario");
 const iconoCamara = document.getElementById("iconoCamara");
 if (fotoPerfil !== null) {
     fotoPerfil.addEventListener('click', () => {
+
         opcionesFoto.classList.toggle('hidden');
         opcionesAbrir.classList.toggle('hidden');
         iconoCamara.classList.toggle('hidden');
     });
 }
-
 opcionesAbrir.addEventListener('click', () => {
     opcionesAbrir.classList.toggle('hidden');
     iconoCamara.classList.toggle('hidden');
@@ -126,6 +124,7 @@ opcionesFoto.addEventListener('click', (event) => {
     event.stopPropagation();
 });
 
+}
 
 const listEstrellas = document.querySelectorAll(".estrellas");
 listEstrellas.forEach(estrellitas => {

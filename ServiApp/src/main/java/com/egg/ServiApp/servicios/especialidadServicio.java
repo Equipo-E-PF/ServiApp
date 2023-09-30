@@ -52,7 +52,7 @@ public class especialidadServicio {
 
     protected void validar(String nombre) throws miException {
 
-        if (nombre.isEmpty() || nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
         }
     }
