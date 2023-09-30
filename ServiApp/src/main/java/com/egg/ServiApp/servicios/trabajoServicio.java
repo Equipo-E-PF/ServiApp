@@ -66,6 +66,10 @@ public class trabajoServicio {
     public List<Trabajo> listarTrabajos() {
         return tr.findAll();
     }
+    
+    public List<Trabajo> listarTrabajoPorProveedor(String id){
+        return tr.listarPorProveedor(id);
+    }
 
     public Trabajo getTrabajo(String id) {
         return tr.findById(id).orElse(null);
