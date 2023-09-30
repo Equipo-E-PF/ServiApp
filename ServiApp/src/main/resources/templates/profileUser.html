@@ -107,10 +107,9 @@
                                                 Administrar
                                             </button>
                                             <!-- Botones de Servicios y Usuarios (inicialmente ocultos) -->
-                                            <div
-                                                class="hidden absolute bg-white mt-2 py-2 w-32 border border-gray-300 rounded shadow-lg"
-                                                id="administrarDropdown"
-                                                >
+                                            <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}"
+                                                class="relative inline-block bg-white mt-2 py-2 w-32 border border-gray-300 rounded shadow-lg"
+                                                id="administrarDropdown">
                                                 <a href="#">
                                                     <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200 focus:outline-none" type="button">
                                                         Servicios

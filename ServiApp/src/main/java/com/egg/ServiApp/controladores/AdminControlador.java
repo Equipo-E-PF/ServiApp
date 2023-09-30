@@ -12,8 +12,6 @@ import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -118,34 +116,41 @@ public class AdminControlador {
         }
     }
     
-    @GetMapping("/servicios")
-    public String mostrarEspecialidad(ModelMap modelo) {
-            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-            modelo.addAttribute("especialidades", especialidades);
-            return "servicios.html";
+    @GetMapping("/listaEspecialidades")
+    public String verListaEspecialidades( ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
+        return "especialidades.html"; // Reemplaza esto con tu página de edición real
+    }
+
+    // Mapeo para procesar la actualización
+    @PostMapping("/editarEspecialidad/{id}")
+    public String actualizarEspecialidad(@PathVariable String id, @RequestParam String nombre) throws miException {
+        // Realiza la lógica de actualización aquí usando el servicio
+        especialidadServicio.modificarEspecialidad(id, nombre);
+        return "redirect:../listaEspecialidades"; // Reemplaza esto con la página correcta después de editar
+    }
+        
+    @GetMapping("/nuevaEspecialidad")
+    public String nuevaEspecialidad() {
+        return "especialidadForm.html";
     }
     
-    @PostMapping("/servicios")
+    @PostMapping("/crearEspecialidad")
     public String crearEspecialidad(@RequestParam String nombre, ModelMap model) {
         try {
             especialidadServicio.crearEspecialidad(nombre);
-            return "redirect:../servicios";
+            return "redirect:../admin/listaEspecialidades";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "error.html";
         }
     }
-
-    @PostMapping("/servicios/{id}")
-    public String modificarEspecialidad(@PathVariable String id, @RequestParam String nombre, ModelMap model) {
-        try {
-            especialidadServicio.modificarEspecialidad(id, nombre);
-            return "redirect:../servicios";
-        } catch (miException ex) {
-            model.put("error", ex.getMessage());
-            model.put("user", usuarioServicio.UserById(id)); // Para mantener los datos en el formulario
-            return "error.html";
-        }
+    
+    @PostMapping("/eliminarEspecialidad/{id}")
+    public String eliminarEspecialidad(@PathVariable String id) {
+        especialidadServicio.eliminarEspecialidadId(id);
+        return "redirect:../listaEspecialidades";
     }
   
 }
