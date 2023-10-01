@@ -19,7 +19,8 @@
                             <ul class="estrellas" ></ul>
                             <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
                             <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
-                            <a class="underline text-blue-500 text-xs" th:href="@{#}">Conoce más de este proveedor</a>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession == null}" th:href="@{/login}">Conoce más de este proveedor</a>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession != null}" th:href="@{/usuario/perfilOtro/__${item.id}__}">Conoce más de este proveedor</a>
                         </div>
                     </div>
                 </div>
