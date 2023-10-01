@@ -35,7 +35,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     protected Rol rol;
     
-    protected String rutaImagen = "user.png";
+    //protected String rutaImagen = "user.png";
 
     public Usuario() {
     }
@@ -99,7 +99,7 @@ public class Usuario {
     public Imagen getImagen() {
         if (this.imagen == null) {
             try {
-            byte[] bytesImagen = Imagen.perfilPredeterminado(rutaImagen);
+            byte[] bytesImagen = Imagen.perfilPredeterminado("profileImage.png");
             Imagen imagenPredeterminada = new Imagen();
             imagenPredeterminada.setContenido(bytesImagen);
             return imagenPredeterminada;
