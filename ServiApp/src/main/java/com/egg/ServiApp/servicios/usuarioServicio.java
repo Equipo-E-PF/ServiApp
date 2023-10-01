@@ -157,6 +157,34 @@ public class usuarioServicio implements UserDetailsService {
         }
 
     }
+    
+    @Transactional
+    public void modificarContrasenia(String id, String oldPassword, String password1, String password2) throws miException{
+        if (password1 == null || password1.isEmpty() || password1.length() <= 5) {
+            throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+        if (!password1.equals(password2)) {
+            throw new miException("Las contraseñas deben coincidir");
+        }
+        Optional<Usuario> respuesta = ur.findById(id);
+        Usuario user = new Usuario();
+        if (respuesta.isPresent()) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if(respuesta.get().getRol()==Rol.PROVEEDOR){
+                user = ur.proveedorPorId(id);
+            }else{
+                user = ur.usuarioPorId(id);
+            }
+            String dbPassword = user.getPassword();
+                if (passwordEncoder.matches(oldPassword, dbPassword)) {
+                    user.setPassword(passwordEncoder.encode(password1));
+                    ur.save(user);
+                } else {
+                    throw new miException("La contraseña ingresada no coincide con la anterior"); 
+                }
+            
+        }
+    }
 
     @Transactional
     public void calificarProveedor(String id, double calificacion) throws miException {

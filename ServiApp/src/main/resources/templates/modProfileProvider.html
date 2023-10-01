@@ -76,24 +76,24 @@
                     <div class="my-2">
                         <button id="contraseña" class="flex w-full ">Cambiar contraseña</button>
                     </div>
-                    <form id="formularioPerfil" th:action="@{/usuario/modificarUsuario/__${session.usersession.id}__}" class="space-y-6" method="POST">
+                    <form id="formularioPerfil" th:action="@{/usuario/modificarContrasenia/__${session.usersession.id}__}" class="space-y-6" method="POST">
                         <div id="changePass" class="hidden ">
                             <div>
                             <label for="password" class="  block text-sm font-medium leading-6 text-gray-900">Anterior contraseña</label>
                             <div class="mt-2">
-                                <input id="password" name="password" type="password" th:value="${passwordAnterior}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input id="oldPassword" name="oldPassword" type="password" th:value="${oldPassword}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                             </div>
                             <div>
                             <label for="password" class=" block text-sm font-medium leading-6 text-gray-900">Nueva contraseña</label>
                             <div class="mt-2">
-                                <input id="password" name="password" type="password" th:value="${password}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input id="password1" name="password1" type="password" th:value="${password1}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                             </div>
                             <div>
                             <label for="password" class=" block text-sm font-medium leading-6 text-gray-900">Confirme su nueva contraseña</label>
                             <div class="mt-2">
-                                <input id="password" name="password" type="password" th:value="${password2}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input id="password2" name="password2" type="password" th:value="${password2}" placeholder="********" required class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                             </div>
                             <div>

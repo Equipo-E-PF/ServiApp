@@ -70,7 +70,7 @@ public class UsuarioControlador {
         return "profileUser.html";
 
     }
-@GetMapping("/modificarUsuario/{id}")
+    @GetMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
         model.put("user", usuarioServicio.UserById(id));
 
@@ -85,6 +85,21 @@ public class UsuarioControlador {
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileUser.html";
+        }
+    }
+    
+    @PostMapping("/modificarContrasenia/{id}")
+    public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException{
+        System.out.println(oldPassword + " " + password1 + " " + password2);
+        try{
+            usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
+            model.put("exito", "Se modificó correctamente la contraseña");
+            System.out.println("Éxito");
+            return "redirect:../perfil";
+        }catch (miException ex) {
+            model.put("error", ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
+            return "redirect:../perfil";
         }
     }
     
