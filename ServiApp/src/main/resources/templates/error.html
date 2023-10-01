@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns: sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="/fragments/head :: head"> </head>
+
+    <body class="m-o p-o h-screen flex flex-col degradado h-screen overflow-y-auto">
+        <header class="navcolor">
+            <nav th:replace="/fragments/navbar :: nav">  </nav>
+        </header>
+
+        <div class="lg:px-24 md:py-10 md:px-44 px-4 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
+            <div class="xl:pt-20 w-full xl:w-1/2 relative lg:pb-0">
+                <div class="relative flex mb-40">
+                    <div class="absolute">
+                            <h1 class="text-gray-800 font-bold text-2xl">
+                                Ups! Vaya, parece que hemos encontrado un error!
+                            </h1>
+                            <p class="my-2 text-gray-800">No hemos podido cargar la pagina. Te recomendamos que vuelvas al inicio y verifiques la direccion.</p>
+                            <button class="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">Volver al inicio</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img class="max-h-30" src="https://i.ibb.co/4Nsqcy4/60031-Converted.png" alt="60031-Converted" border="0">
+            </div>
+        </div>
+
+        <footer th:replace="/fragments/footer :: footer">  </footer>
+        <script  src="/index.js"></script>
+    </body>
+</html>
