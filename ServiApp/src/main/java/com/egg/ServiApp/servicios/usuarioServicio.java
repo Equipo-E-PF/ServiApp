@@ -326,7 +326,9 @@ public class usuarioServicio implements UserDetailsService {
     }
     
     public List<Proveedor> proveedorSearch(String search) {
-        return ur.search(search);
+        List<Proveedor> resultados = ur.searchByEspecialidad(search);
+        resultados.addAll(ur.searchByNombre(search));
+        return resultados;
     }
 
     public Usuario getOne(String id) {

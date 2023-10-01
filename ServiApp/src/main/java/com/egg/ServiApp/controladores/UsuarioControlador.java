@@ -137,5 +137,12 @@ public class UsuarioControlador {
         }
         return "redirect:/";
     }
+    
+    @GetMapping("/bajaUsuario/{id}")
+    public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
+        redirectAttributes.addFlashAttribute("exito", "Baja éxitosa");
+        return "/logout";
+    }
 
 }
