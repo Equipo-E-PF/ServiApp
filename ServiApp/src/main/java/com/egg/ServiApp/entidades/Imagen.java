@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import org.hibernate.annotations.GenericGenerator;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  *
@@ -61,6 +64,11 @@ public class Imagen {
 
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
+    }
+
+    public static byte[] perfilPredeterminado(String rutaImagen) throws IOException {
+        Path path = Path.of("src/main/resources/static/" + rutaImagen); 
+        return Files.readAllBytes(path); 
     }
 
 }

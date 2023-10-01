@@ -10,20 +10,28 @@
         <main class="mx-auto  w-full flex max-w-7xl p-6 lg:px-8  flex-grow grid grid-flow-row-2 m-y-4 gap-4 " >
             <section class="my-8 flex-grow grid grid-flow-row-dense grid-cols-2 m-y-4 gap-4 bg-cover bg-center rounded-lg" style="background-image: url('https://www.emiser.es/wp-content/uploads/2021/02/labor-day.jpg'); height: 400px;">
                 <div class="justify-self-center flex items-center">
-                    <p class="text-lg font-sans leading-6 textcolor gap-x-1 rounded-lg p-1 border border-white bg-white">Necesitás reparar algo en casa? <br> Los mejores profesionales los encontrás acá.</p>
+                    <p class="text-lg font-sans leading-6 textcolor gap-x-1 rounded-lg p-1 border bg-[#F8F0E5]">Necesitás reparar algo en casa? <br> Los mejores profesionales los encontrás acá.</p>
                 </div>
                 <div class="flex-grow grid grid-flow-row-3 grid-cols-4 m-y-4">
                     <div class="col-span-4 text-gray-600">
                     </div>
+
                     <div class="col-start-1 col-end-4">
-                        <label class="text-lg font-sans leading-6 textcolor font-semibold gap-x-1 rounded-lg border border-white bg-white" for="buscarServicio">¿QUÉ SERVICIO NECESITAS HOY?</label>
-                        <div style="display:flex; flex-direction: row;">
-                            <input type="search" name="search" placeholder="Buscar" class="border h-10 w-full rounded-full text-sm focus:outline-none">
-                            <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+
+                        <label class="text-lg font-sans leading-6 textcolor font-semibold gap-x-1 rounded-lg bg-[#F8F0E5]" for="buscarServicio">¿QUÉ SERVICIO NECESITAS HOY?</label>
+                        
+                            <form th:action="@{/busqueda}" method="POST">
+                                <div style="display:flex; flex-direction: row;">
+                                <input type="search" name="search" placeholder="Buscar Servicio o Proveedor" class="border h-10 w-full rounded-full text-sm focus:outline-none">
+                                <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                </div>
+                            </form>
+                        
+
                     </div>
+
                 </div>
             </section>
             <section>
@@ -36,7 +44,8 @@
                             <ul class="estrellas" ></ul>
                             <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
                             <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
-                            <a class="underline text-blue-500 text-xs" th:href="@{#}">Conoce más de este proveedor</a>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession == null}" th:href="@{/login}">Conoce más de este proveedor</a>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession != null}" th:href="@{/usuario/perfilOtro/__${item.id}__}">Conoce más de este proveedor</a>
                         </div>
                     </div>
                 </div>

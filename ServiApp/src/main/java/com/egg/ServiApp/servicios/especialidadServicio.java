@@ -31,7 +31,7 @@ public class especialidadServicio {
 
     @Transactional
     public void modificarEspecialidad(String id, String nombre) throws miException {
-        
+
         validar(nombre);
         Especialidad especialidad = er.buscarPorId(id);
         especialidad.setNombre(nombre);
@@ -52,13 +52,13 @@ public class especialidadServicio {
 
     protected void validar(String nombre) throws miException {
 
-        if (nombre.isEmpty() || nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new miException("El nombre no puede ser nulo");
         }
     }
 
     public Especialidad buscarPorNombre(String especialidad) {
         return er.buscarPorNombre(especialidad);
-    }
 
+    }
 }

@@ -1,14 +1,18 @@
 package com.egg.ServiApp.controladores;
 
+import com.egg.ServiApp.entidades.Trabajo;
+import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,17 +42,29 @@ public class UsuarioControlador {
         return "profileUser.html";
     }
 
+    @GetMapping("/perfilOtro/{id}")
+    public String perfilOtro(@PathVariable String id, ModelMap modelo) {
+
+         
+        System.out.println(usuarioServicio.ProviderById(id));
+        List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
+        modelo.put("trabajos", trabajos);
+        modelo.put("user", usuarioServicio.ProviderById(id));
+
+        return "profileOtherUser.html";
+    }
+
     @PostMapping("/actualizarFoto")
     public String registro(@RequestParam String id, MultipartFile archivo, ModelMap modelo) {
         try {
             usuarioServicio.actualizarFoto(archivo, id);
             modelo.put("exito", "Actualización correcta");
-return "profileUser.html";
+            return "profileUser.html";
         } catch (miException e) {
             modelo.put("error", e.getMessage());
 
         }
-return "profileUser.html";
+        return "profileUser.html";
 
     }
 
@@ -80,6 +96,13 @@ return "profileUser.html";
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/";
+    }
+    
+    @GetMapping("/bajaUsuario/{id}")
+    public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
+        redirectAttributes.addFlashAttribute("exito", "Baja éxitosa");
+        return "/logout";
     }
 
 }
