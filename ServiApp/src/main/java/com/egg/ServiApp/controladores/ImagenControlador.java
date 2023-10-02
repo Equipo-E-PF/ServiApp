@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author Ale y Choy
  */
-
 @Controller
 @RequestMapping("/imagen")
 public class ImagenControlador {
 
     @Autowired
     usuarioServicio usuarioServicio;
-    
+
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
         Usuario usuario = usuarioServicio.getOne(id);
@@ -33,7 +32,7 @@ public class ImagenControlador {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.IMAGE_JPEG);
-        
+
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }
 

@@ -62,7 +62,7 @@ public class UsuarioControlador {
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        //trabajoServicio.modificarTrabajo(trabajoId, Estado.FINALIZADO);
+        //trabajoServicio.modificarTrabajo
         redirectAttributes.addFlashAttribute("exito", "Trabajo marcado como realizado");
         return "redirect:/";
     }
@@ -70,7 +70,7 @@ public class UsuarioControlador {
     // Cancelar un trabajo
     @GetMapping("/cancelarTrabajo")
     public String cancelarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        //trabajoServicio.modificarTrabajo(trabajoId, Estado.CANCELADO);
+       
         redirectAttributes.addFlashAttribute("exito", "Trabajo cancelado con éxito");
         return "redirect:/";
     }
@@ -80,7 +80,7 @@ public class UsuarioControlador {
     public String calificarTrabajo(@RequestParam String trabajoId, @RequestParam String contenido, @RequestParam double puntuacion, RedirectAttributes redirectAttributes) {
         try {
             calificacionServicio.crearCalificacion(contenido, puntuacion);
-            // Asociar la calificación al trabajo (debe implementarse en el servicio)
+            // Asociar la calificación al trabajo 
             trabajoServicio.asociarCalificacion(trabajoId, contenido);
             redirectAttributes.addFlashAttribute("exito", "Calificación creada con éxito");
         } catch (miException e) {
@@ -120,7 +120,7 @@ public class UsuarioControlador {
 
             Usuario usuario = usuarioServicio.obtenerUsuarioAutenticado();
 
-            // Obtener el proveedor asociado al usuario (esto dependerá de tu modelo de datos)
+            // Obtener el proveedor asociado al usuario 
             Proveedor proveedor = usuario.getProveedor();
 
             trabajoServicio.crearTrabajo(usuario, proveedor);
@@ -130,7 +130,31 @@ public class UsuarioControlador {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
 
-        return "redirect:/usuario/dashboard"; // Ajusta la redirección según tu ruta real
+        return "redirect:/usuario/dashboard"; 
     }
 
+    @GetMapping("/getProveedor")
+    public String getProveedor(ModelMap modelo) {
+       
+        Usuario usuario = usuarioServicio.obtenerUsuarioAutenticado();
+
+        
+        Proveedor proveedor = usuario.getProveedor();
+
+        if (proveedor != null) {
+            double puntuacion = proveedor.getPuntuacion();
+            double costoHora = proveedor.getCostoHora();
+            Especialidad especialidad = proveedor.getEspecialidad();
+
+            modelo.addAttribute("proveedor", proveedor);
+            modelo.addAttribute("puntuacion", puntuacion);
+            modelo.addAttribute("costoHora", costoHora);
+            modelo.addAttribute("especialidad", especialidad);
+
+            return "perfilProveedor"; 
+        } else {
+         
+            return "sinProveedor"; 
+        }
+    }
 }

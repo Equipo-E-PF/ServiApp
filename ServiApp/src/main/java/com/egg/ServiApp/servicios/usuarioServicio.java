@@ -188,7 +188,6 @@ public class usuarioServicio implements UserDetailsService {
         return ur.findById(usuarioId).orElse(null);
     }
 
-   
     @Transactional
 
     public void proveedorCambioUsuario(Proveedor proveedor) {
@@ -235,13 +234,14 @@ public class usuarioServicio implements UserDetailsService {
             ur.save(usuario);
 
         }
-        
 
     }
+
     @Transactional
     public void guardarProveedor(Proveedor proveedor) {
         ur.save(proveedor);
     }
+
     public List<Usuario> listarUsuarios() {
 
         return ur.listaUsuarios(Rol.USUARIO);
@@ -256,11 +256,12 @@ public class usuarioServicio implements UserDetailsService {
     public void eliminarUsuarioId(String id) {
         ur.deleteById(id);
     }
-    
+
     @Transactional
     public Proveedor buscarProveedorPorId(String id) {
         return ur.proveedorPorId(id);
     }
+
     public Usuario obtenerUsuarioAutenticado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

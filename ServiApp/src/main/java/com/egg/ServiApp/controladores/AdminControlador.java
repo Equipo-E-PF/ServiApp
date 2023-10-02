@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Especialidad;
@@ -43,12 +39,13 @@ public class AdminControlador {
     private especialidadServicio especialidadServicio;
     @Autowired
     private UsuarioControlador uc;
+
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         List<Proveedor> proveedores = usuarioServicio.listarProveedores();
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        model.addAttribute("especialidades", especialidades);    
+        model.addAttribute("especialidades", especialidades);
         Rol[] rol = Rol.values();
         model.addAttribute("rol", rol);
         model.addAttribute("proveedores", proveedores);
@@ -67,7 +64,7 @@ public class AdminControlador {
 //    
     @GetMapping("/provToUser/{id}")
     public String provToUser(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        
+
         usuarioServicio.proveedorCambioUsuario(usuarioServicio.ProviderById(id));
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
@@ -86,9 +83,9 @@ public class AdminControlador {
 
         return "modUser.html";
     }
-    
+
     @PostMapping("/modificarUsuario/{id}")
-    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
+    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model) {
         try {
             usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
             return "redirect:../usuarios";
@@ -108,7 +105,7 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model) {
         try {
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
             return "redirect:../usuarios";
@@ -117,14 +114,14 @@ public class AdminControlador {
             return "modProvider.html";
         }
     }
-    
+
     @GetMapping("/servicios")
     public String mostrarEspecialidad(ModelMap modelo) {
-            List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-            modelo.addAttribute("especialidades", especialidades);
-            return "servicios.html";
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
+        return "servicios.html";
     }
-    
+
     @PostMapping("/servicios")
     public String crearEspecialidad(@RequestParam String nombre, ModelMap model) {
         try {
@@ -147,5 +144,5 @@ public class AdminControlador {
             return "error.html";
         }
     }
-  
+
 }

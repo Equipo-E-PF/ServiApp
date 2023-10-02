@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.ServiApp.controladores;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,49 +12,46 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Facundo
  */
 @Controller
-public class ErrorControlador implements ErrorController{
-    
-    @RequestMapping(value = "/error", method = { RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest){
-        
+public class ErrorControlador implements ErrorController {
+
+    @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+
         ModelAndView errorPage = new ModelAndView("error");
         String errorMsg = "";
-        
-   
+
         int httpErrorCode = getErrorCode(httpRequest);
-        
-        switch(httpErrorCode){
-            case 400 ->  {
+
+        switch (httpErrorCode) {
+            case 400 -> {
                 errorMsg = "El recurso solicitado no existe";
             }
-            case 403 ->  {
+            case 403 -> {
                 errorMsg = "No tiene permisos para acceder al recurso";
             }
-            case 401 ->  {
+            case 401 -> {
                 errorMsg = "No se encuentra autorizado";
             }
-            case 404 ->  {
+            case 404 -> {
                 errorMsg = "El recurso solicitado no fue encontrado";
             }
-            case 500 ->  {
+            case 500 -> {
                 errorMsg = "Ocurrio un error interno del servidor";
             }
         }
-        
+
         errorPage.addObject("codigo", httpErrorCode);
         errorPage.addObject("mensaje", errorMsg);
         return errorPage;
-        
+
     }
-    
-    private int getErrorCode(HttpServletRequest httpRequest){
-        return(Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
+
+    private int getErrorCode(HttpServletRequest httpRequest) {
+        return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
-    
-    public String getErrorPath(){
+
+    public String getErrorPath() {
         return "/error.html";
     }
-    
+
 }
-
-

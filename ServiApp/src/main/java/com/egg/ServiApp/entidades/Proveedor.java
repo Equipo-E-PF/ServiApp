@@ -22,7 +22,6 @@ public class Proveedor extends Usuario implements Serializable {
     @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 
-
     public Proveedor() {
     }
 

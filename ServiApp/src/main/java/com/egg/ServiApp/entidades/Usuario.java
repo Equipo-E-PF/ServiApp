@@ -116,6 +116,7 @@ public class Usuario {
 
         return proveedor;
     }
+
     public Proveedor getProveedor() {
         return proveedor;
     }

@@ -12,7 +12,6 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author Ale y Choy
  */
-
 @Entity
 public class Imagen {
 
