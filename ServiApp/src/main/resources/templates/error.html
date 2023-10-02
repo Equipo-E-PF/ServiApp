@@ -14,8 +14,11 @@
                             <h1 class="text-gray-800 font-bold text-2xl">
                                 Ups! Vaya, parece que hemos encontrado un error!
                             </h1>
+                        
                             <p class="my-2 text-gray-800">No hemos podido cargar la pagina. Te recomendamos que vuelvas al inicio y verifiques la direccion.</p>
-                            <button class="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">Volver al inicio</button>
+                            <a th:href="@{/}">
+                                <button class="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">Volver al inicio</button>
+                            </a>
                     </div>
                 </div>
             </div>

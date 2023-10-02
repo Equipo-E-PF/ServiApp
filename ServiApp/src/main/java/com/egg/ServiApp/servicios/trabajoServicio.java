@@ -123,6 +123,10 @@ public class trabajoServicio {
     public List<Trabajo> listarTrabajosCompletados() {
         return tr.findByEstado(Estado.FINALIZADO);
     }
+    
+    public List<Usuario> usuariosPorProveedorEstado(String id, Estado estado) {
+        return tr.usuariosPorProveedorEstado(id, estado);
+    }
 
     //Asociar Calificación 
     @Transactional
