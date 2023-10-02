@@ -37,7 +37,7 @@ public class UsuarioControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private calificacionServicio calificacionServicio;
-  @Autowired
+    @Autowired
     private especialidadServicio especialidadServicio;
     @GetMapping("/perfil")
 
@@ -90,20 +90,16 @@ public class UsuarioControlador {
     
     @PostMapping("/modificarContrasenia/{id}")
     public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException{
-        System.out.println(oldPassword + " " + password1 + " " + password2);
         try{
             usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
             model.put("exito", "Se modificó correctamente la contraseña");
-            System.out.println("Éxito");
             return "redirect:../perfil";
         }catch (miException ex) {
             model.put("error", ex.getMessage());
-            System.out.println("Error: " + ex.getMessage());
             return "redirect:../perfil";
         }
     }
     
-
     @GetMapping("/modificarProveedor/{id}")
     public String modificarProveedor(@PathVariable String id, ModelMap model) {
         model.put("provider", usuarioServicio.ProviderById(id));
@@ -123,6 +119,7 @@ public class UsuarioControlador {
             return "modProfileProvider.html";
         }
     }
+    
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {

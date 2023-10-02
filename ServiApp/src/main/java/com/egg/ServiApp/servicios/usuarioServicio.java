@@ -16,8 +16,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -90,8 +94,7 @@ public class usuarioServicio implements UserDetailsService {
         validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
-        Especialidad esp = er.buscarPorNombre(especialidad);
-
+       
         p.setNombre(nombre);
         p.setEmail(email);
         p.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -99,7 +102,7 @@ public class usuarioServicio implements UserDetailsService {
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
-        p.setEspecialidad(esp);
+        p.setEspecialidad(er.buscarPorNombre(especialidad));
 
         ur.save(p);
     }
@@ -112,46 +115,45 @@ public class usuarioServicio implements UserDetailsService {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setTelefono(telefono);
-            Imagen imagen = null;
-            String idImagen = null;
-
-            if (usuario.getImagen() != null) {
-                idImagen = usuario.getImagen().getId();
-                imagen = is.actualizar(archivo, idImagen);
-            } else {
-                imagen = is.guardar(archivo);
-
-            }
-
-            usuario.setImagen(imagen);
+//            Imagen imagen = null;
+//            String idImagen = null;
+//
+//            if (usuario.getImagen() != null) {
+//                idImagen = usuario.getImagen().getId();
+//                imagen = is.actualizar(archivo, idImagen);
+//            } else {
+//                imagen = is.guardar(archivo);
+//
+//            }
+//
+//            usuario.setImagen(imagen);
             ur.save(usuario);
         }
     }
 
     @Transactional
     public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
-
+        System.out.println(idEsp);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(id);
             p.setNombre(nombre);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
-            Especialidad especialidad = er.getById(idEsp);
-            p.setEspecialidad(especialidad);
-
-            Imagen imagen = null;
-            String idImagen = null;
-
-            if (p.getImagen() != null) {
-                idImagen = p.getImagen().getId();
-                imagen = is.actualizar(archivo, idImagen);
-            } else {
-                imagen = is.guardar(archivo);
-
-            }
-
-            p.setImagen(imagen);
+            p.setEspecialidad(er.getById(idEsp));
+//
+//            Imagen imagen = null;
+//            String idImagen = null;
+//
+//            if (p.getImagen() != null) {
+//                idImagen = p.getImagen().getId();
+//                imagen = is.actualizar(archivo, idImagen);
+//            } else {
+//                imagen = is.guardar(archivo);
+//
+//            }
+//
+//            p.setImagen(imagen);
             ur.save(p);
 
         }
@@ -182,7 +184,6 @@ public class usuarioServicio implements UserDetailsService {
                 } else {
                     throw new miException("La contraseña ingresada no coincide con la anterior"); 
                 }
-            
         }
     }
 
