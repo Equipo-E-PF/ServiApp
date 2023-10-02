@@ -1,13 +1,18 @@
 package com.egg.ServiApp.controladores;
 
+
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
+import com.egg.ServiApp.entidades.Trabajo;
+import com.egg.ServiApp.enumeraciones.Estado;
+
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,7 +42,7 @@ public class UsuarioControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private calificacionServicio calificacionServicio;
-  @Autowired
+    @Autowired
     private especialidadServicio especialidadServicio;
     @GetMapping("/perfil")
 
@@ -90,20 +95,16 @@ public class UsuarioControlador {
     
     @PostMapping("/modificarContrasenia/{id}")
     public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException{
-        System.out.println(oldPassword + " " + password1 + " " + password2);
         try{
             usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
             model.put("exito", "Se modificó correctamente la contraseña");
-            System.out.println("Éxito");
             return "redirect:../perfil";
         }catch (miException ex) {
             model.put("error", ex.getMessage());
-            System.out.println("Error: " + ex.getMessage());
             return "redirect:../perfil";
         }
     }
     
-
     @GetMapping("/modificarProveedor/{id}")
     public String modificarProveedor(@PathVariable String id, ModelMap model) {
         model.put("provider", usuarioServicio.ProviderById(id));
@@ -123,6 +124,7 @@ public class UsuarioControlador {
             return "modProfileProvider.html";
         }
     }
+    
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
@@ -153,11 +155,32 @@ public class UsuarioControlador {
         return "redirect:/";
     }
     
+
     @GetMapping("/bajaUsuario/{id}")
     public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
         usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
         redirectAttributes.addFlashAttribute("exito", "Baja éxitosa");
         return "/logout";
+    }
+
+    @GetMapping("/contrataciones/{id}")
+    public String experiencias(@PathVariable String id, ModelMap model) {
+        
+        // Lista de usuarios con trabajo creado en estado Pendiente con x proveedor
+        List<Usuario> listaUsuariosPen = trabajoServicio.usuariosPorProveedorEstado(id, Estado.PENDIENTE);
+        model.addAttribute("usuariosPendientes", listaUsuariosPen);
+        
+        // Lista de usuarios con trabajo terminado en estado Completo con x proveedor
+        List<Usuario> listaUsuariosCom = trabajoServicio.usuariosPorProveedorEstado(id, Estado.FINALIZADO);
+        model.addAttribute("usuariosCompleto", listaUsuariosCom);
+        
+        // Lista de trabajos
+        
+        List<Trabajo> trabajo = trabajoServicio.listarTrabajoPorProveedor(id);
+        model.addAttribute("trabajo", trabajo);
+
+        return "contrataciones.html";
+
     }
 
 }
