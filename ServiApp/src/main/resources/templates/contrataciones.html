@@ -25,14 +25,14 @@
                             </thead>
                             <tbody class="text-gray-700">
                                 <tr th:each="item : ${usuariosPendientes}">
-                                    <td th:text="${item.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                    <td th:text="${item.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                    <td th:text="${item.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                                    <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                    <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                    <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
                                     <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
                                     <td class="text-left py-2 px-4">
                                         <div class="flex-row">
                                             <div class="flex flex-col">
-                                                <div class="w-auto flex flex-row">
+                                                <div th:action="@{/usuario/contrataciones/aceptar/__${item.id}__}" class="w-auto flex flex-row">
                                                     <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                         <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                         Aceptar
@@ -60,6 +60,7 @@
                 </div>
                 
                 <div class="w-full mt-6">
+                <div class="w-full mt-6">
                 <p class="text-xl pb-3 flex items-center">
                     <i class="fas fa-list mr-3"></i> En Curso
                 </p>
@@ -75,10 +76,10 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                            <tr th:each="item : ${usuariosPendientes}">
-                                <td th:text="${item.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                <td th:text="${item.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                <td th:text="${item.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                            <tr th:each="item : ${usuariosAceptados}">
+                                <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
                                 <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
                                 <td class="text-left py-2 px-4">
                                     <div class="flex-row">
@@ -121,9 +122,9 @@
                             </thead>
                             <tbody>
                                 <tr th:each="item : ${usuariosCompleto}" class="hover:bg-grey-lighter">
-                                    <td th:text="${item.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                    <td th:text="${item.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                    <td th:text="${item.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
+                                    <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                    <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                    <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
                                     <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
                                     <td class="text-left py-2 px-4">
                                         <div class="flex flex-row" style="display: flex; align-items: center;">
