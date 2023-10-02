@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns: sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="/fragments/head :: head"> </head>
+
+    <body class="m-o p-o h-screen flex flex-col degradado h-screen overflow-y-auto">
+        <header class="navcolor">
+            <nav th:replace="/fragments/navbar :: nav">  </nav>
+        </header>
+
+        <main class="mx-auto  w-full flex max-w-7xl p-6 lg:px-8  flex-grow grid grid-flow-row-2 m-y-4 gap-4 " >
+            
+            <section>
+                <p class="text-lg font-sans leading-6 textcolor gap-x-1">Resultados de la Busqueda:</p><br>
+                <div class="caracteristicas ">
+                    <div class="w-full interior-caracteristicas grid  grid-cols-3 m-y-4 gap-4  ">
+                        <div class="box w-full gap-x-1 w-full lg:w-100 p-2 border rounded-md drop-shadow-md " th:each="item: ${listSearch}">
+                            <h4 class="font-sans " th:text="${item.nombre}"></h4>
+                            <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden"></p>
+                            <ul class="estrellas" ></ul>
+                            <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
+                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession == null}" th:href="@{/login}">Conoce más de este proveedor</a>
+                            <a class="underline text-blue-500 text-xs" th:if="${session.usersession != null}" th:href="@{/usuario/perfilOtro/__${item.id}__}">Conoce más de este proveedor</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer th:replace="/fragments/footer :: footer">  </footer>
+        <script  src="/index.js"></script>
+    </body>
+</html>

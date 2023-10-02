@@ -16,8 +16,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -46,7 +50,7 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio is;
-    
+
     @Autowired
     private trabajoRepositorio tr;
 
@@ -90,8 +94,7 @@ public class usuarioServicio implements UserDetailsService {
         validarP(nombre, email, password, password2, telefono, costoHora);
 
         Proveedor p = new Proveedor();
-        Especialidad esp = er.buscarPorNombre(especialidad);
-
+       
         p.setNombre(nombre);
         p.setEmail(email);
         p.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -99,7 +102,7 @@ public class usuarioServicio implements UserDetailsService {
         p.setBaja(false);
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
-        p.setEspecialidad(esp);
+        p.setEspecialidad(er.buscarPorNombre(especialidad));
 
         ur.save(p);
     }
@@ -112,50 +115,76 @@ public class usuarioServicio implements UserDetailsService {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setTelefono(telefono);
-            Imagen imagen = null;
-            String idImagen = null;
-
-            if (usuario.getImagen() != null) {
-                idImagen = usuario.getImagen().getId();
-                imagen = is.actualizar(archivo, idImagen);
-            } else {
-                imagen = is.guardar(archivo);
-
-            }
-
-            usuario.setImagen(imagen);
+//            Imagen imagen = null;
+//            String idImagen = null;
+//
+//            if (usuario.getImagen() != null) {
+//                idImagen = usuario.getImagen().getId();
+//                imagen = is.actualizar(archivo, idImagen);
+//            } else {
+//                imagen = is.guardar(archivo);
+//
+//            }
+//
+//            usuario.setImagen(imagen);
             ur.save(usuario);
         }
     }
 
     @Transactional
     public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
-
+        System.out.println(idEsp);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Proveedor p = ur.proveedorPorId(id);
             p.setNombre(nombre);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
-            Especialidad especialidad = er.getById(idEsp);
-            p.setEspecialidad(especialidad);
-
-            Imagen imagen = null;
-            String idImagen = null;
-
-            if (p.getImagen() != null) {
-                idImagen = p.getImagen().getId();
-                imagen = is.actualizar(archivo, idImagen);
-            } else {
-                imagen = is.guardar(archivo);
-
-            }
-
-            p.setImagen(imagen);
+            p.setEspecialidad(er.getById(idEsp));
+//
+//            Imagen imagen = null;
+//            String idImagen = null;
+//
+//            if (p.getImagen() != null) {
+//                idImagen = p.getImagen().getId();
+//                imagen = is.actualizar(archivo, idImagen);
+//            } else {
+//                imagen = is.guardar(archivo);
+//
+//            }
+//
+//            p.setImagen(imagen);
             ur.save(p);
 
         }
 
+    }
+    
+    @Transactional
+    public void modificarContrasenia(String id, String oldPassword, String password1, String password2) throws miException{
+        if (password1 == null || password1.isEmpty() || password1.length() <= 5) {
+            throw new miException("El password no puede ser nulo y debe ser mayor que 5 digitos");
+        }
+        if (!password1.equals(password2)) {
+            throw new miException("Las contraseñas deben coincidir");
+        }
+        Optional<Usuario> respuesta = ur.findById(id);
+        Usuario user = new Usuario();
+        if (respuesta.isPresent()) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if(respuesta.get().getRol()==Rol.PROVEEDOR){
+                user = ur.proveedorPorId(id);
+            }else{
+                user = ur.usuarioPorId(id);
+            }
+            String dbPassword = user.getPassword();
+                if (passwordEncoder.matches(oldPassword, dbPassword)) {
+                    user.setPassword(passwordEncoder.encode(password1));
+                    ur.save(user);
+                } else {
+                    throw new miException("La contraseña ingresada no coincide con la anterior"); 
+                }
+        }
     }
 
     @Transactional
@@ -166,12 +195,12 @@ public class usuarioServicio implements UserDetailsService {
             if (p.getPuntuacion() == 0) {
                 p.setPuntuacion(calificacion);
             } else {
-                List<Trabajo>listaTrabajos=tr.listarPorProveedor(id);
-                int trabajos=listaTrabajos.size();
+                List<Trabajo> listaTrabajos = tr.listarPorProveedor(id);
+                int trabajos = listaTrabajos.size();
                 double nuevaCalificacion = Math.round((p.getPuntuacion() + calificacion) / trabajos);
                 p.setPuntuacion(nuevaCalificacion);
             }
-            
+
             ur.save(p);
 
         }
@@ -323,6 +352,12 @@ public class usuarioServicio implements UserDetailsService {
 
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
+    }
+    
+    public List<Proveedor> proveedorSearch(String search) {
+        List<Proveedor> resultados = ur.searchByEspecialidad(search);
+        resultados.addAll(ur.searchByNombre(search));
+        return resultados;
     }
 
     public Usuario getOne(String id) {

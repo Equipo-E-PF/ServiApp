@@ -23,18 +23,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <tbody>
                     <tr th:each="item : ${especialidades}" class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                         <td th:text="${item.id}" class="whitespace-nowrap px-6 py-4"></td>
-                        <td th:text="${item.nombre}" class="whitespace-nowrap px-6 py-4"></td>
-                        <td class="whitespace-nowrap px-6 py-4 d-flex flex-auto gap-4">
-                            <a class="flex justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" th:href="@{/editarServicio/{id}(id=${item.id})}">Editar</a>
-                            <a class="flex justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" th:href="@{/eliminarServicio/{id}(id=${item.id})}">Eliminar</a>
+                        <td>
+                            <form th:action="@{/admin/editarEspecialidad/{id}(id=${item.id})}" method="post">
+                                <input type="hidden" name="id" th:value="${item.id}" />
+                                <input type="text" name="nombre" th:value="${item.nombre}" />
+                                <button type="submit" > <i class="fa-solid fa-pen-to-square"></i>Modificar</button>
+                            </form>
                         </td>
+                        <td>
+                            <form th:action="@{/admin/eliminarEspecialidad/{id}(id=${item.id})}" method="post">
+                                <input type="hidden" name="id" th:value="${item.id}" />
+                                <button type="submit"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                            </form>
                     </tr>
                 </tbody>
             </table>
-            <a class="flex w-25 mx-auto justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 my-4" th:href="@{/nuevoServicio}">Nuevo Servicio</a>
+            <a class="flex w-25 mx-auto justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 my-4" th:href="@{/admin/nuevaEspecialidad}">Nueva Especialidad</a>
         </div>
         <footer th:replace="/fragments/footer :: footer">  </footer>
 
         <script  src="/index.js"></script>
+
     </body>
 </html>

@@ -1,6 +1,8 @@
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
+import java.io.IOException;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,18 +22,20 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     protected String id;
-
     protected String nombre;
     protected String email;
     protected String Password;
     protected Long telefono;
     protected boolean baja;
-    
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+
     protected Imagen imagen;
 
     @Enumerated(EnumType.STRING)
     protected Rol rol;
+    
+    //protected String rutaImagen = "user.png";
 
     public Usuario() {
     }
@@ -93,14 +97,22 @@ public class Usuario {
     }
 
     public Imagen getImagen() {
+        if (this.imagen == null) {
+            try {
+            byte[] bytesImagen = Imagen.perfilPredeterminado("profileImage.png");
+            Imagen imagenPredeterminada = new Imagen();
+            imagenPredeterminada.setContenido(bytesImagen);
+            return imagenPredeterminada;
+        } catch (IOException e) {
+        }        }
         return imagen;
     }
 
     public void setImagen(Imagen imagen) {
+       
         this.imagen = imagen;
     }
 
-   
     public Proveedor convertirEnProveedor() {
         Proveedor proveedor = new Proveedor();
         proveedor.setNombre(this.getNombre());

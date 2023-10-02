@@ -66,6 +66,10 @@ public class trabajoServicio {
     public List<Trabajo> listarTrabajos() {
         return tr.findAll();
     }
+    
+    public List<Trabajo> listarTrabajoPorProveedor(String id){
+        return tr.listarPorProveedor(id);
+    }
 
     public Trabajo getTrabajo(String id) {
         return tr.findById(id).orElse(null);
@@ -118,6 +122,10 @@ public class trabajoServicio {
 
     public List<Trabajo> listarTrabajosCompletados() {
         return tr.findByEstado(Estado.FINALIZADO);
+    }
+    
+    public List<Usuario> usuariosPorProveedorEstado(String id, Estado estado) {
+        return tr.usuariosPorProveedorEstado(id, estado);
     }
 
     //Asociar Calificación 

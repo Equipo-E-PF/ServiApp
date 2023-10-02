@@ -14,17 +14,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServiAppApplication {
 
-//    @Autowired
-//    private usuarioServicio us;
-//    
-//    @Autowired
-//    private especialidadServicio es;
-//    
-//    @Autowired
-//    private calificacionServicio cs;
-//    
-//    @Autowired
-//    private trabajoServicio ts;
+    @Autowired
+    private usuarioServicio us;
+    
+    @Autowired
+    private especialidadServicio es;
+    
+    @Autowired
+    private calificacionServicio cs;
+    
+    @Autowired
+    private trabajoServicio ts;
 
     public static void main(String[] args) throws miException {
         SpringApplication.run(ServiAppApplication.class, args);
@@ -80,7 +80,6 @@ public class ServiAppApplication {
 //        } catch (miException e) {
 //            e.getStackTrace();
 //        }
-//
 //    }
 
 }
