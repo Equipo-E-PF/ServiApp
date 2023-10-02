@@ -1,13 +1,17 @@
 package com.egg.ServiApp.controladores;
 
+
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
+import com.egg.ServiApp.entidades.Trabajo;
+
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -150,11 +154,28 @@ public class UsuarioControlador {
         return "redirect:/";
     }
     
+
     @GetMapping("/bajaUsuario/{id}")
     public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
         usuarioServicio.bajaUsuario(usuarioServicio.UserById(id));
         redirectAttributes.addFlashAttribute("exito", "Baja éxitosa");
         return "/logout";
+    }
+
+    @GetMapping("/contrataciones")
+    public String experiencias(ModelMap model) {
+
+        List<Trabajo> trabajos = trabajoServicio.listarTrabajos();
+        Collections.sort(trabajos, (trabajo1, trabajo2) ->
+                Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
+
+        int limite = Math.min(9, trabajos.size());
+        List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
+
+        model.addAttribute("trabajos", trabajosTop9);
+
+        return "contrataciones.html";
+
     }
 
 }
