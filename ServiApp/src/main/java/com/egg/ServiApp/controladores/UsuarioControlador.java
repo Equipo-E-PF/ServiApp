@@ -1,8 +1,10 @@
 package com.egg.ServiApp.controladores;
 
+import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.calificacionServicio;
+import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
@@ -35,7 +37,8 @@ public class UsuarioControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private calificacionServicio calificacionServicio;
-
+  @Autowired
+    private especialidadServicio especialidadServicio;
     @GetMapping("/perfil")
 
     public String cargarPerfil() {
@@ -67,7 +70,44 @@ public class UsuarioControlador {
         return "profileUser.html";
 
     }
+@GetMapping("/modificarUsuario/{id}")
+    public String modificarUsuario(@PathVariable String id, ModelMap model) {
+        model.put("user", usuarioServicio.UserById(id));
 
+        return "modProfileUser.html";
+    }
+    
+    @PostMapping("/modificarUsuario/{id}")
+    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
+        try {
+            usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
+            return "redirect:../perfil";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modProfileUser.html";
+        }
+    }
+    
+
+    @GetMapping("/modificarProveedor/{id}")
+    public String modificarProveedor(@PathVariable String id, ModelMap model) {
+        model.put("provider", usuarioServicio.ProviderById(id));
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
+
+        return "modProfileProvider.html";
+    }
+
+    @PostMapping("/modificarProveedor/{id}")
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+        try {
+            usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
+            return "redirect:../perfil";
+        } catch (miException ex) {
+            model.put("error", ex.getMessage());
+            return "modProfileProvider.html";
+        }
+    }
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {

@@ -1,4 +1,14 @@
-
+const btnPass = document.getElementById("contraseña");
+const changePass = document.getElementById("changePass");
+const formularioPerfil = document.getElementById("formularioPerfil");
+if (btnPass !== null) {
+    btnPass.addEventListener('click', (event) => {
+        
+        changePass.classList.toggle('hidden');
+        formularioPerfil.classList.toggle('hidden');
+        
+    });
+}
 const btn = document.getElementById("servicios");
 const menu = document.getElementById("menu");
 
@@ -94,6 +104,7 @@ if (btnPerfil !== null) {
         event.stopPropagation();
     });
 }
+
 const fotoPerfil = document.getElementById("fotoPerfil");
 const opcionesFoto = document.getElementById("opcionesFoto");
 const opcionesAbrir = document.getElementById("opcionesAbrir");
@@ -284,3 +295,6 @@ if (aviso !== null) {
  }
  
  rol.addEventListener('click', mostrar);*/
+                        
+                        // JavaScript para enviar la solicitud AJAX
+
