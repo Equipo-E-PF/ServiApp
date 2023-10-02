@@ -5,6 +5,7 @@ import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.entidades.Trabajo;
+import com.egg.ServiApp.enumeraciones.Estado;
 
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
@@ -162,17 +163,21 @@ public class UsuarioControlador {
         return "/logout";
     }
 
-    @GetMapping("/contrataciones")
-    public String experiencias(ModelMap model) {
-
-        List<Trabajo> trabajos = trabajoServicio.listarTrabajos();
-        Collections.sort(trabajos, (trabajo1, trabajo2) ->
-                Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
-
-        int limite = Math.min(9, trabajos.size());
-        List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
-
-        model.addAttribute("trabajos", trabajosTop9);
+    @GetMapping("/contrataciones/{id}")
+    public String experiencias(@PathVariable String id, ModelMap model) {
+        
+        // Lista de usuarios con trabajo creado en estado Pendiente con x proveedor
+        List<Usuario> listaUsuariosPen = trabajoServicio.usuariosPorProveedorEstado(id, Estado.PENDIENTE);
+        model.addAttribute("usuariosPendientes", listaUsuariosPen);
+        
+        // Lista de usuarios con trabajo terminado en estado Completo con x proveedor
+        List<Usuario> listaUsuariosCom = trabajoServicio.usuariosPorProveedorEstado(id, Estado.FINALIZADO);
+        model.addAttribute("usuariosCompleto", listaUsuariosCom);
+        
+        // Lista de trabajos
+        
+        List<Trabajo> trabajo = trabajoServicio.listarTrabajoPorProveedor(id);
+        model.addAttribute("trabajo", trabajo);
 
         return "contrataciones.html";
 
