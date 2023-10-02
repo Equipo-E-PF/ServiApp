@@ -181,7 +181,7 @@
             <div th:if="${session.usersession.imagen != null}">
                 <a href="#"  class="flex items-center gap-1" >
                     <img class="w-8 h-8 bg-gray-100 rounded-full" th:src="@{/imagen/perfil/__${session.usersession.id}__}" >
-                        <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.nombre}"></p>
+                        <p class="text-base font-sans leading-6 textcolor flex items-center gap-1" th:text="${session.usersession.email}"></p>
                 </a>
             </div>
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -198,7 +198,7 @@
                     </div>
                     <div class="flex-auto">
 
-                        <a th:href="@{/usuario/perfil}" class="block font-sans textcolor">
+                        <a th:href="@{/usuario/perfil/__${session.usersession.id}__}" class="block font-sans textcolor">
 
                             <p class="text-base">Ver perfil</p> 
 

@@ -39,9 +39,10 @@ public class UsuarioControlador {
     private calificacionServicio calificacionServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-    @GetMapping("/perfil")
-
-    public String cargarPerfil() {
+    
+    @GetMapping("/perfil/{id}")
+    public String cargarPerfil(@PathVariable String id, ModelMap modelo) {
+        modelo.put("user", usuarioServicio.ProviderById(id));
         return "profileUser.html";
     }
 
@@ -81,7 +82,7 @@ public class UsuarioControlador {
     public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
         try {
             usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
-            return "redirect:../perfil";
+            return "redirect:../perfil/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileUser.html";
@@ -93,7 +94,7 @@ public class UsuarioControlador {
         try{
             usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
             model.put("exito", "Se modificó correctamente la contraseña");
-            return "redirect:../perfil";
+            return "redirect:../perfil/{id}";
         }catch (miException ex) {
             model.put("error", ex.getMessage());
             return "redirect:../perfil";
@@ -113,7 +114,7 @@ public class UsuarioControlador {
     public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
         try {
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
-            return "redirect:../perfil";
+            return "redirect:../perfil/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileProvider.html";
