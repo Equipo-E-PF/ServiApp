@@ -1,14 +1,19 @@
+//cambiar contraseña desde el perfil
+
 const btnPass = document.getElementById("contraseña");
 const changePass = document.getElementById("changePass");
 const formularioPerfil = document.getElementById("formularioPerfil");
+
 if (btnPass !== null) {
     btnPass.addEventListener('click', (event) => {
-        
+
         changePass.classList.toggle('hidden');
         formularioPerfil.classList.toggle('hidden');
-        
+
     });
 }
+
+
 const btn = document.getElementById("servicios");
 const menu = document.getElementById("menu");
 
@@ -21,6 +26,10 @@ const menuGest = document.getElementById("menuGest");
 function ocultarMenus() {
     menu.classList.add('hidden');
     menuReg.classList.add('hidden');
+}
+
+function ocultarMenusUsuario() {
+    menu.classList.add('hidden');
     menuGest.classList.add('hidden');
 }
 
@@ -60,21 +69,31 @@ if (btn !== null && btnReg !== null) {
 if (btnGest !== null && btn !== null) {
     btn.addEventListener('click', (event) => {
         event.stopPropagation();
-        menuGest.classList.toggle('hidden');
+        menuGest.classList.add('hidden');
         menu.classList.toggle('hidden');
+        menuPerfil.classList.add('hidden');
     });
 
     btnGest.addEventListener('click', (event) => {
         event.stopPropagation();
         menuGest.classList.toggle('hidden');
-        menu.classList.toggle('hidden');
+        menu.classList.add('hidden');
+        menuPerfil.classList.add('hidden');
+    });
+
+    btnPerfil.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menuPerfil.classList.toggle('hidden');
+        menuGest.classList.add('hidden');
+        menu.classList.add('hidden');
     });
 
     document.addEventListener('click', (event) => {
         if (!menu.contains(event.target) && event.target !== btn && !menuGest.contains(event.target) && event.target !== btnGest) {
-            ocultarMenus();
+            ocultarMenusUsuario();
         }
     });
+
     if (menuGest !== null) {
         menuGest.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -86,8 +105,13 @@ if (btnGest !== null && btn !== null) {
     }
 
 }
+
+
+
 const btnPerfil = document.getElementById("btnPerfil");
 const menuPerfil = document.getElementById("menuPerfil");
+
+
 if (btnPerfil !== null) {
     btnPerfil.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -110,7 +134,7 @@ const opcionesFoto = document.getElementById("opcionesFoto");
 const opcionesAbrir = document.getElementById("opcionesAbrir");
 const opcionesFormulario = document.getElementById("opcionesFormulario");
 const iconoCamara = document.getElementById("iconoCamara");
-if (fotoPerfil !== null && opcionesFoto!==null) {
+if (fotoPerfil !== null && opcionesFoto !== null) {
     fotoPerfil.addEventListener('click', () => {
 
         opcionesFoto.classList.toggle('hidden');
@@ -140,7 +164,7 @@ if (fotoPerfil !== null && opcionesFoto!==null) {
 }
 
 const listEstrellas = document.querySelectorAll(".estrellas");
-const estrellasPerfil=document.getElementById("estrellasPerfil");
+const estrellasPerfil = document.getElementById("estrellasPerfil");
 console.log(estrellasPerfil);
 
 listEstrellas.forEach(estrellitas => {
@@ -148,107 +172,107 @@ listEstrellas.forEach(estrellitas => {
     const puntuacion = estrellitas.previousElementSibling;
 
     const numero = parseInt(puntuacion.textContent);
-console.log(numero)
+    console.log(numero)
     const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
 
-    
+
     hacerEstrellas(numero, ul);
     estrellitas.appendChild(ul);
 });
-if (estrellasPerfil!==null) {
+if (estrellasPerfil !== null) {
     console.log("Script ejecutado");
     estrellasPerfilMetodo();
 }
 
 
 
-function estrellasPerfilMetodo(){
+function estrellasPerfilMetodo() {
     const puntuacion = document.getElementById("puntuacion");
     const numero = parseInt(puntuacion.textContent);
     const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
 
-    
+
     hacerEstrellas(numero, ul);
     estrellasPerfil.appendChild(ul);
 }
 function estrellas(star) {
-        star.classList.add("fas");
-        star.classList.add("fa-star");
+    star.classList.add("fas");
+    star.classList.add("fa-star");
+}
+function amarillo(star) {
+    star.classList.add("text-yellow-500");
+}
+function gris(star) {
+    star.classList.add("text-gray-300");
+}
+function hacerEstrellas(numero, ul) {
+    switch (numero) {
+        case 5:
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                amarillo(star);
+                ul.append(star);
+            }
+            break;
+        case 4:
+            for (let i = 1; i <= 4; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                amarillo(star);
+                ul.append(star);
+            }
+            const star2 = document.createElement("li");
+            estrellas(star2);
+            gris(star2);
+            ul.append(star2);
+            break;
+        case 3:
+            for (let i = 1; i <= 3; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                amarillo(star);
+                ul.append(star);
+            }
+            for (let i = 1; i <= 2; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                gris(star);
+                ul.append(star);
+            }
+            break;
+        case 2:
+            for (let i = 1; i <= 2; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                amarillo(star);
+                ul.append(star);
+            }
+            for (let i = 1; i <= 3; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                gris(star);
+                ul.append(star);
+            }
+            break;
+        case 1:
+            const star1 = document.createElement("li");
+            estrellas(star1);
+            amarillo(star1);
+            ul.append(star1);
+            for (let i = 1; i <= 4; i++) {
+                const star = document.createElement("li");
+                estrellas(star);
+                gris(star);
+                ul.append(star);
+            }
+            break;
+        default:
+            break;
     }
-    function amarillo(star) {
-        star.classList.add("text-yellow-500");
-    }
-    function gris(star) {
-        star.classList.add("text-gray-300");
-    }
-    function hacerEstrellas(numero, ul) {
-        switch (numero) {
-            case 5:
-                for (let i = 1; i <= 5; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    amarillo(star);
-                    ul.append(star);
-                }
-                break;
-            case 4:
-                for (let i = 1; i <= 4; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    amarillo(star);
-                    ul.append(star);
-                }
-                const star2 = document.createElement("li");
-                estrellas(star2);
-                gris(star2);
-                ul.append(star2);
-                break;
-            case 3:
-                for (let i = 1; i <= 3; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    amarillo(star);
-                    ul.append(star);
-                }
-                for (let i = 1; i <= 2; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    gris(star);
-                    ul.append(star);
-                }
-                break;
-            case 2:
-                for (let i = 1; i <= 2; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    amarillo(star);
-                    ul.append(star);
-                }
-                for (let i = 1; i <= 3; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    gris(star);
-                    ul.append(star);
-                }
-                break;
-            case 1:
-                const star1 = document.createElement("li");
-                estrellas(star1);
-                amarillo(star1);
-                ul.append(star1);
-                for (let i = 1; i <= 4; i++) {
-                    const star = document.createElement("li");
-                    estrellas(star);
-                    gris(star);
-                    ul.append(star);
-                }
-                break;
-            default:
-                break;
-        }
-    }
+}
 
 
 const aviso = document.getElementById("avisos");
@@ -258,43 +282,3 @@ if (aviso !== null) {
         aviso.classList.add('hidden');
     });
 }
-
-/*const rol = document.getElementById("nuevoRol");
- const guardar = document.getElementsByClassName("guardar");
- 
- function toggleAdminDropdown() {
- const button = document.getElementById('administrarButton');
- const dropdown = document.getElementById('administrarDropdown');
- if(button!==null){
- button.addEventListener('click', () => {
- dropdown.classList.toggle('hidden');
- });
- 
- // Ocultar el menú cuando se hace clic fuera de él
- document.addEventListener('click', (e) => {
- if (!button.contains(e.target) && !dropdown.contains(e.target)) {
- dropdown.classList.add('hidden');
- }
- });
- }
- }
- 
- // Inicializar el botón Administrar
- toggleAdminDropdown();
- 
- 
- 
- /*const rol = document.getElementById("nuevoRol");
- const guardar = document.getElementsByClassName("guardar");
- 
- function mostrar (){
- for (let i = 0; i < guardar.length; i++) {
- guardar[i].classList.remove('hidden');
- 
- }
- }
- 
- rol.addEventListener('click', mostrar);*/
-                        
-                        // JavaScript para enviar la solicitud AJAX
-
