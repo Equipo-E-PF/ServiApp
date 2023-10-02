@@ -61,4 +61,9 @@ public class especialidadServicio {
         return er.buscarPorNombre(especialidad);
 
     }
+
+    // Método para obtener una especialidad por su ID
+    public Especialidad obtenerEspecialidadPorId(String especialidadId) {
+        return er.findById(especialidadId).orElse(null);
+    }
 }

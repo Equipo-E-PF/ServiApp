@@ -1,6 +1,7 @@
 package com.egg.ServiApp.entidades;
 
 import com.egg.ServiApp.enumeraciones.Rol;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +27,7 @@ public class Usuario {
     protected String Password;
     protected Long telefono;
     protected boolean baja;
-    
+
     @OneToOne
     protected Imagen imagen;
 
@@ -100,17 +101,22 @@ public class Usuario {
         this.imagen = imagen;
     }
 
-   
-    public Proveedor convertirEnProveedor() {
+    public static Proveedor convertirEnProveedor(Usuario usuario, double puntuacion, double costoHora, Especialidad especialidad) {
         Proveedor proveedor = new Proveedor();
-        proveedor.setNombre(this.getNombre());
-        proveedor.setEmail(this.getEmail());
-        proveedor.setPassword(this.getPassword());
-        proveedor.setTelefono(this.getTelefono());
-        proveedor.setBaja(this.isBaja());
+        proveedor.setNombre(usuario.getNombre());
+        proveedor.setEmail(usuario.getEmail());
+        proveedor.setPassword(usuario.getPassword());
+        proveedor.setTelefono(usuario.getTelefono());
         proveedor.setRol(Rol.PROVEEDOR);
-        proveedor.setImagen(this.imagen);
+        proveedor.setImagen(usuario.getImagen());
+        proveedor.setBaja(false);
+        proveedor.setPuntuacion(puntuacion);
+        proveedor.setCostoHora(costoHora);
+        proveedor.setEspecialidad(especialidad);
+
         return proveedor;
     }
-
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
 }

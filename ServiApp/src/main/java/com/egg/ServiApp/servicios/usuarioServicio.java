@@ -16,8 +16,10 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ public class usuarioServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio is;
-    
+
     @Autowired
     private trabajoRepositorio tr;
 
@@ -166,28 +168,27 @@ public class usuarioServicio implements UserDetailsService {
             if (p.getPuntuacion() == 0) {
                 p.setPuntuacion(calificacion);
             } else {
-                List<Trabajo>listaTrabajos=tr.listarPorProveedor(id);
-                int trabajos=listaTrabajos.size();
+                List<Trabajo> listaTrabajos = tr.listarPorProveedor(id);
+                int trabajos = listaTrabajos.size();
                 double nuevaCalificacion = Math.round((p.getPuntuacion() + calificacion) / trabajos);
                 p.setPuntuacion(nuevaCalificacion);
             }
-            
+
             ur.save(p);
 
         }
     }
 
-    @Transactional
-
-    public void usuarioCambioProveedor(Usuario usuario) {
-
-        Proveedor p = usuario.convertirEnProveedor();
-        p.setCostoHora(0);
-        List<Especialidad> especialidades = es.listarEspecialidades();
-        p.setEspecialidad(especialidades.get(0));
-        ur.save(p);
+    public usuarioServicio(usuarioRepositorio usuarioRepositorio) {
+        this.ur = usuarioRepositorio;
     }
 
+    public Usuario obtenerUsuarioPorId(String usuarioId) {
+
+        return ur.findById(usuarioId).orElse(null);
+    }
+
+   
     @Transactional
 
     public void proveedorCambioUsuario(Proveedor proveedor) {
@@ -234,9 +235,13 @@ public class usuarioServicio implements UserDetailsService {
             ur.save(usuario);
 
         }
+        
 
     }
-
+    @Transactional
+    public void guardarProveedor(Proveedor proveedor) {
+        ur.save(proveedor);
+    }
     public List<Usuario> listarUsuarios() {
 
         return ur.listaUsuarios(Rol.USUARIO);
@@ -250,6 +255,20 @@ public class usuarioServicio implements UserDetailsService {
     @Transactional
     public void eliminarUsuarioId(String id) {
         ur.deleteById(id);
+    }
+    
+    @Transactional
+    public Proveedor buscarProveedorPorId(String id) {
+        return ur.proveedorPorId(id);
+    }
+    public Usuario obtenerUsuarioAutenticado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof Usuario) {
+            return (Usuario) authentication.getPrincipal();
+        }
+
+        return null; // No se pudo obtener el usuario autenticado
     }
 
     protected void validar(String nombre, String email, String password, String password2, Long telefono) throws miException {

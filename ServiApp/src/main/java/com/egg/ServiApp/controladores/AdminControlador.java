@@ -41,8 +41,8 @@ public class AdminControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-    
-    
+    @Autowired
+    private UsuarioControlador uc;
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
@@ -56,15 +56,15 @@ public class AdminControlador {
         return "user_list.html";
     }
 
-    @GetMapping("/userToProv/{id}")
-    public String userToProv(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        
-        usuarioServicio.usuarioCambioProveedor(usuarioServicio.UserById(id));
-        usuarioServicio.eliminarUsuarioId(id);
-        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
-        return "redirect:../usuarios";
-    }
-    
+//    @GetMapping("/userToProv/{id}")
+//    public String userToProv(@PathVariable String id, RedirectAttributes redirectAttributes) {
+//        
+//        uc.convertirEnProveedor(uc.UserById( id ));
+//        usuarioServicio.eliminarUsuarioId(id);
+//        redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
+//        return "redirect:../usuarios";
+//    }
+//    
     @GetMapping("/provToUser/{id}")
     public String provToUser(@PathVariable String id, RedirectAttributes redirectAttributes) {
         

@@ -18,7 +18,7 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT a FROM Usuario a WHERE a.email = :email")
     public Usuario buscarPorEmail(@Param("email") String email);
-     
+
     @Query("SELECT a FROM Usuario a WHERE a.nombre = :nombre")
     public Usuario buscarPorNombre(@Param("nombre") String nombre);
 
@@ -33,7 +33,7 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT u FROM Usuario u WHERE u.rol= :USUARIO AND u.baja= 0")
     public List<Usuario> listaUsuarios(@Param("USUARIO") Rol rolUsuario);
-    
+
     @Query("SELECT u FROM Usuario u WHERE u.rol= :PROVEEDOR AND u.baja= 0")
     public List<Proveedor> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
 }

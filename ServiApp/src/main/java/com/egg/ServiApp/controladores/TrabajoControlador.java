@@ -36,14 +36,14 @@ public class TrabajoControlador {
     public String listarTrabajosPendientes(Model model) {
         List<Trabajo> trabajosPendientes = trabajoServicio.listarTrabajosPendientes();
         model.addAttribute("trabajos", trabajosPendientes);
-        return "listarTrabajos";
+        return "listaTrabajo.html";
     }
 
     @GetMapping("/listarTrabajosAceptados")
     public String listarTrabajosAceptados(Model model) {
         List<Trabajo> trabajosAceptados = trabajoServicio.listarTrabajosAceptados();
         model.addAttribute("trabajos", trabajosAceptados);
-        return "listarTrabajos";
+        return "listTrabajo";
     }
 
     @GetMapping("/listarTrabajosCompletados")

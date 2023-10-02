@@ -1,9 +1,11 @@
 package com.egg.ServiApp.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -19,6 +21,9 @@ public class Especialidad implements Serializable {
     private String id;
 
     private String nombre;
+
+    @OneToMany(mappedBy = "especialidad")
+    private List<Proveedor> proveedor;
 
     public Especialidad() {
     }
@@ -37,6 +42,14 @@ public class Especialidad implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Proveedor> getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(List<Proveedor> proveedor) {
+        this.proveedor = proveedor;
     }
 
 }

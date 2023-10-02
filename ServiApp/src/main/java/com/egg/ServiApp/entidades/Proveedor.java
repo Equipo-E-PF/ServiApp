@@ -3,6 +3,8 @@ package com.egg.ServiApp.entidades;
 import com.egg.ServiApp.enumeraciones.Rol;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -16,7 +18,10 @@ public class Proveedor extends Usuario implements Serializable {
     private double costoHora;
 
     @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
+
 
     public Proveedor() {
     }
@@ -43,6 +48,14 @@ public class Proveedor extends Usuario implements Serializable {
 
     public void setCostoHora(double costoHora) {
         this.costoHora = costoHora;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

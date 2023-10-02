@@ -64,7 +64,7 @@ public class PortalControlador {
             listProveedores.add(p);
             listProveedoresFull.remove(p);
         }
-        
+
         for (Proveedor listProveedore : listProveedores) {
             System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
                     + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
@@ -94,9 +94,14 @@ public class PortalControlador {
     public String buscarEspecialidad(@RequestParam("nombreEspecialidad") String nombre, Model model) {
         Especialidad encontrada = especialidadServicio.buscarPorNombre(nombre);
         List<Especialidad> especialidadesEncontradas = new ArrayList<>();
+
         if (encontrada != null) {
             especialidadesEncontradas.add(encontrada);
+
+            List<Proveedor> proveedores = encontrada.getProveedor();
+            model.addAttribute("usuarios", proveedores);
         }
+
         model.addAttribute("especialidades", especialidadesEncontradas);
         return "listEspecialidad.html";
     }
@@ -155,8 +160,8 @@ public class PortalControlador {
     public String experiencias(ModelMap model) {
 
         List<Trabajo> trabajos = ts.listarTrabajos();
-        Collections.sort(trabajos, (trabajo1, trabajo2) ->
-                Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
+        Collections.sort(trabajos, (trabajo1, trabajo2)
+                -> Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
 
         int limite = Math.min(9, trabajos.size());
         List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
