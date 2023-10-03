@@ -26,6 +26,10 @@ const cerrarAviso = document.getElementById("cerrarAvisos");
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
+const addClassToElements = (elementos) => {
+    elementos.forEach(elemento => elemento?.classList.add("hidden"));
+};
+
 //cambiar contraseña desde el perfil
 
 if (btnPass !== null) {
@@ -38,19 +42,16 @@ if (btnPass !== null) {
 }
 
 function ocultarMenus() {
-    menu.classList.add('hidden');
-    menuReg.classList.add('hidden');
+    addClassToElements([menu, menuReg]);
 }
 
 function ocultarMenusUsuario() {
-    menu.classList.add('hidden');
-    menuGest.classList.add('hidden');
-    menuPerfil.classList.add('hidden');
+    addClassToElements([menu, menuGest, menuPerfil]);
 }
 
 //ocultar menus del inicio
 
-if (btn !== null && btnReg !== null) {
+if (btnReg !== null) {
     btn.addEventListener('click', (event) => {
         event.stopPropagation();
         menu.classList.toggle('hidden');
@@ -81,7 +82,7 @@ if (btn !== null && btnReg !== null) {
 
 //ocultar menus del User
 
-if (btnGest !== null && btn !== null) {
+if (btnGest !== null) {
     btn.addEventListener('click', (event) => {
         event.stopPropagation();
         menu.classList.toggle('hidden');
@@ -95,12 +96,12 @@ if (btnGest !== null && btn !== null) {
         menuGest.classList.toggle('hidden');
         menuPerfil.classList.add('hidden');
     });
-    
+
     btnPerfil.addEventListener('click', (event) => {
         event.stopPropagation();
         menu.classList.add('hidden');
         menuGest.classList.add('hidden');
-        menuPerfil.classList.toggle('hidden');
+        menuPerfil.classList.add('hidden');
     });
 
     document.addEventListener('click', (event) => {
@@ -109,15 +110,19 @@ if (btnGest !== null && btn !== null) {
         }
     });
 
-    if (menuGest !== null) {
+//    if (menuGest !== null) {
         menuGest.addEventListener('click', (event) => {
             event.stopPropagation();
         });
 
-        menu.addEventListener('click', (event) => {
-            event.stopPropagation();
-        });
-    }
+//        menu.addEventListener('click', (event) => {
+//            event.stopPropagation();
+//        });
+//
+//        menuPerfil.addEventListener('click', (event) => {
+//            event.stopPropagation();
+//        });
+//    }
 
 }
 
@@ -168,7 +173,6 @@ if (fotoPerfil !== null && opcionesFoto !== null) {
 
 }
 
-
 listEstrellas.forEach(estrellitas => {
 
     const puntuacion = estrellitas.previousElementSibling;
@@ -181,6 +185,7 @@ listEstrellas.forEach(estrellitas => {
     hacerEstrellas(numero, ul);
     estrellitas.appendChild(ul);
 });
+
 if (estrellasPerfil !== null) {
     estrellasPerfilMetodo();
 }
@@ -195,16 +200,20 @@ function estrellasPerfilMetodo() {
     hacerEstrellas(numero, ul);
     estrellasPerfil.appendChild(ul);
 }
+
 function estrellas(star) {
     star.classList.add("fas");
     star.classList.add("fa-star");
 }
+
 function amarillo(star) {
     star.classList.add("text-yellow-500");
 }
+
 function gris(star) {
     star.classList.add("text-gray-300");
 }
+
 function hacerEstrellas(numero, ul) {
     switch (numero) {
         case 5:
