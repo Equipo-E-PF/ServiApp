@@ -138,6 +138,9 @@ public class PortalControlador {
 
     @GetMapping("/login")
     public String login(ModelMap modelo, HttpSession session) {
+        
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
 
         Usuario logueado = (Usuario) session.getAttribute("usuario");
         modelo.addAttribute("modelousuario", logueado);
@@ -150,8 +153,11 @@ public class PortalControlador {
 
     @GetMapping("/experiencias")
     public String experiencias(ModelMap model) {
+        
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
 
-        List<Trabajo> trabajos = ts.listarTrabajos();
+        List<Trabajo> trabajos = ts.listarTrabajoCalificado();
         Collections.sort(trabajos, (trabajo1, trabajo2) ->
                 Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
 
