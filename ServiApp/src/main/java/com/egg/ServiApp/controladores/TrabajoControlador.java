@@ -2,6 +2,7 @@ package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.servicios.trabajoServicio;
+import excepciones.miException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,12 @@ public class TrabajoControlador {
     @Autowired
     private trabajoServicio trabajoServicio;
 
+    @PostMapping("/crearTrabajo")
+    public String crearTrabajo(String idU, String idP, String descripcion) throws miException {
+        trabajoServicio.crearTrabajo(idU, idP, descripcion);
+        return "/"; //---------------------------------------Revisar esto, tiene que redireccionar a la lista de contrataciones.------------------------------------------------
+    }
+    
     @PostMapping("/aceptarTrabajo/{id}")
     public String aceptarTrabajo(@PathVariable String id) {
         trabajoServicio.aceptarTrabajo(id);
