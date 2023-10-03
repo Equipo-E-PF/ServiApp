@@ -3,6 +3,7 @@ package com.egg.ServiApp.repositorio;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -41,8 +42,8 @@ public interface usuarioRepositorio extends JpaRepository<Usuario, String> {
     public List<Proveedor> listaProveedores(@Param("PROVEEDOR") Rol rolProveedor);
     
     @Query("SELECT p FROM Proveedor p WHERE p.especialidad.nombre LIKE %:search%")
-    public List<Proveedor> searchByEspecialidad(@Param("search") String search);
+    public HashSet<Proveedor> searchByEspecialidad(@Param("search") String search);
     
     @Query("SELECT p FROM Proveedor p WHERE p.nombre LIKE %:search%")
-    public List<Proveedor> searchByNombre(@Param("search") String search);
+    public HashSet<Proveedor> searchByNombre(@Param("search") String search);
 }

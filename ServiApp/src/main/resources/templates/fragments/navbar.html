@@ -12,12 +12,12 @@
                 <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50" th:each="especialidad : ${especialidades}">
                     <div class="flex h-11 w-11 flex-none items-center justify-center">
                         <a th:href="@{/registroProveedor}">
-                            <i class="fa-solid fa-bolt"></i>
+                            <i class="fa-solid fa-briefcase"></i>
                         </a>
                     </div>
                     <div class="flex-auto">
-                        <a href="#" class="block font-sans textcolor">
-                            <p class="text-base" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></p> 
+                        <a th:href="@{/busqueda/__${especialidad.nombre}__}" class="block font-sans textcolor">
+                            <p class="text-base" th:value="${especialidad.nombre}" th:text="${especialidad.nombre}"></p> 
                             <span class="absolute inset-0"></span>
                         </a>
                     </div>
@@ -155,12 +155,12 @@
 
                     <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                         <div class="flex h-11 w-11 flex-none items-center justify-center ">
-                            <a th:href="@{/usuario/contrataciones/__${session.usersession.id}__}">
+                            <a th:href="@{/usuario/contrataciones}">
                                 <i class="fas fa-wrench"></i>
                             </a>
                         </div>
                         <div class="flex-auto">
-                            <a th:href="@{/usuario/contrataciones/__${session.usersession.id}__}" class="block font-sans textcolor">
+                            <a th:href="@{/usuario/contrataciones}" class="block font-sans textcolor">
                                 <p class="text-base">Contrataciones</p> 
                                 <span class="absolute inset-0"></span>
                             </a>
@@ -199,9 +199,19 @@
                             <i class="fa-solid fa-user"></i>
                         </a>
                     </div>
-                    <div class="flex-auto">
+                    <div th:if="${!#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}" class="flex-auto">
 
-                        <a th:href="@{/usuario/perfil/__${session.usersession.id}__}" class="block font-sans textcolor">
+                        <a th:href="@{/usuario/perfilUser/__${session.usersession.id}__}" class="block font-sans textcolor">
+
+                            <p class="text-base">Ver perfil</p> 
+
+                            <span class="absolute inset-0"></span>
+                        </a>
+
+                    </div>
+                    <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}" class="flex-auto">
+
+                        <a th:href="@{/usuario/perfilProvider/__${session.usersession.id}__}" class="block font-sans textcolor">
 
                             <p class="text-base">Ver perfil</p> 
 
