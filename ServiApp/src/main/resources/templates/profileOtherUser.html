@@ -136,16 +136,16 @@
                                                 <p class="mb-4 text-lg leading-relaxed text-gray-800">
                                                     DESCRIPCION DE LOS SERVICIOS QUE PRESTA EL PROVEEDOR PENDIENTE, AGREGAR ATRIBUTO <!-- Falta hacer atributo de la descripcion del servicio -->
                                                 </p>
-                                                <form th:action="@{//}" method="POST">
+                                                <form th:action="@{/trabajos/crearTrabajo}" method="POST">
                                                     <div class="hidden">
-                                                        <div><input type="text" class="form-control" id="" name="usuario" th:value="${session.usersession.id}"></div>
+                                                        <div><input type="text" class="form-control" id="idU" name="idU" th:value="${session.usersession.id}"></div>
                                                     </div>
                                                     <div class="hidden">
-                                                        <div><input type="text" class="form-control" id="" name="proveedor" th:value="${user.id}"></div>
+                                                        <div><input type="text" class="form-control" id="idP" name="idP" th:value="${user.id}"></div>
                                                     </div>
                                                     <div class="">
-                                                        <div><label for="trabajo" class="form-label">¿Que puedo hacer por ti?</label></div>
-                                                        <div><textarea class="" id="" name="trabajo" placeholder="Ingresa la descripción del servicio"></textarea></div>
+                                                        <div><label for="descripcion" class="form-label">¿Que puedo hacer por ti?</label></div>
+                                                        <div><textarea class="" id="descripcion" name="descripcion" placeholder="Ingresa la descripción del servicio"></textarea></div>
                                                     </div>
                                                     <button class="" type="submit">ENVIAR</button>
                                                 </form>

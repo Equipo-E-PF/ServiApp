@@ -10,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author Ale y Choy
  */
 @Controller
+@RequestMapping("/trabajos")
 public class TrabajoControlador {
 
     @Autowired
@@ -23,8 +25,9 @@ public class TrabajoControlador {
 
     @PostMapping("/crearTrabajo")
     public String crearTrabajo(String idU, String idP, String descripcion) throws miException {
+        System.out.println(idU + " " + idP + " " + descripcion);
         trabajoServicio.crearTrabajo(idU, idP, descripcion);
-        return "/"; //---------------------------------------Revisar esto, tiene que redireccionar a la lista de contrataciones.------------------------------------------------
+        return "redirect:/"; //---------------------------------------Revisar esto, tiene que redireccionar a la lista de contrataciones.------------------------------------------------
     }
     
     @PostMapping("/aceptarTrabajo/{id}")
