@@ -95,7 +95,7 @@ if (btnGest !== null && btn !== null) {
         menuGest.classList.toggle('hidden');
         menuPerfil.classList.add('hidden');
     });
-
+    
     btnPerfil.addEventListener('click', (event) => {
         event.stopPropagation();
         menu.classList.add('hidden');

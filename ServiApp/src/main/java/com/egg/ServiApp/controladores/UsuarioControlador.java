@@ -1,8 +1,6 @@
 package com.egg.ServiApp.controladores;
 
-
 import com.egg.ServiApp.entidades.Especialidad;
-import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.enumeraciones.Estado;
@@ -12,10 +10,13 @@ import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
-import java.util.Collections;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,17 +45,16 @@ public class UsuarioControlador {
     private calificacionServicio calificacionServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-    @GetMapping("/perfil")
-
-    public String cargarPerfil() {
+    
+    @GetMapping("/perfil/{id}")
+    public String cargarPerfil(@PathVariable String id, ModelMap modelo) {
+        modelo.put("user", usuarioServicio.ProviderById(id));
         return "profileUser.html";
     }
 
     @GetMapping("/perfilOtro/{id}")
     public String perfilOtro(@PathVariable String id, ModelMap modelo) {
 
-         
-        System.out.println(usuarioServicio.ProviderById(id));
         List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
         modelo.put("trabajos", trabajos);
         modelo.put("user", usuarioServicio.ProviderById(id));
@@ -75,36 +75,39 @@ public class UsuarioControlador {
         return "profileUser.html";
 
     }
+
     @GetMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
         model.put("user", usuarioServicio.UserById(id));
 
         return "modProfileUser.html";
     }
-    
+
     @PostMapping("/modificarUsuario/{id}")
-    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
+    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model) {
         try {
             usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
-            return "redirect:../perfil";
+            return "redirect:../perfil/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileUser.html";
         }
     }
-    
+
     @PostMapping("/modificarContrasenia/{id}")
-    public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException{
-        try{
+    public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException {
+        try {
             usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
             model.put("exito", "Se modificó correctamente la contraseña");
-            return "redirect:../perfil";
+
+            return "redirect:../perfil/{id}";
         }catch (miException ex) {
+
             model.put("error", ex.getMessage());
             return "redirect:../perfil";
         }
     }
-    
+
     @GetMapping("/modificarProveedor/{id}")
     public String modificarProveedor(@PathVariable String id, ModelMap model) {
         model.put("provider", usuarioServicio.ProviderById(id));
@@ -115,16 +118,16 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model) {
         try {
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
-            return "redirect:../perfil";
+            return "redirect:../perfil/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileProvider.html";
         }
     }
-    
+
     // Cambiar el estado del trabajo a "Realizado"
     @GetMapping("/realizarTrabajo")
     public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
@@ -154,7 +157,6 @@ public class UsuarioControlador {
         }
         return "redirect:/";
     }
-    
 
     @GetMapping("/bajaUsuario/{id}")
     public String bajaUsuario(@PathVariable String id, RedirectAttributes redirectAttributes) {
@@ -164,23 +166,35 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/contrataciones/{id}")
-    public String experiencias(@PathVariable String id, ModelMap model) {
+    public String contrataciones(@PathVariable String id, ModelMap model) {
         
-        // Lista de usuarios con trabajo creado en estado Pendiente con x proveedor
-        List<Usuario> listaUsuariosPen = trabajoServicio.usuariosPorProveedorEstado(id, Estado.PENDIENTE);
-        model.addAttribute("usuariosPendientes", listaUsuariosPen);
-        
-        // Lista de usuarios con trabajo terminado en estado Completo con x proveedor
-        List<Usuario> listaUsuariosCom = trabajoServicio.usuariosPorProveedorEstado(id, Estado.FINALIZADO);
-        model.addAttribute("usuariosCompleto", listaUsuariosCom);
-        
-        // Lista de trabajos
-        
-        List<Trabajo> trabajo = trabajoServicio.listarTrabajoPorProveedor(id);
-        model.addAttribute("trabajo", trabajo);
+            // Trabajo creado en estado Pendiente con x proveedor
+            List<Trabajo> listaUsuariosPen = trabajoServicio.TrabajoPorProveedorEstado(id, Estado.PENDIENTE);
+            model.addAttribute("usuariosPendientes", listaUsuariosPen);
 
-        return "contrataciones.html";
+            // Trabajo en curso en estado Pendiente con x proveedor
+            List<Trabajo> listaUsuariosAcep = trabajoServicio.TrabajoPorProveedorEstado(id, Estado.ACEPTADO);
+            model.addAttribute("usuariosAceptados", listaUsuariosAcep);
 
+            // Trabajo terminado en estado Completo con x proveedor
+            List<Trabajo> listaUsuariosCom = trabajoServicio.TrabajoPorProveedorEstado(id, Estado.FINALIZADO);
+            model.addAttribute("usuariosCompleto", listaUsuariosCom);
+
+            // Lista de trabajos
+            List<Trabajo> trabajo = trabajoServicio.listarTrabajoPorProveedor(id);
+            model.addAttribute("trabajo", trabajo);
+            return "contrataciones.html";
+    }
+
+    @PostMapping("/contrataciones/aceptar/{id}")
+    public String aceptar(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            trabajoServicio.modificarEstado(id, Estado.ACEPTADO);
+            redirectAttributes.addFlashAttribute("exito", "Trabajo aceptado con éxito");
+        } catch (miException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect://contrataciones";
     }
 
 }
