@@ -1,8 +1,32 @@
-//cambiar contraseña desde el perfil
+const btn = document.getElementById("servicios");
+const menu = document.getElementById("menu");
+
+const btnReg = document.getElementById("reg");
+const menuReg = document.getElementById("menuReg");
+
+const btnGest = document.getElementById("gest");
+const menuGest = document.getElementById("menuGest");
+
+const btnPerfil = document.getElementById("btnPerfil");
+const menuPerfil = document.getElementById("menuPerfil");
+
+const fotoPerfil = document.getElementById("fotoPerfil");
+const opcionesFoto = document.getElementById("opcionesFoto");
+const opcionesAbrir = document.getElementById("opcionesAbrir");
+const opcionesFormulario = document.getElementById("opcionesFormulario");
+const iconoCamara = document.getElementById("iconoCamara");
 
 const btnPass = document.getElementById("contraseña");
 const changePass = document.getElementById("changePass");
 const formularioPerfil = document.getElementById("formularioPerfil");
+
+const aviso = document.getElementById("avisos");
+const cerrarAviso = document.getElementById("cerrarAvisos");
+
+const listEstrellas = document.querySelectorAll(".estrellas");
+const estrellasPerfil = document.getElementById("estrellasPerfil");
+
+//cambiar contraseña desde el perfil
 
 if (btnPass !== null) {
     btnPass.addEventListener('click', (event) => {
@@ -13,16 +37,6 @@ if (btnPass !== null) {
     });
 }
 
-
-const btn = document.getElementById("servicios");
-const menu = document.getElementById("menu");
-
-const btnReg = document.getElementById("reg");
-const menuReg = document.getElementById("menuReg");
-
-const btnGest = document.getElementById("gest");
-const menuGest = document.getElementById("menuGest");
-
 function ocultarMenus() {
     menu.classList.add('hidden');
     menuReg.classList.add('hidden');
@@ -31,6 +45,7 @@ function ocultarMenus() {
 function ocultarMenusUsuario() {
     menu.classList.add('hidden');
     menuGest.classList.add('hidden');
+    menuPerfil.classList.add('hidden');
 }
 
 //ocultar menus del inicio
@@ -69,23 +84,23 @@ if (btn !== null && btnReg !== null) {
 if (btnGest !== null && btn !== null) {
     btn.addEventListener('click', (event) => {
         event.stopPropagation();
-        menuGest.classList.add('hidden');
         menu.classList.toggle('hidden');
+        menuGest.classList.add('hidden');
         menuPerfil.classList.add('hidden');
     });
 
     btnGest.addEventListener('click', (event) => {
         event.stopPropagation();
-        menuGest.classList.toggle('hidden');
         menu.classList.add('hidden');
+        menuGest.classList.toggle('hidden');
         menuPerfil.classList.add('hidden');
     });
 
     btnPerfil.addEventListener('click', (event) => {
         event.stopPropagation();
-        menuPerfil.classList.toggle('hidden');
-        menuGest.classList.add('hidden');
         menu.classList.add('hidden');
+        menuGest.classList.add('hidden');
+        menuPerfil.classList.toggle('hidden');
     });
 
     document.addEventListener('click', (event) => {
@@ -106,12 +121,6 @@ if (btnGest !== null && btn !== null) {
 
 }
 
-
-
-const btnPerfil = document.getElementById("btnPerfil");
-const menuPerfil = document.getElementById("menuPerfil");
-
-
 if (btnPerfil !== null) {
     btnPerfil.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -129,11 +138,7 @@ if (btnPerfil !== null) {
     });
 }
 
-const fotoPerfil = document.getElementById("fotoPerfil");
-const opcionesFoto = document.getElementById("opcionesFoto");
-const opcionesAbrir = document.getElementById("opcionesAbrir");
-const opcionesFormulario = document.getElementById("opcionesFormulario");
-const iconoCamara = document.getElementById("iconoCamara");
+
 if (fotoPerfil !== null && opcionesFoto !== null) {
     fotoPerfil.addEventListener('click', () => {
 
@@ -163,16 +168,12 @@ if (fotoPerfil !== null && opcionesFoto !== null) {
 
 }
 
-const listEstrellas = document.querySelectorAll(".estrellas");
-const estrellasPerfil = document.getElementById("estrellasPerfil");
-console.log(estrellasPerfil);
 
 listEstrellas.forEach(estrellitas => {
 
     const puntuacion = estrellitas.previousElementSibling;
 
     const numero = parseInt(puntuacion.textContent);
-    console.log(numero)
     const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
 
@@ -181,10 +182,8 @@ listEstrellas.forEach(estrellitas => {
     estrellitas.appendChild(ul);
 });
 if (estrellasPerfil !== null) {
-    console.log("Script ejecutado");
     estrellasPerfilMetodo();
 }
-
 
 
 function estrellasPerfilMetodo() {
@@ -192,7 +191,6 @@ function estrellasPerfilMetodo() {
     const numero = parseInt(puntuacion.textContent);
     const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
-
 
     hacerEstrellas(numero, ul);
     estrellasPerfil.appendChild(ul);
@@ -274,9 +272,6 @@ function hacerEstrellas(numero, ul) {
     }
 }
 
-
-const aviso = document.getElementById("avisos");
-const cerrarAviso = document.getElementById("cerrarAvisos");
 if (aviso !== null) {
     cerrarAviso.addEventListener('click', () => {
         aviso.classList.add('hidden');
