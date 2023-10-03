@@ -46,15 +46,27 @@ public class UsuarioControlador {
     @Autowired
     private especialidadServicio especialidadServicio;
     
-    @GetMapping("/perfil/{id}")
-    public String cargarPerfil(@PathVariable String id, ModelMap modelo) {
+    @GetMapping("/perfilUser/{id}")
+    public String cargarPerfilU(@PathVariable String id, ModelMap modelo) {
+        
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
+        modelo.put("user", usuarioServicio.UserById(id));
+        return "profileUser.html";
+    }
+    
+    @GetMapping("/perfilProvider/{id}")
+    public String cargarPerfilP(@PathVariable String id, ModelMap modelo) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
         modelo.put("user", usuarioServicio.ProviderById(id));
         return "profileUser.html";
     }
 
     @GetMapping("/perfilOtro/{id}")
     public String perfilOtro(@PathVariable String id, ModelMap modelo) {
-
+    List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
         List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
         modelo.put("trabajos", trabajos);
         modelo.put("user", usuarioServicio.ProviderById(id));
@@ -78,6 +90,8 @@ public class UsuarioControlador {
 
     @GetMapping("/modificarUsuario/{id}")
     public String modificarUsuario(@PathVariable String id, ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
         model.put("user", usuarioServicio.UserById(id));
 
         return "modProfileUser.html";
@@ -87,7 +101,7 @@ public class UsuarioControlador {
     public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model) {
         try {
             usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
-            return "redirect:../perfil/{id}";
+            return "redirect:../perfilUser/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileUser.html";
@@ -121,7 +135,7 @@ public class UsuarioControlador {
     public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model) {
         try {
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
-            return "redirect:../perfil/{id}";
+            return "redirect:../perfilProvider/{id}";
         } catch (miException ex) {
             model.put("error", ex.getMessage());
             return "modProfileProvider.html";
