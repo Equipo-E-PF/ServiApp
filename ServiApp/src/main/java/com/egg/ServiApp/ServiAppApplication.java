@@ -34,7 +34,7 @@ public class ServiAppApplication {
 //    public void init() {
 //        try {
 //            
-//            //Creación de especialidades
+            //Creación de especialidades
 //            
 //            es.crearEspecialidad("Carpintero");
 //            es.crearEspecialidad("Mecánico");
