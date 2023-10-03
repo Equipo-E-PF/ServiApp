@@ -30,11 +30,13 @@ public class ServiAppApplication {
         SpringApplication.run(ServiAppApplication.class, args);
     }
 
-    @PostConstruct
-    public void init() {
-        try {
-            
-//            //Creación de especialidades
+
+//    @PostConstruct
+//    public void init() {
+//        try {
+//            
+//           //Creación de especialidades
+
 //            
 //            es.crearEspecialidad("Carpintero");
 //            es.crearEspecialidad("Mecánico");
@@ -67,9 +69,9 @@ public class ServiAppApplication {
 //            us.crearProveedor("Rodrigo Pascual", "rodrigo.pascual@hotmail.com", "Proveedor7", "Proveedor7", 3174568520L, 27, "Mecánico");
 //            us.crearProveedor("Jefferson Rodríguez", "jefferson.rodríguez@hotmail.com", "Proveedor8", "Proveedor8", 3205418741L, 6, "Pintor");
             
-            // Creación de trabajo
+ //           // Creación de trabajo
             
-            ts.crearTrabajo(us.listarUsuarios().get(0), us.listarProveedores().get(0));
+//            ts.crearTrabajo(us.listarUsuarios().get(0), us.listarProveedores().get(0));
             
 //            // Terminar trabajo
 //            
@@ -77,9 +79,9 @@ public class ServiAppApplication {
 //            
 //            
             
-        } catch (miException e) {
-            e.getStackTrace();
-        }
-    }
+ //       } catch (miException e) {
+ //           e.getStackTrace();
+ //       }
+ //   }
 
 }

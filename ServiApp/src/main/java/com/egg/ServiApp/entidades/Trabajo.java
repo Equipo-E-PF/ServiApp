@@ -20,7 +20,8 @@ public class Trabajo {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
+    private String descripcion;    
+    
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
@@ -44,6 +45,14 @@ public class Trabajo {
         this.id = id;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
     public Estado getEstado() {
         return estado;
     }
