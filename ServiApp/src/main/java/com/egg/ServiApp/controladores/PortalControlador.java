@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,9 +92,9 @@ public class PortalControlador {
         return "regProvider.html";
     }
     
-    @GetMapping("/busqueda")
-    public String linksEspecialidad(@RequestParam String search, ModelMap model) {
-        HashSet<Proveedor> listSearch = us.proveedorSearch(search);
+    @GetMapping("/busqueda/{especialidad}")
+    public String linksEspecialidad(@PathVariable String especialidad, ModelMap model) {
+        HashSet<Proveedor> listSearch = us.proveedorSearch(especialidad);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
     }
@@ -146,9 +147,6 @@ public class PortalControlador {
     @GetMapping("/login")
     public String login(ModelMap modelo, HttpSession session) {
         
-        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        modelo.addAttribute("especialidades", especialidades);
-
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
         Usuario logueado = (Usuario) session.getAttribute("usuario");
