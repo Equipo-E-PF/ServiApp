@@ -52,6 +52,9 @@ public class UsuarioControlador {
 
     @GetMapping("/perfilOtro/{id}")
     public String perfilOtro(@PathVariable String id, ModelMap modelo) {
+        
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
 
         List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
         modelo.put("trabajos", trabajos);
@@ -126,21 +129,21 @@ public class UsuarioControlador {
         }
     }
 
-    // Cambiar el estado del trabajo a "Realizado"
-    @GetMapping("/realizarTrabajo")
-    public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        //trabajoServicio.modificarTrabajo(trabajoId, Estado.FINALIZADO);
-        redirectAttributes.addFlashAttribute("exito", "Trabajo marcado como realizado");
-        return "redirect:/";
-    }
-
-    // Cancelar un trabajo
-    @GetMapping("/cancelarTrabajo")
-    public String cancelarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
-        //trabajoServicio.modificarTrabajo(trabajoId, Estado.CANCELADO);
-        redirectAttributes.addFlashAttribute("exito", "Trabajo cancelado con éxito");
-        return "redirect:/";
-    }
+//    // Cambiar el estado del trabajo a "Realizado"
+//    @GetMapping("/realizarTrabajo")
+//    public String realizarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
+//        //trabajoServicio.modificarTrabajo(trabajoId, Estado.FINALIZADO);
+//        redirectAttributes.addFlashAttribute("exito", "Trabajo marcado como realizado");
+//        return "redirect:/";
+//    }
+//
+//    // Cancelar un trabajo
+//    @GetMapping("/cancelarTrabajo")
+//    public String cancelarTrabajo(@RequestParam String trabajoId, RedirectAttributes redirectAttributes) {
+//        //trabajoServicio.modificarTrabajo(trabajoId, Estado.CANCELADO);
+//        redirectAttributes.addFlashAttribute("exito", "Trabajo cancelado con éxito");
+//        return "redirect:/";
+//    }
 
     // Crear una calificación para un trabajo con estrellas
     @PostMapping("/calificarTrabajo")
