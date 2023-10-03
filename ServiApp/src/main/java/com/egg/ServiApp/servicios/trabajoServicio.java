@@ -6,6 +6,7 @@ import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.repositorio.trabajoRepositorio;
 import com.egg.ServiApp.enumeraciones.Estado;
+import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +27,16 @@ public class trabajoServicio {
     private calificacionServicio cs;
     @Autowired
     private usuarioServicio us;
+    @Autowired
+    private usuarioRepositorio ur;
 
     @Transactional
-    public void crearTrabajo(Usuario usuario, Proveedor proveedor) throws miException {
+    public void crearTrabajo(String idU, String idP, String descripcion) throws miException {
+        Usuario usuario = ur.usuarioPorId(idU);
+        Proveedor proveedor = ur.proveedorPorId(idP);
         validar(usuario, proveedor);
         Trabajo trabajo = new Trabajo();
+        trabajo.setDescripcion(descripcion);
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
         trabajo.setProveedor(proveedor);
@@ -40,7 +46,7 @@ public class trabajoServicio {
     }
 
     @Transactional
-    public void modificarEstado(String id, Estado estado) {
+    public void modificarEstado(String id, Estado estado) throws miException {
         Optional<Trabajo> trabajoOptional = tr.findById(id);
 
         if (trabajoOptional.isPresent()) {
@@ -70,6 +76,10 @@ public class trabajoServicio {
     public List<Trabajo> listarTrabajoPorProveedor(String id){
         return tr.listarPorProveedor(id);
     }
+    
+    public List<Trabajo> listarTrabajoCalificado(){
+        return tr.TrabajosCalificados();
+    }
 
     public Trabajo getTrabajo(String id) {
         return tr.findById(id).orElse(null);
@@ -86,7 +96,7 @@ public class trabajoServicio {
         }
 
         if (proveedor == null) {
-            throw new miException("Los proveedores del trabajo no pueden ser nulos");
+            throw new miException("El proveedor del trabajo no pueden ser nulos");
         }
     }
 
@@ -124,9 +134,24 @@ public class trabajoServicio {
         return tr.findByEstado(Estado.FINALIZADO);
     }
     
-    public List<Usuario> usuariosPorProveedorEstado(String id, Estado estado) {
-        return tr.usuariosPorProveedorEstado(id, estado);
+    public List<Trabajo> TrabajoPorProveedorEstado(String id, Estado estado) {
+        return tr.TrabajoPorProveedorEstado(id, estado);
     }
+    
+    public List<Trabajo> TrabajoCalificadosProveedor(String id) {
+        return tr.TrabajoCalificadosProveedor(id);
+    }
+    
+    
+    public List<Trabajo> TrabajoPorUsuarioEstado(String id, Estado estado) {
+        return tr.TrabajoPorUsuarioEstado(id, estado);
+    }
+    
+    public List<Trabajo> TrabajoCalificadosUsuario(String id) {
+        return tr.TrabajoCalificadosUsuario(id);
+    }
+    
+    
 
     //Asociar Calificación 
     @Transactional

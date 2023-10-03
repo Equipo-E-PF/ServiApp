@@ -11,6 +11,7 @@ import com.egg.ServiApp.repositorio.trabajoRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -354,8 +355,8 @@ public class usuarioServicio implements UserDetailsService {
         }
     }
     
-    public List<Proveedor> proveedorSearch(String search) {
-        List<Proveedor> resultados = ur.searchByEspecialidad(search);
+    public HashSet<Proveedor> proveedorSearch(String search) {
+        HashSet<Proveedor> resultados = ur.searchByEspecialidad(search);
         resultados.addAll(ur.searchByNombre(search));
         return resultados;
     }
