@@ -181,17 +181,17 @@
 
                                 <h3
                                     class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
-                                    th:text="${session.usersession.nombre}">
+                                    th:text="${user.nombre}">
                                 </h3>
 
                                 <div class="mb-2 text-gray-700">
                                     <i class="fas fa-phone mr-2 text-lg text-gray-500"></i
-                                    ><p th:text="${session.usersession.telefono}"> </p>
+                                    ><p th:text="${user.telefono}"> </p>
                                 </div>
                                 <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}">
                                     <div  class="mb-2 text-gray-700 mt-10">
                                         <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
-                                        ><p th:text="${session.usersession.especialidad.nombre}"></p>
+                                        ><p th:text="${user.especialidad.nombre}"></p>
                                     </div>
                                     <!-- Consultar sobre atributo de Estudios y Educacion del Proveedor
                                   <div class="mb-2 text-gray-700">
@@ -205,7 +205,7 @@
                                                     descripcion del servicio <!-- Falta hacer atributo de la descripcion del servicio -->
                                                 </p>
                                                 <div class="flex flex-col items-center">
-                                                    <p  th:text="${session.usersession.costoHora}"class="bg-blue-950 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 w-max">
+                                                    <p  th:text="${user.costoHora}"class="bg-blue-950 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 w-max">
                                                     </p>
                                                 </div>
                                             </div>

@@ -81,12 +81,12 @@ if (btnGest !== null && btn !== null) {
         menuPerfil.classList.add('hidden');
     });
 
-    btnPerfil.addEventListener('click', (event) => {
-        event.stopPropagation();
-        menuPerfil.classList.toggle('hidden');
-        menuGest.classList.add('hidden');
-        menu.classList.add('hidden');
-    });
+//    btnPerfil.addEventListener('click', (event) => {
+//        event.stopPropagation();
+//        menuPerfil.classList.toggle('hidden');
+//        menuGest.classList.add('hidden');
+//        menu.classList.add('hidden');
+//    });
 
     document.addEventListener('click', (event) => {
         if (!menu.contains(event.target) && event.target !== btn && !menuGest.contains(event.target) && event.target !== btnGest) {
