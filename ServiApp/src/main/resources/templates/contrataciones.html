@@ -29,7 +29,7 @@
                                         <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                         <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
                                         <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                        <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                        <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                         <td class="text-left py-2 px-4">
                                             <div class="flex-row">
                                                 <div class="flex flex-col">
@@ -46,12 +46,6 @@
                                                         </button>
                                                     </form>
                                                 </div>
-                                                <!--                                                                                            <div class="flex flex-row mt-1">
-                                                                                                                                                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
-                                                                                                                                                    <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                                                                                                                    Cancelar
-                                                                                                                                                </button>
-                                                                                                                                            </div>-->
                                             </div>
                                         </td>
                                     </tr>
@@ -81,7 +75,7 @@
                                             <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                             <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
                                             <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                             <td class="text-left py-2 px-4">
                                                 <div class="flex-row">
                                                     <div class="flex flex-col">
@@ -126,7 +120,7 @@
                                             <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                             <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
                                             <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
-                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                             <td class="text-left py-2 px-4">
                                                 <div class="flex flex-row" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>
@@ -216,7 +210,7 @@
                                         <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                         <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
                                         <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                        <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                        <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                         <td class="text-left py-2 px-4">
                                             <div class="flex-row">
                                                 <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="flex flex-row mt-1">
@@ -254,7 +248,7 @@
                                             <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                             <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
                                             <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                             <td class="text-left py-2 px-4">
                                                 <div class="flex-row">
                                                     <div class="flex flex-col">
@@ -293,7 +287,7 @@
                                             <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
                                             <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
                                             <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
-                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
                                             <td class="text-left py-2 px-4">
                                                 <div th:if="${item.calificacion.puntuacion != 0}" class="flex flex-row" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>

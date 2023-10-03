@@ -40,10 +40,12 @@ public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
     @Query("SELECT DISTINCT t FROM Trabajo t WHERE t.usuario.id = :usuarioId AND t.estado = :estado")
     public List<Trabajo> TrabajoPorUsuarioEstado(@Param("usuarioId") String usuarioId, @Param("estado") Estado estado);
     
-    @Query("SELECT DISTINCT t FROM Trabajo t WHERE t.proveedor.id = :proveedorId AND t.calificacion.contenido != null ")
+    @Query("SELECT DISTINCT t FROM Trabajo t WHERE t.proveedor.id = :proveedorId AND t.calificacion.puntuacion > 0 ")
     public List<Trabajo> TrabajoCalificadosProveedor (@Param("proveedorId") String proveedorId);
     
-    @Query("SELECT DISTINCT t FROM Trabajo t WHERE t.usuario.id = :usuarioId AND t.calificacion.contenido != null ")
+    @Query("SELECT DISTINCT t FROM Trabajo t WHERE t.usuario.id = :usuarioId AND t.calificacion.puntuacion > 0 ")
     public List<Trabajo> TrabajoCalificadosUsuario (@Param("usuarioId") String usuarioId);
-
+    
+    @Query("SELECT t FROM Trabajo t WHERE t.calificacion.puntuacion > 0 ")
+    public List<Trabajo> TrabajosCalificados ();
 }
