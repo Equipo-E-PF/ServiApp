@@ -32,25 +32,25 @@
                                     <td class="text-left py-2 px-4">
                                         <div class="flex-row">
                                             <div class="flex flex-col">
-                                                <div th:action="@{/usuario/contrataciones/aceptar/__${item.id}__}" class="w-auto flex flex-row">
-                                                    <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                <form method="POST" th:action="@{/usuario/contrataciones/aceptar/__${item.id}__}"  class="w-auto flex flex-row">
+                                                    <button type="submit" class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                         <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                         Aceptar
                                                     </button>
-                                                </div>
-                                                <div class="w-auto flex flex-row mt-3">
+                                                </form>
+                                                <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="w-auto flex flex-row mt-3">
                                                     <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                         <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                         Rechazar
                                                     </button>
-                                                </div>
+                                                </form>
                                             </div>
-                                            <div class="flex flex-row mt-1">
+<!--                                            <div class="flex flex-row mt-1">
                                                 <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                     Cancelar
                                                 </button>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </td>
                                 </tr>
@@ -84,18 +84,18 @@
                                 <td class="text-left py-2 px-4">
                                     <div class="flex-row">
                                         <div class="flex flex-col">
-                                            <div class="w-auto flex flex-row">
+                                            <form method="POST" th:action="@{/usuario/contrataciones/finalizar/__${item.id}__}" class="w-auto flex flex-row">
                                                 <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                     Completado
                                                 </button>
-                                            </div>
-                                            <div class="w-auto flex flex-row mt-3">
+                                            </form>
+                                            <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="w-auto flex flex-row mt-3">
                                                 <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                     Cancelado
                                                 </button>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>

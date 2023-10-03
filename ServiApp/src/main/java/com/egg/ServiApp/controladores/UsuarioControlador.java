@@ -194,7 +194,29 @@ public class UsuarioControlador {
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect://contrataciones";
+        return "redirect:/usuario/contrataciones/{id}";
+    }
+    
+    @PostMapping("/contrataciones/rechazar/{id}")
+    public String rechazar(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            trabajoServicio.modificarEstado(id, Estado.CANCELADO);
+            redirectAttributes.addFlashAttribute("exito", "Trabajo rechazado con éxito");
+        } catch (miException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/usuario/contrataciones/{id}";
+    }
+    
+    @PostMapping("/contrataciones/finalizar/{id}")
+    public String finalizar(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            trabajoServicio.modificarEstado(id, Estado.FINALIZADO);
+            redirectAttributes.addFlashAttribute("exito", "Trabajo finalizado con éxito");
+        } catch (miException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/usuario/contrataciones/{id}";
     }
 
 }
