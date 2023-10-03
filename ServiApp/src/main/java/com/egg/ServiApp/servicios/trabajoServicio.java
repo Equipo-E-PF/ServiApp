@@ -133,6 +133,21 @@ public class trabajoServicio {
     public List<Trabajo> TrabajoPorProveedorEstado(String id, Estado estado) {
         return tr.TrabajoPorProveedorEstado(id, estado);
     }
+    
+    public List<Trabajo> TrabajoCalificadosProveedor(String id) {
+        return tr.TrabajoCalificadosProveedor(id);
+    }
+    
+    
+    public List<Trabajo> TrabajoPorUsuarioEstado(String id, Estado estado) {
+        return tr.TrabajoPorUsuarioEstado(id, estado);
+    }
+    
+    public List<Trabajo> TrabajoCalificadosUsuario(String id) {
+        return tr.TrabajoCalificadosUsuario(id);
+    }
+    
+    
 
     //Asociar Calificación 
     @Transactional

@@ -7,189 +7,368 @@
                 <nav th:replace="/fragments/navbar :: nav">  </nav>
             </header>
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6">Contrataciones</h1>
-                <div class="w-full mt-6">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Pendientes
-                    </p>
-                    <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white">
-                            <thead class="bg-gray-800 text-white">
-                                <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
-                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
-                                    <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-700">
-                                <tr th:each="item : ${usuariosPendientes}">
-                                    <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                    <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                    <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                    <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
-                                    <td class="text-left py-2 px-4">
-                                        <div class="flex-row">
-                                            <div class="flex flex-col">
-                                                <div th:action="@{/usuario/contrataciones/aceptar/__${item.id}__}" class="w-auto flex flex-row">
+                <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}">
+                    <h1 class="text-3xl text-black pb-6">Contrataciones</h1>
+                    <div class="w-full mt-6">
+                        <p class="text-xl pb-3 flex items-center">
+                            <i class="fas fa-list mr-3"></i> Pendientes
+                        </p>
+                        <div class="bg-white overflow-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-800 text-white">
+                                    <tr>
+                                        <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                        <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                        <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                        <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700">
+                                    <tr th:each="item : ${usuariosPendientes}">
+                                        <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                        <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                        <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                                        <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                        <td class="text-left py-2 px-4">
+                                            <div class="flex-row">
+                                                <div class="flex flex-col">
+                                                    <form method="POST" th:action="@{/usuario/contrataciones/aceptar/__${item.id}__}"  class="w-auto flex flex-row">
+                                                        <button type="submit" class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                            <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                            Aceptar
+                                                        </button>
+                                                    </form>
+                                                    <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="w-auto flex flex-row mt-3">
+                                                        <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                            <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                            Rechazar
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <!--                                                                                            <div class="flex flex-row mt-1">
+                                                                                                                                                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                                                                                                                    <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                                                                                                                    Cancelar
+                                                                                                                                                </button>
+                                                                                                                                            </div>-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="w-full mt-6">
+                        <div class="w-full mt-6">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> En Curso
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-600 text-white">
+                                        <tr>
+                                            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                            <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                            <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                            <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-700">
+                                        <tr th:each="item : ${usuariosAceptados}">
+                                            <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                            <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                            <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td class="text-left py-2 px-4">
+                                                <div class="flex-row">
+                                                    <div class="flex flex-col">
+                                                        <form method="POST" th:action="@{/usuario/contrataciones/finalizar/__${item.id}__}" class="w-auto flex flex-row">
+                                                            <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                                <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                                Completado
+                                                            </button>
+                                                        </form>
+                                                        <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="w-auto flex flex-row mt-3">
+                                                            <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                                <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                                Cancelado
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-12">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> Mis Trabajos
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
+                                    <thead class="bg-gray-400">
+                                        <tr>
+                                            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                            <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                            <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                            <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${usuariosCompleto}" class="hover:bg-grey-lighter">
+                                            <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                            <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                            <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
+                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td class="text-left py-2 px-4">
+                                                <div class="flex flex-row" style="display: flex; align-items: center;">
+                                                    <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>
+                                                    Completo
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-12">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> Calificaciones
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="min-w-full leading-normal">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Usuario
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Comentario
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Calificacion
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${trabajoCalificado}">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 w-10 h-10">
+                                                        <img class="w-full h-full rounded-full"
+                                                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                             alt="" />
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <p th:text="${item.usuario.nombre}" class="text-gray-900 whitespace-no-wrap">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
+                                                </p>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <span th:each="starNum : ${#numbers.sequence(1, 5)}">
+                                                    <span th:if="${item.calificacion.puntuacion >= starNum}"
+                                                          class="text-yellow-500">*</span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'USUARIO')}">
+                    <h1 class="text-3xl text-black pb-6">Contrataciones</h1>
+                    <div class="w-full mt-6">
+                        <p class="text-xl pb-3 flex items-center">
+                            <i class="fas fa-list mr-3"></i> Pendientes por aceptar
+                        </p>
+                        <div class="bg-white overflow-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-800 text-white">
+                                    <tr>
+                                        <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                        <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                        <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                        <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700">
+                                    <tr th:each="item : ${usuariosPendientes}">
+                                        <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                        <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                        <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                                        <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                        <td class="text-left py-2 px-4">
+                                            <div class="flex-row">
+                                                <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="flex flex-row mt-1">
+                                                    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                        <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                        Cancelar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="w-full mt-6">
+                        <div class="w-full mt-6">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> En Curso
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-600 text-white">
+                                        <tr>
+                                            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                            <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                            <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                            <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-700">
+                                        <tr th:each="item : ${usuariosAceptados}">
+                                            <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                            <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                            <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></td>
+                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td class="text-left py-2 px-4">
+                                                <div class="flex-row">
+                                                    <div class="flex flex-col">
+                                                        <form method="POST" th:action="@{/usuario/contrataciones/rechazar/__${item.id}__}" class="w-auto flex flex-row mt-3">
+                                                            <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                                <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                                Declinar
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-12">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> Trabajos Terminados
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="text-left w-full border-collapse">
+                                    <thead class="bg-gray-400">
+                                        <tr>
+                                            <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+                                            <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                                            <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
+                                            <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+                                            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${usuariosCompleto}" class="hover:bg-grey-lighter">
+                                            <td th:text="${item.proveedor.nombre}" class="w-1/5 text-left py-2 px-4"></td>
+                                            <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
+                                            <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
+                                            <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
+                                            <td class="text-left py-2 px-4">
+                                                <div th:if="${item.calificacion.puntuacion != 0}" class="flex flex-row" style="display: flex; align-items: center;">
+                                                    <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>
+                                                    Completo
+                                                </div>
+                                                <form th:if="${item.calificacion.puntuacion == 0}"  class="w-auto flex flex-row"> 
+<!--                                                    Botón redirección calificar-->
                                                     <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                         <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                        Aceptar
+                                                        Calificar
                                                     </button>
-                                                </div>
-                                                <div class="w-auto flex flex-row mt-3">
-                                                    <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
-                                                        <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                        Rechazar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-row mt-1">
-                                                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
-                                                    <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                    Cancelar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="w-full mt-6">
-                <div class="w-full mt-6">
-                <p class="text-xl pb-3 flex items-center">
-                    <i class="fas fa-list mr-3"></i> En Curso
-                </p>
-                <div class="bg-white overflow-auto">
-                    <table class="min-w-full bg-white">
-                        <thead class="bg-gray-600 text-white">
-                            <tr>
-                                <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
-                                <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
-                                <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
-                                <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-700">
-                            <tr th:each="item : ${usuariosAceptados}">
-                                <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></td>
-                                <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
-                                <td class="text-left py-2 px-4">
-                                    <div class="flex-row">
-                                        <div class="flex flex-col">
-                                            <div class="w-auto flex flex-row">
-                                                <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
-                                                    <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                    Completado
-                                                </button>
-                                            </div>
-                                            <div class="w-auto flex flex-row mt-3">
-                                                <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
-                                                    <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                                    Cancelado
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-                <div class="w-full mt-12">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Mis Trabajos
-                    </p>
-                    <div class="bg-white overflow-auto">
-                        <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
-                            <thead class="bg-gray-400">
-                                <tr>
-                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
-                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                                    <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Telefono</th>
-                                    <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${usuariosCompleto}" class="hover:bg-grey-lighter">
-                                    <td th:text="${item.usuario.nombre}" class="w-1/5 text-left py-2 px-4"></td>
-                                    <td th:text="${item.usuario.email}" class="w-1/4 text-left py-2 px-4"></td>
-                                    <td th:text="${item.usuario.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
-                                    <td class="w-1/2 text-left py-2 px-4">Breve descripcion del trabajo a realizar por parte del usuario. Comentario o experiencia tambien.</td>
-                                    <td class="text-left py-2 px-4">
-                                        <div class="flex flex-row" style="display: flex; align-items: center;">
-                                            <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>
-                                            Completo
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="w-full mt-12">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Calificaciones
-                    </p>
-                    <div class="bg-white overflow-auto">
-                        <table class="min-w-full leading-normal">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Usuario
-                                    </th>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Comentario
-                                    </th>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Calificacion
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${trabajo}">
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 w-10 h-10">
-                                                <img class="w-full h-full rounded-full"
-                                                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                     alt="" />
-                                            </div>
-                                            <div class="ml-3">
-                                                <p th:text="${item.usuario.nombre}" class="text-gray-900 whitespace-no-wrap">
+                        <div class="w-full mt-12">
+                            <p class="text-xl pb-3 flex items-center">
+                                <i class="fas fa-list mr-3"></i> Calificaciones
+                            </p>
+                            <div class="bg-white overflow-auto">
+                                <table class="min-w-full leading-normal">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Proveedor
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Comentario
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Calificacion
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${trabajoCalificado}">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 w-10 h-10">
+                                                        <img class="w-full h-full rounded-full"
+                                                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                             alt="" />
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <p th:text="${item.proveedor.nombre}" class="text-gray-900 whitespace-no-wrap">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
                                                 </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
-                                        </p>
-                                    </td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <span th:each="starNum : ${#numbers.sequence(1, 5)}">
-                                            <span th:if="${item.calificacion.puntuacion >= starNum}"
-                                                  class="text-yellow-500">*</span>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <span th:each="starNum : ${#numbers.sequence(1, 5)}">
+                                                    <span th:if="${item.calificacion.puntuacion >= starNum}"
+                                                          class="text-yellow-500">*</span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </main>
             <footer th:replace="/fragments/footer :: footer">  </footer>
         </div>
