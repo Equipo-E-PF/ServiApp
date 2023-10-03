@@ -40,7 +40,7 @@ public class trabajoServicio {
     }
 
     @Transactional
-    public void modificarEstado(String id, Estado estado) {
+    public void modificarEstado(String id, Estado estado) throws miException {
         Optional<Trabajo> trabajoOptional = tr.findById(id);
 
         if (trabajoOptional.isPresent()) {
@@ -122,6 +122,10 @@ public class trabajoServicio {
 
     public List<Trabajo> listarTrabajosCompletados() {
         return tr.findByEstado(Estado.FINALIZADO);
+    }
+    
+    public List<Trabajo> TrabajoPorProveedorEstado(String id, Estado estado) {
+        return tr.TrabajoPorProveedorEstado(id, estado);
     }
 
     //Asociar Calificación 

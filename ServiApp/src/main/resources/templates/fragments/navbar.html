@@ -27,7 +27,7 @@
 
     </div>
     <div class="relative flex lg:flex-1 justify-evenly">
-        <a href="#" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Experiencias</p></a>
+        <a th:href="@{/experiencias}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Experiencias</p></a>
     </div>
 
 
@@ -103,7 +103,7 @@
         <div   th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'ADMIN')}" >
 
             <!--parte interna del menu gestionar US-->
-            <div id="menuGest" class="absolute rigth top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+            <div id="menuGest" class="absolute rigth top-full z-10 mt-3 w-fit max-w-md hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5" style="right: 90px">
                 <div class="p-4">
 
                     <!--gestionar usuario-->
