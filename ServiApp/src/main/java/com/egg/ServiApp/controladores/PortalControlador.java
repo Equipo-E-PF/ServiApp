@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -89,22 +90,28 @@ public class PortalControlador {
         model.addAttribute("especialidades", especialidades);
         return "regProvider.html";
     }
-
-
+    
+    @GetMapping("/busqueda")
+    public String linksEspecialidad(@RequestParam String search, ModelMap model) {
+        HashSet<Proveedor> listSearch = us.proveedorSearch(search);
+        model.addAttribute("listSearch", listSearch);
+        return "busqueda.html";
+    }
+    
     @PostMapping("/busqueda")
     public String buscarEspecialidad(@RequestParam String search, ModelMap model) {
-        List<Proveedor> listSearch = us.proveedorSearch(search);
+        HashSet<Proveedor> listSearch = us.proveedorSearch(search);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
     }
 
-    @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
-    @GetMapping("/perfil")
-    public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
-        return "usuario_modificar.html";
-    }
+//    @PreAuthorize("hasAnyRole( 'ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMINISTRADOR')")
+//    @GetMapping("/perfil")
+//    public String perfil(ModelMap modelo, HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        modelo.put("usuario", usuario);
+//        return "usuario_modificar.html";
+//    }
 
     @PostMapping("/registrarUsuario")
     public String registarUsuario(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, ModelMap modelo) {
@@ -142,6 +149,8 @@ public class PortalControlador {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
 
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        modelo.addAttribute("especialidades", especialidades);
         Usuario logueado = (Usuario) session.getAttribute("usuario");
         modelo.addAttribute("modelousuario", logueado);
 //        if (error != null) {
@@ -153,17 +162,13 @@ public class PortalControlador {
 
     @GetMapping("/experiencias")
     public String experiencias(ModelMap model) {
-        
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-
         List<Trabajo> trabajos = ts.listarTrabajoCalificado();
         Collections.sort(trabajos, (trabajo1, trabajo2) ->
-                Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
-
+        Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
         int limite = Math.min(9, trabajos.size());
         List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
-
         model.addAttribute("trabajos", trabajosTop9);
 
         return "experiencias.html";
