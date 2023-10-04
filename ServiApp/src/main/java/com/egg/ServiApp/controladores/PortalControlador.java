@@ -8,13 +8,12 @@ import com.egg.ServiApp.servicios.usuarioServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import excepciones.miException;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -92,16 +91,49 @@ public class PortalControlador {
         return "regProvider.html";
     }
 
+    @GetMapping("/busqueda")
+    public String busqueda(@RequestParam(name = "busqueda", required = false) String busqueda,
+            @RequestParam(name = "ordenarPor", required = false) String ordenarPor,
+            ModelMap model) {
+        
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
+        List<Proveedor> listSearch = us.listarProveedores();
+
+        if (busqueda != null && !busqueda.isEmpty()) {
+            listSearch = us.proveedorSearchGeneral(busqueda);
+        }
+
+        if (null != ordenarPor) {
+            switch (ordenarPor) {
+                case "nombre" ->
+                    listSearch.sort(Comparator.comparing(Proveedor::getNombre));
+                case "calificacion" ->
+                    listSearch.sort(Comparator.comparing(Proveedor::getPuntuacion).reversed());
+                case "costoHoraAsc" ->
+                    listSearch.sort(Comparator.comparing(Proveedor::getCostoHora));
+                case "costoHoraDesc" ->
+                    listSearch.sort(Comparator.comparing(Proveedor::getCostoHora).reversed());
+            }
+        }
+
+        model.addAttribute("listSearch", listSearch);
+        return "busqueda.html";
+    }
+
     @GetMapping("/busqueda/{especialidad}")
     public String linksEspecialidad(@PathVariable String especialidad, ModelMap model) {
-        HashSet<Proveedor> listSearch = us.proveedorSearch(especialidad);
+        List<Proveedor> listSearch = us.proveedorSearch(especialidad);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
     }
 
     @PostMapping("/busqueda")
     public String buscarEspecialidad(@RequestParam String search, ModelMap model) {
-        HashSet<Proveedor> listSearch = us.proveedorSearch(search);
+        if (search.isEmpty()) {
+            return "redirect:/busqueda";
+        }
+        List<Proveedor> listSearch = us.proveedorSearch(search);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
     }

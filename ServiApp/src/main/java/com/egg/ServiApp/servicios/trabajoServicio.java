@@ -40,7 +40,9 @@ public class trabajoServicio {
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
         trabajo.setProveedor(proveedor);
-        trabajo.setCalificacion(cs.crearCalificacion(null, 0));
+        Calificacion c = new Calificacion();
+        c.setPuntuacion(0);
+        trabajo.setCalificacion(c);
 
         tr.save(trabajo);
     }
@@ -151,17 +153,4 @@ public class trabajoServicio {
         return tr.TrabajoCalificadosUsuario(id);
     }
     
-    
-
-    //Asociar Calificación 
-    @Transactional
-    public void asociarCalificacion(String trabajoId, String contenido) throws miException {
-        Trabajo trabajo = tr.getOne(trabajoId);
-        Calificacion calificacion = new Calificacion();
-        calificacion.setContenido(contenido);
-
-        // Aquí podrías realizar alguna validación adicional si es necesario
-        trabajo.setCalificacion(calificacion);
-        tr.save(trabajo);
-    }
 }

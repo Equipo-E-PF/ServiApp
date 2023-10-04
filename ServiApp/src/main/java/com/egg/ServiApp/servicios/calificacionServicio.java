@@ -1,7 +1,9 @@
 package com.egg.ServiApp.servicios;
 
 import com.egg.ServiApp.entidades.Calificacion;
+import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.repositorio.calificacionRepositorio;
+import com.egg.ServiApp.repositorio.trabajoRepositorio;
 import excepciones.miException;
 import java.util.List;
 import java.util.Optional;
@@ -18,18 +20,18 @@ public class calificacionServicio {
 
     @Autowired
     private calificacionRepositorio califRepo;
+    
+    @Autowired
+    private trabajoRepositorio tr;
 
     @Transactional
-    public Calificacion crearCalificacion(String contenido, double puntuacion) throws miException {
+    public void crearCalificacion(String trabajoId, String contenido, double puntuacion) throws miException {
+        Trabajo trabajo = tr.getOne(trabajoId);
+        trabajo.getCalificacion().setContenido(contenido);
+        trabajo.getCalificacion().setPuntuacion(puntuacion);
 
-
-        Calificacion calif = new Calificacion();
-
-        calif.setContenido(contenido);
-        calif.setPuntuacion(puntuacion);
-
-        califRepo.save(calif);
-        return calif;
+        tr.save(trabajo);
+        
     }
 
     public List<Calificacion> listarCalificaciones() {

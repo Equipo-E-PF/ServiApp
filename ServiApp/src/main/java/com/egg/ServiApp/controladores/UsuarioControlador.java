@@ -157,17 +157,16 @@ public class UsuarioControlador {
 //    }
 
     // Crear una calificación para un trabajo con estrellas
-    @PostMapping("/calificarTrabajo")
-    public String calificarTrabajo(@RequestParam String trabajoId, @RequestParam String contenido, @RequestParam double puntuacion, RedirectAttributes redirectAttributes) {
+    @PostMapping("/calificarTrabajo/{trabajoId}")
+    public String calificarTrabajo(@PathVariable String trabajoId, double puntuacion, String contenido, RedirectAttributes redirectAttributes) {
+        System.out.println(trabajoId + " " + contenido + " " + puntuacion);
         try {
-            calificacionServicio.crearCalificacion(contenido, puntuacion);
-            // Asociar la calificación al trabajo (debe implementarse en el servicio)
-            trabajoServicio.asociarCalificacion(trabajoId, contenido);
+            calificacionServicio.crearCalificacion(trabajoId, contenido, puntuacion);
             redirectAttributes.addFlashAttribute("exito", "Calificación creada con éxito");
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:../contrataciones";
     }
 
     @GetMapping("/bajaUsuario/{id}")
