@@ -33,7 +33,7 @@ const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
 const addClassToElements = (elementos) => {
-    elementos.forEach(elemento => elemento?.classList.add("hidden"));
+    elementos.forEach(elemento => elemento.classList.add("hidden"));
 };
 
 

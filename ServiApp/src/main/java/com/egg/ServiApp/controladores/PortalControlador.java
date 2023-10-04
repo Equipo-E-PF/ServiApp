@@ -45,7 +45,7 @@ public class PortalControlador {
 
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-
+        
         List<Proveedor> listFull = us.listarProveedores();
         List<Proveedor> listProveedoresFull = new ArrayList();
         List<Proveedor> listProveedores = new ArrayList();
@@ -65,7 +65,7 @@ public class PortalControlador {
                 listProveedoresFull.remove(p);
             }
         }
-        
+
         for (Proveedor listProveedore : listProveedores) {
             System.out.println(listProveedore.getNombre() + " " + listProveedore.getEspecialidad().getNombre()
                     + " " + listProveedore.getTelefono() + " " + listProveedore.getPuntuacion());
@@ -91,14 +91,14 @@ public class PortalControlador {
         model.addAttribute("especialidades", especialidades);
         return "regProvider.html";
     }
-    
+
     @GetMapping("/busqueda/{especialidad}")
     public String linksEspecialidad(@PathVariable String especialidad, ModelMap model) {
         HashSet<Proveedor> listSearch = us.proveedorSearch(especialidad);
         model.addAttribute("listSearch", listSearch);
         return "busqueda.html";
     }
-    
+
     @PostMapping("/busqueda")
     public String buscarEspecialidad(@RequestParam String search, ModelMap model) {
         HashSet<Proveedor> listSearch = us.proveedorSearch(search);
@@ -113,7 +113,6 @@ public class PortalControlador {
 //        modelo.put("usuario", usuario);
 //        return "usuario_modificar.html";
 //    }
-
     @PostMapping("/registrarUsuario")
     public String registarUsuario(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, Long telefono, ModelMap modelo) {
         try {
@@ -145,16 +144,18 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-    public String login(ModelMap modelo, HttpSession session) {
-        
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
-        Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modelo.addAttribute("modelousuario", logueado);
-//        if (error != null) {
-//            System.out.println("Error en login");
-//            modelo.put("error", "Usuario o Contrasena invalidos");
-//        }
+        
+        if (error != null) {
+            Boolean errorLog = true;
+            modelo.put("errorLog", errorLog);
+            System.out.println("Error en login");
+            modelo.put("error", "Usuario o Contrasena invalidos");
+        }
+        
         return "login.html";
     }
 
@@ -163,8 +164,8 @@ public class PortalControlador {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
         List<Trabajo> trabajos = ts.listarTrabajoCalificado();
-        Collections.sort(trabajos, (trabajo1, trabajo2) ->
-        Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
+        Collections.sort(trabajos, (trabajo1, trabajo2)
+                -> Double.compare(trabajo2.getCalificacion().getPuntuacion(), trabajo1.getCalificacion().getPuntuacion()));
         int limite = Math.min(9, trabajos.size());
         List<Trabajo> trabajosTop9 = trabajos.subList(0, limite);
         model.addAttribute("trabajos", trabajosTop9);
