@@ -44,7 +44,7 @@ public class PortalControlador {
 
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-
+        
         List<Proveedor> listFull = us.listarProveedores();
         List<Proveedor> listProveedoresFull = new ArrayList();
         List<Proveedor> listProveedores = new ArrayList();
@@ -176,16 +176,18 @@ public class PortalControlador {
     }
 
     @GetMapping("/login")
-    public String login(ModelMap modelo, HttpSession session) {
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
-        Usuario logueado = (Usuario) session.getAttribute("usuario");
-        modelo.addAttribute("modelousuario", logueado);
-//        if (error != null) {
-//            System.out.println("Error en login");
-//            modelo.put("error", "Usuario o Contrasena invalidos");
-//        }
+        
+        if (error != null) {
+            Boolean errorLog = true;
+            modelo.put("errorLog", errorLog);
+            System.out.println("Error en login");
+            modelo.put("error", "Usuario o Contrasena invalidos");
+        }
+        
         return "login.html";
     }
 

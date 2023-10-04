@@ -42,11 +42,11 @@
         </a>
     </div>
 
-    <div th:if = "${session.usersession == null}" class="relative flex lg:flex-1 justify-evenly" >
+    <div th:if = "${session.usersession == null || errorLog != null}" class="relative flex lg:flex-1 justify-evenly" >
         <a  th:href="@{/login}" class="text-sm font-sans leading-6 textcolor"><p class="text-base">Ingresar</p></a>
     </div>
 
-    <div th:if = "${session.usersession == null}" class="relative flex lg:flex-1 justify-evenly">
+    <div th:if = "${session.usersession == null || errorLog != null}" class="relative flex lg:flex-1 justify-evenly">
         <button id="reg" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <p class="text-base">Registrate</p>
             <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -91,7 +91,7 @@
 
     <!-- Opciones del boton Gestionar -->
 
-    <div th:if = "${session.usersession != null}" class="relative flex lg:flex-1 justify-evenly">
+    <div th:if = "${!(session.usersession == null || errorLog != null)}" class="relative flex lg:flex-1 justify-evenly">
 
         <button id="gest" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <p class="text-base">Gestionar</p>
@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <div th:if = "${session.usersession != null}" class="relative flex lg:flex-1 justify-evenly">
+    <div th:if = "${!(session.usersession == null || errorLog != null)}" class="relative flex lg:flex-1 justify-evenly">
 
         <button id="btnPerfil" type="button" class="flex items-center gap-x-1 text-sm font-sans leading-6 textcolor" aria-expanded="false">
             <div th:if="${session.usersession.imagen == null}">
