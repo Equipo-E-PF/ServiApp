@@ -14,6 +14,7 @@ public class Proveedor extends Usuario implements Serializable {
 
     private double puntuacion;
     private double costoHora;
+    private String descripcion;
 
     @OneToOne
     private Especialidad especialidad;
@@ -45,6 +46,14 @@ public class Proveedor extends Usuario implements Serializable {
         this.costoHora = costoHora;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
     @Override
     public void setNombre(String nombre) {
         super.setNombre(nombre);

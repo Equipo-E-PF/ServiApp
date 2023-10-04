@@ -133,9 +133,8 @@
                                     <div class="mt-10 py-10 border-t border-gray-300 text-center">
                                         <div class="flex flex-wrap justify-center">
                                             <div class="w-full lg:w-9/12 px-4 flex flex-col items-center">
-                                                <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                                                    DESCRIPCION DE LOS SERVICIOS QUE PRESTA EL PROVEEDOR PENDIENTE, AGREGAR ATRIBUTO <!-- Falta hacer atributo de la descripcion del servicio -->
-                                                </p>
+                                                <p class="mb-4 text-lg leading-relaxed text-gray-800" th:text="${user.descripcion}"></p>
+                                                
                                                 <form th:action="@{/trabajos/crearTrabajo}" method="POST">
                                                     <div class="hidden">
                                                         <div><input type="text" class="form-control" id="idU" name="idU" th:value="${session.usersession.id}"></div>
