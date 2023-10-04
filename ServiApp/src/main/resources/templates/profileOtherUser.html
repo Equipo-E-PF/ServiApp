@@ -89,7 +89,7 @@
                                             <p ><span class="text-sm text-gray-500">Trabajos Contratados</span></p>
                                         </div>
                                     
-                                    <div th:if="${#strings.equalsIgnoreCase(session.usersession.rol, 'PROVEEDOR')}" class="mr-4 p-3 text-center">
+                                    <div th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" class="mr-4 p-3 text-center">
                                             <div th:each="trabajo : ${trabajos}">
                                                 <div th:if="${trabajo.calificacion.puntuacion!=0.0}" class="trabajo-calificado">
                                                    
@@ -98,7 +98,7 @@
                                             <span
                                                 id="contadorTrabajosConCalificacion" class="text-xl font-bold block uppercase tracking-wide text-gray-700"
                                                 ></span>
-                                            <a href="#" class="hover:underline hover:text-gray-500"><span class="text-sm text-gray-500">Calificaciones</span></a>
+                                            <a  class="hover:underline hover:text-gray-500"><span class="text-sm text-gray-500">Calificaciones</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                         <ul id="estrellasPerfil" ></ul>
                                     </div>
 
-                                    <h3
+                                    <h3 
                                         class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                                         th:text="${user.nombre}">
                                     </h3>

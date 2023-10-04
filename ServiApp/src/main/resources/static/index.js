@@ -29,19 +29,15 @@ const menuContactarProv = document.getElementById("menuContactar");
 const btnCalificar = document.getElementById("btnCalificar");
 const menuCalificar = document.getElementById("menuCalificar");
 
+const administrarButton = document.getElementById("administrarButton");
+const administrarDropdown = document.getElementById("administrarDropdown");
+
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
-
-
-if (fotoPerfil !== null) {
-    const trabajosConCalificacion = document.querySelectorAll('.trabajo-calificado');
-    const contadorElemento = document.getElementById('contadorTrabajosConCalificacion');
-
-    const contadorTrabajosConCalificacion = trabajosConCalificacion.length;
-    contadorElemento.textContent = contadorTrabajosConCalificacion;
-}
-;
+//const identificadorDePerfil = document.getElementById("identificadorDePerfil");
+//console.log(identificadorDePerfil);
+ 
 
 
 
@@ -197,6 +193,22 @@ if (btnPerfil !== null) {
     });
 }
 
+if (administrarButton !== null) {
+    administrarButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        administrarDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!administrarDropdown.contains(event.target) && event.target !== administrarButton) {
+            administrarDropdown.classList.add('hidden');
+        }
+    });
+
+    administrarDropdown.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
 
 if (fotoPerfil !== null && opcionesFoto !== null) {
     fotoPerfil.addEventListener('click', () => {
@@ -339,3 +351,16 @@ if (aviso !== null) {
         aviso.classList.add('hidden');
     });
 }
+
+
+//control de calificaciones 
+    const trabajosConCalificacion = document.querySelectorAll('.trabajo-calificado');
+    const contadorElemento = document.getElementById('contadorTrabajosConCalificacion');
+    console.log();
+    if(trabajosConCalificacion.length>0){
+        const contadorTrabajosConCalificacion = trabajosConCalificacion.length;
+    contadorElemento.textContent = contadorTrabajosConCalificacion;
+    };
+    
+
+;
