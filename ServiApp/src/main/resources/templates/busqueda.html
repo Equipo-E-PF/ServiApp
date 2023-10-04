@@ -8,12 +8,34 @@
         </header>
 
         <main class="mx-auto  w-full flex max-w-7xl p-6 lg:px-8  flex-grow grid grid-flow-row-2 m-y-4 gap-4 " >
-            
+
+            <section>
+                <form method="GET" id="searchForm" action="/busqueda">
+                    <div style="display:flex; flex-direction: row;">
+                        <input type="search" name="busqueda" placeholder="Buscar Servicio o Proveedor" class="border h-10 w-full rounded-full text-sm focus:outline-none">
+                        <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <label for="ordenarPor">Ordenar por:</label>
+                        <select name="ordenarPor" id="ordenarPor" onchange="submitForm()">
+                            <option>             </option>
+                            <option value="nombre">Nombre</option>
+                            <option value="calificacion">Calificación</option>
+                            <option th:if="${session.usersession != null}" value="costoHoraAsc">Costo por Hora (Menor a Mayor)</option>
+                            <option th:if="${session.usersession != null}" value="costoHoraDesc">Costo por Hora (Mayor a Menor)</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
+
+
             <section>
                 <p class="text-lg font-sans leading-6 textcolor gap-x-1">Resultados de la Busqueda:</p><br>
                 <div class="caracteristicas ">
                     <div class="w-full interior-caracteristicas grid  grid-cols-3 m-y-4 gap-4  ">
-                        <div class="box w-full gap-x-1 w-full lg:w-100 p-2 border rounded-md drop-shadow-md " th:each="item: ${listSearch}">
+                        <div class="box w-full gap-x-1 w-full lg:w-100 p-2 border rounded-md drop-shadow-md "th:each="item: ${listSearch}">
                             <h4 class="font-sans " th:text="${item.nombre}"></h4>
                             <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden"></p>
                             <ul class="estrellas" ></ul>
@@ -28,6 +50,11 @@
         </main>
         <script  src="/index.js"></script>
         <footer th:replace="/fragments/footer :: footer">  </footer>
-        
+     
+        <script>
+                            function submitForm() {
+                                document.getElementById("searchForm").submit();
+                            }
+        </script>
     </body>
 </html>

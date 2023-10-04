@@ -46,7 +46,7 @@ if (fotoPerfil !== null) {
 
 
 const addClassToElements = (elementos) => {
-    elementos.forEach(elemento => elemento?.classList.add("hidden"));
+    elementos.forEach(elemento => elemento.classList.add("hidden"));
 };
 
 
