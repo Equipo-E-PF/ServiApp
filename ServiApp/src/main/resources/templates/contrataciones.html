@@ -304,13 +304,14 @@
                                                         <div  class="right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                                                             <div class="p-4" >
 
-                                                                <form action="/#" method="POST" id="calificarTrabajo">
-                                                                    <label for="calificacion" class="block text-sm font-medium text-gray-700">¿Qué puntuación le darias a este proveedor de 1 a 5?</label>
-                                                                    <input type="number" id="calificacion" name="calificacion" required>
+                                                                <form th:action="@{/usuario/calificarTrabajo/__${item.id}__}" method="POST" id="calificarTrabajo">
+                                                                    
+                                                                    <label for="puntuacion" class="block text-sm font-medium text-gray-700">¿Qué puntuación le darias a este proveedor de 1 a 5?</label>
+                                                                    <input type="number" id="puntuacion" th:value="puntuacion" name="puntuacion" required>
 
                                                                     <div class="mb-3">
-                                                                        <label for="comentario" class="block text-sm font-medium text-gray-700">¿Qué opinas de este proveedor?</label>
-                                                                        <textarea class="w-full h-24 border rounded-lg px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="comentario" name="comentario" placeholder="Ingresa la descripción del servicio" required></textarea>
+                                                                        <label for="contenido" class="block text-sm font-medium text-gray-700">¿Qué opinas de este proveedor y el servicio brindado?</label>
+                                                                        <textarea class="w-full h-24 border rounded-lg px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="comentario" name="contenido" th:value="contenido" placeholder="Ingresa la descripción del servicio" required></textarea>
                                                                     </div>
                                                                     <button class="bg-green-600 active:bg-pink-600 text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none" type="submit">
                                                                         ENVIAR

@@ -9,6 +9,7 @@ import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
@@ -46,6 +47,8 @@ public class AdminControlador {
     private trabajoServicio ts;
     @Autowired
     private calificacionServicio cs;
+    @Autowired
+    private usuarioRepositorio ur;
 
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
@@ -112,8 +115,9 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String descripcion, String idEsp, ModelMap model) {
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model) {
         try {
+            String descripcion = ur.proveedorPorId(id).getDescripcion();
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, descripcion, idEsp);
             return "redirect:../usuarios";
         } catch (miException ex) {
@@ -129,12 +133,10 @@ public class AdminControlador {
         return "especialidades.html"; // Reemplaza esto con tu página de edición real
     }
 
-    // Mapeo para procesar la actualización
     @PostMapping("/editarEspecialidad/{id}")
     public String actualizarEspecialidad(@PathVariable String id, @RequestParam String nombre) throws miException {
-        // Realiza la lógica de actualización aquí usando el servicio
         especialidadServicio.modificarEspecialidad(id, nombre);
-        return "redirect:../listaEspecialidades"; // Reemplaza esto con la página correcta después de editar
+        return "redirect:../listaEspecialidades"; 
     }
 
     @GetMapping("/nuevaEspecialidad")
