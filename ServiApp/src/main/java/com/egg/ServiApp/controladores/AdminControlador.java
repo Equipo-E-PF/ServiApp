@@ -161,7 +161,7 @@ public class AdminControlador {
         return "redirect:../listaEspecialidades";
     }
 
-    @GetMapping("/comentarios")
+    @GetMapping("/calificaciones")
     public String comentarios(ModelMap model) {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
@@ -172,7 +172,7 @@ public class AdminControlador {
         return "contratacionesAdmin.html";
     }
     
-    @PostMapping("/comentarios/censurar/{id}")
+    @PostMapping("/censurar/{id}")
     public String censurar(@PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
             cs.censurarCalificacion(id);
@@ -180,7 +180,7 @@ public class AdminControlador {
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/admin/comentarios";
+        return "redirect:../calificaciones";
     }
 
 }
