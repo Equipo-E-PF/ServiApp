@@ -23,6 +23,12 @@ const formularioPerfil = document.getElementById("formularioPerfil");
 const aviso = document.getElementById("avisos");
 const cerrarAviso = document.getElementById("cerrarAvisos");
 
+const contacatarProv = document.getElementById("contactar");
+const menuContactarProv = document.getElementById("menuContactar");
+
+const btnCalificar = document.getElementById("btnCalificar");
+const menuCalificar = document.getElementById("menuCalificar");
+
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
@@ -30,6 +36,41 @@ const addClassToElements = (elementos) => {
     elementos.forEach(elemento => elemento?.classList.add("hidden"));
 };
 
+
+//contactar proveedor
+if (contacatarProv !== null) {
+    contacatarProv.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menuContactarProv.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menuContactarProv.contains(event.target) && event.target !== contacatarProv) {
+            menuContactarProv.classList.add('hidden');
+        }
+    });
+
+    menuContactarProv.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
+
+if (btnCalificar !== null) {
+    btnCalificar.addEventListener('click', (event) => {
+        event.stopPropagation();
+        menuCalificar.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menuCalificar.contains(event.target) && event.target !== btnCalificar) {
+            menuCalificar.classList.add('hidden');
+        }
+    });
+
+    menuCalificar.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
 //cambiar contraseña desde el perfil
 
 if (btnPass !== null) {

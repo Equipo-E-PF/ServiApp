@@ -72,15 +72,48 @@
                                             </div>
                                         </div>
                                         -->
-                                        <a href="" class="">
+                                        <div >
                                             <button
                                                 class="bg-green-600 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                                 type="button"
                                                 style="transition: all 0.15s ease 0s;"
+                                                id="contactar"
+                                                >
+                                                Solicitar Servicio
+
+                                            </button>
+                                            <div id="menuContactar" class="hidden">
+                                            <div id="" class="absolute right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                                                <div class="p-4" >
+                                                    <form th:action="@{/trabajos/crearTrabajo}" method="POST" id="solicitarTrabajo">
+                                                        <input type="hidden" id="idU" name="idU" th:value="${session.usersession.id}">
+                                                            <input type="hidden" id="idP" name="idP" th:value="${user.id}">
+                                                                <div class="mb-3">
+                                                                    <label for="descripcion" class="block text-sm font-medium text-gray-700">¿Qué puedo hacer por ti?</label>
+                                                                    <textarea class="w-full h-24 border rounded-lg px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="descripcion" name="descripcion" placeholder="Ingresa la descripción del servicio" required></textarea>
+                                                                </div>
+                                                                <button class="bg-green-600 active:bg-pink-600 text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none" type="submit">
+                                                                    ENVIAR
+                                                                </button>
+                                                                </form>
+                                                                </div>
+                                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--<div  class="hidden">
+                                            <button
+                                                class="bg-green-600 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                                                type="button"
+                                                style="transition: all 0.15s ease 0s;"
+                                                id="contactar"
                                                 >
                                                 Contactar
+
                                             </button>
-                                        </a>
+                                            
+                                                                </div> -->
+
 
                                     </div>
                                 </div>
@@ -136,6 +169,7 @@
                                                 <p class="mb-4 text-lg leading-relaxed text-gray-800" th:text="${user.descripcion}"></p>
                                                 
                                                 <form th:action="@{/trabajos/crearTrabajo}" method="POST">
+
                                                     <div class="hidden">
                                                         <div><input type="text" class="form-control" id="idU" name="idU" th:value="${session.usersession.id}"></div>
                                                     </div>
@@ -143,13 +177,13 @@
                                                         <div><input type="text" class="form-control" id="idP" name="idP" th:value="${user.id}"></div>
                                                     </div>
                                                     <div class="">
-                                                        <div><label for="descripcion" class="form-label">¿Que puedo hacer por ti?</label></div>
-                                                        <div><textarea class="" id="descripcion" name="descripcion" placeholder="Ingresa la descripción del servicio"></textarea></div>
+                                                        <div><label for="descripcion" class="px-6 py-3 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">¿Que puedo hacer por ti?</label></div>
+                                                        <div><textarea class="w-96 h-24 border rounded-lg px-4 py-2" id="descripcion" name="descripcion" placeholder="Ingresa la descripción del servicio"></textarea></div>
                                                     </div>
                                                     <button class="" type="submit">ENVIAR</button>
-                                                </form>
+                                                </form>-->
                                                 <div class="flex flex-col items-center">
-                                                    <p th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" th:text=" 'Costo Hora/' +${user.costoHora}"class="bg-blue-950 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 w-max">
+                                                    <p th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" th:text=" 'Costo Hora $' +${user.costoHora}"class="bg-blue-950 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 w-max">
                                                     </p>
                                                 </div>
                                             </div>                  
@@ -171,13 +205,15 @@
 
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="bg-blue-50 divide-y divide-gray-200" th:each="trabajo : ${trabajos}">
-
+                                                        <tbody class="bg-blue-50 divide-y divide-gray-200" th:each="trabajo : ${trabajos}" th:if="${#strings.equalsIgnoreCase(trabajo.estado, 'FINALIZADO')}">
+                                                            
                                                             <tr>
 
                                                                 <td class="font-thin px-6 py-4 whitespace-no-wrap"  >12/12/12</td><!-- th:text="${trabajo.calificacion.fecha}" -->
-                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:text="${trabajo.calificacion.contenido}"></td>
-                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap text-center" th:text="${trabajo.calificacion.puntuacion}"></td>
+                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:if="${trabajo.calificacion.contenido==null}"> Sin Calificación</td>
+                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap" th:if="${trabajo.calificacion.contenido!=null}" th:text="${trabajo.calificacion.contenido}"></td>
+                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap text-center" th:if="${trabajo.calificacion.puntuacion==0.0}">Sin Calificación </td>
+                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap text-center" th:if="${trabajo.calificacion.puntuacion!=0.0}"th:text="${trabajo.calificacion.puntuacion}"></td>
                                                                 <td class="px-6 py-4 whitespace-no-wrap " scope="row" th:text="${trabajo.estado}" ></td>
 
 

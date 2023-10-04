@@ -288,22 +288,44 @@
                                             <td th:text="${item.proveedor.email}" class="w-1/4 text-left py-2 px-4"></td>
                                             <td th:text="${item.proveedor.telefono}" class="w-1/6 text-left py-2 px-4"></a></td>
                                             <td th:text="${item.descripcion}" class="w-1/2 text-left py-2 px-4"></td>
-                                            <td class="text-left py-2 px-4">
+                                            <td class="relative text-left py-2 px-4">
                                                 <div th:if="${item.calificacion.puntuacion != 0}" class="flex flex-row" style="display: flex; align-items: center;">
                                                     <i class="fa-regular fa-circle-check" style="margin-right: 5px; margin-left: -5px;"></i>
                                                     Completo
                                                 </div>
-                                                <form th:if="${item.calificacion.puntuacion == 0}"  class="w-auto flex flex-row"> 
-<!--                                                    Botón redirección calificar-->
-                                                    <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+
+                                                <div th:if="${item.calificacion.puntuacion == 0}"  class="w-auto flex flex-row"> 
+                                                    <!--                                                    Botón redirección calificar-->
+                                                    <button id="btnCalificar" class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
                                                         <i class="fa-regular fa-circle-check" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
                                                         Calificar
                                                     </button>
-                                                </form>
+                                                    <div id="menuCalificar" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-80 p-1 text-gray rounded shadow-lg hidden">
+                                                        <div  class="right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                                                            <div class="p-4" >
+
+                                                                <form action="/#" method="POST" id="calificarTrabajo">
+                                                                    <label for="calificacion" class="block text-sm font-medium text-gray-700">¿Qué puntuación le darias a este proveedor de 1 a 5?</label>
+                                                                    <input type="number" id="calificacion" name="calificacion" required>
+
+                                                                    <div class="mb-3">
+                                                                        <label for="comentario" class="block text-sm font-medium text-gray-700">¿Qué opinas de este proveedor?</label>
+                                                                        <textarea class="w-full h-24 border rounded-lg px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="comentario" name="comentario" placeholder="Ingresa la descripción del servicio" required></textarea>
+                                                                    </div>
+                                                                    <button class="bg-green-600 active:bg-pink-600 text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none" type="submit">
+                                                                        ENVIAR
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
+
                                 </table>
+
                             </div>
                         </div>
 
