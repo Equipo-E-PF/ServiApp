@@ -122,6 +122,7 @@ public class Usuario {
         proveedor.setBaja(this.isBaja());
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setImagen(this.imagen);
+        proveedor.setDescripcion("Agregue una descripción de sus servicios");
         return proveedor;
     }
 

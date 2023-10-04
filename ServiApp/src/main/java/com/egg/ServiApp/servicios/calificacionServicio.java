@@ -52,6 +52,19 @@ public class calificacionServicio {
         }
     }
 
+    @Transactional
+    public void censurarCalificacion(String id) throws miException {
+
+        Optional<Calificacion> respuesta = califRepo.findById(id);
+
+        if (respuesta.isPresent()) {
+            Calificacion calif = respuesta.get();
+            calif.setContenido("Contenido censurado");
+
+            califRepo.save(calif);
+        }
+    }
+
     public Calificacion getOne(String id) {
         return califRepo.getOne(id);
     }
