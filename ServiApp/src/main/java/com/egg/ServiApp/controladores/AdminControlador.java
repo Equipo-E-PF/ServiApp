@@ -6,9 +6,12 @@ package com.egg.ServiApp.controladores;
 
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
+import com.egg.ServiApp.entidades.Trabajo;
 import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.enumeraciones.Rol;
+import com.egg.ServiApp.servicios.calificacionServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
+import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
 import java.util.List;
@@ -39,14 +42,17 @@ public class AdminControlador {
     private usuarioServicio usuarioServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-    
-    
+    @Autowired
+    private trabajoServicio ts;
+    @Autowired
+    private calificacionServicio cs;
+
     @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap model) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         List<Proveedor> proveedores = usuarioServicio.listarProveedores();
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
-        model.addAttribute("especialidades", especialidades);    
+        model.addAttribute("especialidades", especialidades);
         Rol[] rol = Rol.values();
         model.addAttribute("rol", rol);
         model.addAttribute("proveedores", proveedores);
@@ -56,16 +62,16 @@ public class AdminControlador {
 
     @GetMapping("/userToProv/{id}")
     public String userToProv(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        
+
         usuarioServicio.usuarioCambioProveedor(usuarioServicio.UserById(id));
         usuarioServicio.eliminarUsuarioId(id);
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
     }
-    
+
     @GetMapping("/provToUser/{id}")
     public String provToUser(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        
+
         usuarioServicio.proveedorCambioUsuario(usuarioServicio.ProviderById(id));
         redirectAttributes.addFlashAttribute("exito", "Proceso éxitosoo");
         return "redirect:../usuarios";
@@ -84,9 +90,9 @@ public class AdminControlador {
 
         return "modUser.html";
     }
-    
+
     @PostMapping("/modificarUsuario/{id}")
-    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model){
+    public String modificarUsuario(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, ModelMap model) {
         try {
             usuarioServicio.modificarUsuario(archivo, id, nombre, telefono);
             return "redirect:../usuarios";
@@ -106,7 +112,7 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String descripcion, String idEsp, ModelMap model){
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String descripcion, String idEsp, ModelMap model) {
         try {
             usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, descripcion, idEsp);
             return "redirect:../usuarios";
@@ -115,9 +121,9 @@ public class AdminControlador {
             return "modProvider.html";
         }
     }
-    
+
     @GetMapping("/listaEspecialidades")
-    public String verListaEspecialidades( ModelMap model) {
+    public String verListaEspecialidades(ModelMap model) {
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
         return "especialidades.html"; // Reemplaza esto con tu página de edición real
@@ -130,12 +136,12 @@ public class AdminControlador {
         especialidadServicio.modificarEspecialidad(id, nombre);
         return "redirect:../listaEspecialidades"; // Reemplaza esto con la página correcta después de editar
     }
-        
+
     @GetMapping("/nuevaEspecialidad")
     public String nuevaEspecialidad() {
         return "especialidadForm.html";
     }
-    
+
     @PostMapping("/crearEspecialidad")
     public String crearEspecialidad(@RequestParam String nombre, ModelMap model) {
         try {
@@ -146,11 +152,33 @@ public class AdminControlador {
             return "error.html";
         }
     }
-    
+
     @PostMapping("/eliminarEspecialidad/{id}")
     public String eliminarEspecialidad(@PathVariable String id) {
         especialidadServicio.eliminarEspecialidadId(id);
         return "redirect:../listaEspecialidades";
     }
-  
+
+    @GetMapping("/comentarios")
+    public String comentarios(ModelMap model) {
+        List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
+        model.addAttribute("especialidades", especialidades);
+
+        List<Trabajo> trabajoCalificado = ts.listarTrabajoCalificado();
+        model.addAttribute("trabajoCalificado", trabajoCalificado);
+
+        return "contratacionesAdmin.html";
+    }
+    
+    @PostMapping("/comentarios/censurar/{id}")
+    public String censurar(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            cs.censurarCalificacion(id);
+            redirectAttributes.addFlashAttribute("exito", "Trabajo rechazado con éxito");
+        } catch (miException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/comentarios";
+    }
+
 }

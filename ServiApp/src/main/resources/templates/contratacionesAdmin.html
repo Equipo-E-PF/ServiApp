@@ -6,75 +6,77 @@
                 <nav th:replace="/fragments/navbar :: nav">  </nav>
             </header>
             <main class="w-full flex-grow p-6">
-            <div class="w-full mt-12">
-                <p class="text-xl pb-3 flex items-center">
-                    <i class="fas fa-list mr-3"></i> Calificaciones
-                </p>
-                <div class="bg-white overflow-auto">
-                    <table class="min-w-full leading-normal">
-                        <thead>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Usuario
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Comentario
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Calificacion
-                                </th>
-                                <th
-                                class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center w-30 text-xs uppercase font-semibold text-gray-600 text-sm tracking-wider">
-                                    Gestionar
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="item : ${trabajoCalificado}">
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                 alt="" />
+                <div class="w-full mt-12">
+                    <p class="text-xl pb-3 flex items-center">
+                        <i class="fas fa-list mr-3"></i> Calificaciones
+                    </p>
+                    <div class="bg-white overflow-auto">
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Usuario
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Comentario
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Calificacion
+                                    </th>
+                                    <th
+                                        class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center w-30 text-xs uppercase font-semibold text-gray-600 text-sm tracking-wider">
+                                        Gestionar
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${trabajoCalificado}">
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 w-10 h-10">
+                                                <img class="w-full h-full rounded-full"
+                                                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                     alt="" />
+                                            </div>
+                                            <div class="ml-3">
+                                                <p th:text="${item.proveedor.nombre}" class="text-gray-900 whitespace-no-wrap">
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="ml-3">
-                                            <p th:text="${item.proveedor.nombre}" class="text-gray-900 whitespace-no-wrap">
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
-                                    </p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span th:each="starNum : ${#numbers.sequence(1, 5)}">
-                                        <span th:if="${item.calificacion.puntuacion >= starNum}"
-                                              class="text-yellow-500">*</span>
-                                    </span>
-                                </td>
-                                <td class="py-5 border-b border-gray-200 bg-white items-center flex flex-col">
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
+                                        </p>
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <span th:each="starNum : ${#numbers.sequence(1, 5)}">
+                                            <span th:if="${item.calificacion.puntuacion >= starNum}"
+                                                  class="text-yellow-500">*</span>
+                                        </span>
+                                    </td>
+                                    <td class="py-5 border-b border-gray-200 bg-white items-center flex flex-col">
                                         <div class="w-90 h-10">
-                                    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold px-3 rounded" style="display: flex; align-items: center;">
-                                        <i class="fa-regular fa-trash-can" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
-                                        Cancelar
-                                    </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            <form method="POST" th:action="@{/admin/comentarios/censurar/__${item.calificacion.id}__}" class="w-auto flex flex-row mt-3">
+                                                <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold px-3 rounded mr-2" style="display: flex; align-items: center;">
+                                                    <i class="fa-regular fa-circle-xmark" style="color: #ffffff; margin-right: 5px; margin-left: -5px;"></i>
+                                                    Censurar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </main>
-             
-        <footer th:replace="/fragments/footer :: footer">  </footer>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-        <script  src="/index.js"></script>
+            </main>
+
+            <footer th:replace="/fragments/footer :: footer">  </footer>
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+            <script  src="/index.js"></script>
     </body>
 </html>
