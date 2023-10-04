@@ -142,12 +142,17 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/modificarContrasenia/{id}")
-    public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model) throws miException {
+    public String modificarContrasenia(@PathVariable String id, String oldPassword, String password1, String password2, ModelMap model, @SessionAttribute("usersession") Usuario usuario) throws miException {
         try {
             usuarioServicio.modificarContrasenia(id, oldPassword, password1, password2);
             model.put("exito", "Se modificó correctamente la contraseña");
-
-            return "redirect:../perfil/{id}";
+            String op=null;
+            if (usuario.getRol()==Rol.USUARIO) {
+                op = "User";
+            }else if(usuario.getRol()==Rol.PROVEEDOR){
+                op = "Provider";
+            }
+            return "redirect:../perfil"+op+"/{id}";
         } catch (miException ex) {
 
             model.put("error", ex.getMessage());
