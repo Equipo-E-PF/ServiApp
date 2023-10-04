@@ -73,7 +73,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <option >Seleccione</option>
                             <option th:each="especialidad : ${especialidades}" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></option>
                         </select>
-
                     </div>
                     <div>
                         <button type="submit" class="flex w-full justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar</button>
