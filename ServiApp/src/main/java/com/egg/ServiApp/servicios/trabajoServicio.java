@@ -79,6 +79,10 @@ public class trabajoServicio {
         return tr.listarPorProveedor(id);
     }
     
+    public List<Trabajo> listarTrabajoPorUsuario(String id){
+        return tr.listarPorUsuario(id);
+    }
+    
     public List<Trabajo> listarTrabajoCalificado(){
         return tr.TrabajosCalificados();
     }

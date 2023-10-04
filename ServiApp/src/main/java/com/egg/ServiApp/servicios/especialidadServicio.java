@@ -38,6 +38,10 @@ public class especialidadServicio {
 
         er.save(especialidad);
     }
+    
+    public Especialidad sinEspecilidad(){
+        return er.buscarPorNombre("Sin especialidad");
+    }
 
     public List<Especialidad> listarEspecialidades() {
         return er.findAll();

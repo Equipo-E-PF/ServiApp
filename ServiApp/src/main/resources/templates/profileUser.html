@@ -193,8 +193,16 @@
                                     class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                                     th:text="${user.nombre}">
                                 </h3>
-                                <div class="mb-2 mt-3 text-gray-700" th:if="${!#strings.equalsIgnoreCase(user.rol, 'ADMIN')}">
-                                    <button id="btnCalificar"> <i class="fa-solid fa-arrows-rotate"></i></button> <p th:text="${user.rol}"> </p>
+                                <div class="mb-2 mt-3 text-gray-700">
+                                    <div th:if="${#strings.equalsIgnoreCase(user.rol, 'USUARIO')}">
+                                    <a th:href="@{/usuario/userToProv/{id}(id=${user.id})}" id="btnCalificar"> <i class="fa-solid fa-arrows-rotate"></i></a> 
+                                    <p>Convertirse en Proveedor</p>
+                                    </div>
+                                    
+                                    <div th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}">
+                                    <a th:href="@{/usuario/provToUser/{id}(id=${user.id})}" id="btnCalificar"> <i class="fa-solid fa-arrows-rotate"></i></a>
+                                    <p>Convertirse en Usuario</p>
+                                    </div>
 
                                     <div id="menuCalificar" th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-80  text-gray rounded  hidden">
                                         <div  class="right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
@@ -265,7 +273,6 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col" class="hidden">ID</th>
-                                                                <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center" scope="col">FECHA</th>
                                                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center" scope="col">COMENTARIO</th>
                                                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center" scope="col">PUNTUACIÓN</th>
                                                                 <th class="px-6 py-3 bg-blue-100 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center" scope="col">ESTADO</th>
@@ -276,7 +283,6 @@
 
                                                             <tr>
 
-                                                                <td class="font-thin px-6 py-4 whitespace-no-wrap"  >12/12/12</td><!-- th:text="${trabajo.calificacion.fecha}" -->
                                                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:if="${trabajo.calificacion.contenido==null}"> Sin Calificación</td>
                                                                 <td class="font-thin px-6 py-4 whitespace-no-wrap" th:if="${trabajo.calificacion.contenido!=null}" th:text="${trabajo.calificacion.contenido}"></td>
                                                                 <td class="font-thin px-6 py-4 whitespace-no-wrap text-center" th:if="${trabajo.calificacion.puntuacion==0.0}">Sin Calificación </td>

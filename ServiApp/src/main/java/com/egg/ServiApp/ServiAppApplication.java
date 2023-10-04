@@ -38,7 +38,7 @@ public class ServiAppApplication {
 //           //Creación de especialidades
 
 //            
-//            es.crearEspecialidad("Carpintero");
+//            es.crearEspecialidad("Sin especialidad");
 //            es.crearEspecialidad("Mecánico");
 //            es.crearEspecialidad("Plomero");
 //            es.crearEspecialidad("Gasista");
@@ -78,10 +78,10 @@ public class ServiAppApplication {
 //            ts.terminarTrabajo(ts.listarTrabajos().get(0).getId(), Estado.FINALIZADO, "Ha cumplido con mis expectativas", 5);
 //            
 //            
-            
- //       } catch (miException e) {
- //           e.getStackTrace();
- //       }
- //   }
+//            
+//        } catch (miException e) {
+//            e.getStackTrace();
+//        }
+//    }
 
 }
