@@ -22,14 +22,14 @@ public interface trabajoRepositorio extends JpaRepository<Trabajo, String> {
     @Query("SELECT a FROM Trabajo a WHERE a.proveedor = :proveedor")
     public Trabajo buscarPorProveedor(@Param("proveedor") String proveedor);
 
-    @Query("SELECT a FROM Trabajo a WHERE a.proveedor.id = :proveedorId")
+    @Query("SELECT a FROM Trabajo a WHERE a.proveedor.id = :proveedorId AND a.estado = 'FINALIZADO'")
     public List<Trabajo> listarPorProveedor(@Param("proveedorId") String proveedorId);
 
     @Query("SELECT a FROM Trabajo a WHERE a.estado = :estado")
     public Trabajo buscarPorEstado(@Param("estado") String estado);
 
-    @Query("SELECT a FROM Trabajo a WHERE a.usuario = :usuario")
-    public Trabajo buscarPorUsuario(@Param("usuario") String usaurio);
+    @Query("SELECT a FROM Trabajo a WHERE a.usuario.id = :usuarioId AND a.estado = 'FINALIZADO'")
+    public List<Trabajo> listarPorUsuario(@Param("usuarioId") String usaurioId);
 
     @Query("SELECT a FROM Trabajo a WHERE a.estado = :estado")
     public List<Trabajo> findByEstado(@Param("estado") Estado estado);

@@ -12,8 +12,12 @@ import com.egg.ServiApp.servicios.trabajoServicio;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import excepciones.miException;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,17 +47,17 @@ public class UsuarioControlador {
     private calificacionServicio calificacionServicio;
     @Autowired
     private especialidadServicio especialidadServicio;
-    
+
     @GetMapping("/perfilUser/{id}")
     public String cargarPerfilU(@PathVariable String id, ModelMap modelo) {
-        List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
+        List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorUsuario(id);
         modelo.put("trabajos", trabajos);
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
         modelo.put("user", usuarioServicio.UserById(id));
         return "profileUser.html";
     }
-    
+
     @GetMapping("/perfilProvider/{id}")
     public String cargarPerfilP(@PathVariable String id, ModelMap modelo) {
         List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
@@ -62,6 +66,34 @@ public class UsuarioControlador {
         modelo.addAttribute("especialidades", especialidades);
         modelo.put("user", usuarioServicio.ProviderById(id));
         return "profileUser.html";
+    }
+
+    
+    @GetMapping("/userToProv/{id}")
+    public String userToProv(@PathVariable String id, HttpServletRequest request) {
+        usuarioServicio.usuarioCambioProveedor(usuarioServicio.UserById(id));
+        usuarioServicio.eliminarUsuarioId(id);
+
+        // Cierra la sesión utilizando Spring Security
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, null, auth);
+        }
+
+        return "redirect:/login";
+    }
+
+    @GetMapping("/provToUser/{id}")
+    public String provToUser(@PathVariable String id, HttpServletRequest request) {
+        usuarioServicio.proveedorCambioUsuario(usuarioServicio.ProviderById(id));
+
+        // Cierra la sesión utilizando Spring Security
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, null, auth);
+        }
+
+        return "redirect:/login";
     }
 
     @GetMapping("/perfilOtro/{id}")
@@ -158,7 +190,6 @@ public class UsuarioControlador {
 //        redirectAttributes.addFlashAttribute("exito", "Trabajo cancelado con éxito");
 //        return "redirect:/";
 //    }
-
     // Crear una calificación para un trabajo con estrellas
     @PostMapping("/calificarTrabajo/{trabajoId}")
     public String calificarTrabajo(@PathVariable String trabajoId, double puntuacion, String contenido, RedirectAttributes redirectAttributes) {
@@ -187,7 +218,7 @@ public class UsuarioControlador {
         if (usuario != null) {
 
             if (usuario.getRol().equals(Rol.PROVEEDOR)) {
-                
+
                 // Trabajo creado en estado Pendiente con x proveedor
                 List<Trabajo> listaUsuariosPen = trabajoServicio.TrabajoPorProveedorEstado(usuario.getId(), Estado.PENDIENTE);
                 model.addAttribute("usuariosPendientes", listaUsuariosPen);
@@ -206,7 +237,7 @@ public class UsuarioControlador {
             }
 
             if (usuario.getRol().equals(Rol.USUARIO)) {
-                
+
                 // Trabajo creado en estado Pendiente con x proveedor
                 List<Trabajo> listaUsuariosPen = trabajoServicio.TrabajoPorUsuarioEstado(usuario.getId(), Estado.PENDIENTE);
                 model.addAttribute("usuariosPendientes", listaUsuariosPen);
@@ -223,11 +254,10 @@ public class UsuarioControlador {
                 List<Trabajo> trabajoCalificado = trabajoServicio.TrabajoCalificadosUsuario(usuario.getId());
                 model.addAttribute("trabajoCalificado", trabajoCalificado);
             }
-            
+
             return "contrataciones.html";
-            
-        } 
-        else {
+
+        } else {
             return "redirect:/login";
         }
     }
