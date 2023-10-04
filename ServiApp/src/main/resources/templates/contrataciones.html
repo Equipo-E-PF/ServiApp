@@ -175,10 +175,14 @@
                                                 </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <span th:each="starNum : ${#numbers.sequence(1, 5)}">
+                                                <!--<span th:each="starNum : ${#numbers.sequence(1, 5)}">
                                                     <span th:if="${item.calificacion.puntuacion >= starNum}"
                                                           class="text-yellow-500">*</span>
-                                                </span>
+                                                </span>-->
+                                                <div class="">
+                                                    <p  id="puntuacion" th:text="${item.calificacion.puntuacion}" class="hidden"></p>
+                                                    <ul class="estrellas" ></ul>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -305,7 +309,7 @@
                                                             <div class="p-4" >
 
                                                                 <form th:action="@{/usuario/calificarTrabajo/__${item.id}__}" method="POST" id="calificarTrabajo">
-                                                                    
+
                                                                     <label for="puntuacion" class="block text-sm font-medium text-gray-700">¿Qué puntuación le darias a este proveedor de 1 a 5?</label>
                                                                     <input type="number" id="puntuacion" th:value="puntuacion" name="puntuacion" required>
 
@@ -371,11 +375,16 @@
                                                 <p th:text="${item.calificacion.contenido}" class="text-gray-900 whitespace-no-wrap">
                                                 </p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <span th:each="starNum : ${#numbers.sequence(1, 5)}">
-                                                    <span th:if="${item.calificacion.puntuacion >= starNum}"
-                                                          class="text-yellow-500">*</span>
-                                                </span>
+                                            <td class="">
+                                                <!-- <span th:each="starNum : ${#numbers.sequence(1, 5)}">
+                                                     <span th:if="${item.calificacion.puntuacion >= starNum}"
+                                                           class="text-yellow-500">*</span>
+                                                 </span>-->
+                                                <div class="px-5">
+                                                    <p  id="puntuacion" th:text="${item.calificacion.puntuacion}" class="hidden"></p>
+                                                    <ul class="estrellas" ></ul>
+                                                    
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
