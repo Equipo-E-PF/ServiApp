@@ -106,9 +106,9 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificarProveedor/{id}")
-    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String idEsp, ModelMap model){
+    public String modificarProveedor(MultipartFile archivo, @PathVariable String id, String nombre, Long telefono, double costoHora, String descripcion, String idEsp, ModelMap model){
         try {
-            usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, idEsp);
+            usuarioServicio.modificarProveedor(archivo, id, nombre, telefono, costoHora, descripcion, idEsp);
             return "redirect:../usuarios";
         } catch (miException ex) {
             model.put("error", ex.getMessage());

@@ -11,6 +11,7 @@ import com.egg.ServiApp.repositorio.trabajoRepositorio;
 import com.egg.ServiApp.repositorio.usuarioRepositorio;
 import excepciones.miException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -103,6 +104,7 @@ public class usuarioServicio implements UserDetailsService {
         p.setRol(Rol.PROVEEDOR);
         p.setCostoHora(costoHora);
         p.setEspecialidad(er.buscarPorNombre(especialidad));
+        p.setDescripcion("Agregue una descripción de sus servicios");
 
         ur.save(p);
     }
@@ -115,24 +117,13 @@ public class usuarioServicio implements UserDetailsService {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setTelefono(telefono);
-//            Imagen imagen = null;
-//            String idImagen = null;
-//
-//            if (usuario.getImagen() != null) {
-//                idImagen = usuario.getImagen().getId();
-//                imagen = is.actualizar(archivo, idImagen);
-//            } else {
-//                imagen = is.guardar(archivo);
-//
-//            }
-//
-//            usuario.setImagen(imagen);
+
             ur.save(usuario);
         }
     }
 
     @Transactional
-    public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String idEsp) throws miException {
+    public void modificarProveedor(MultipartFile archivo, String id, String nombre, Long telefono, double costoHora, String descripcion, String idEsp) throws miException {
         System.out.println(idEsp);
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
@@ -140,20 +131,9 @@ public class usuarioServicio implements UserDetailsService {
             p.setNombre(nombre);
             p.setTelefono(telefono);
             p.setCostoHora(costoHora);
+            p.setDescripcion(descripcion);
             p.setEspecialidad(er.getById(idEsp));
-//
-//            Imagen imagen = null;
-//            String idImagen = null;
-//
-//            if (p.getImagen() != null) {
-//                idImagen = p.getImagen().getId();
-//                imagen = is.actualizar(archivo, idImagen);
-//            } else {
-//                imagen = is.guardar(archivo);
-//
-//            }
-//
-//            p.setImagen(imagen);
+
             ur.save(p);
 
         }
@@ -354,8 +334,8 @@ public class usuarioServicio implements UserDetailsService {
         }
     }
     
-    public List<Proveedor> proveedorSearch(String search) {
-        List<Proveedor> resultados = ur.searchByEspecialidad(search);
+    public HashSet<Proveedor> proveedorSearch(String search) {
+        HashSet<Proveedor> resultados = ur.searchByEspecialidad(search);
         resultados.addAll(ur.searchByNombre(search));
         return resultados;
     }
