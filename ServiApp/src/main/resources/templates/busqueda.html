@@ -11,21 +11,19 @@
 
             <section>
                 <form method="GET" id="searchForm" action="/busqueda">
-                    <div style="display:flex; flex-direction: row;">
-                        <input type="search" name="busqueda" placeholder="Buscar Servicio o Proveedor" class="border h-10 w-full rounded-full text-sm focus:outline-none">
-<!--                        <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
-                            <i class="fas fa-search"></i>
-                        </button>-->
-                    </div>
-                    <div style="display:flex; flex-direction: row">
-                        <label for="ordenarPor">Ordenar por:</label>
-                        <select name="ordenarPor" id="ordenarPor" onchange="submitForm()" class="ordenarPor">
+                    <div class="relative flex w-fit flex-wrap items-stretch">
+                        <input type="search" name="busqueda" placeholder="Buscar Servicio o Proveedor" class="border py-1.5 px-4 w-96 rounded-full text-sm focus:outline-none">
+
+                        <p for="ordenarPor" class="flex whitespace-nowrap rounded-l py-1 px-2 text-center text-base font-normal leading-[1.6] text-[#0F2C59]">Ordenar por:</p>
+
+                        <select name="ordenarPor" id="ordenarPor" onchange="submitForm()" class="block w-40 rounded-md border-0 py-1.5 px-3 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             <option value="" disabled selected>Elija una opción</option>
                             <option value="nombre">Nombre</option>
                             <option value="calificacion">Calificación</option>
                             <option th:if="${session.usersession != null}" value="costoHoraAsc">Costo por Hora (Menor a Mayor)</option>
                             <option th:if="${session.usersession != null}" value="costoHoraDesc">Costo por Hora (Mayor a Menor)</option>
                         </select>
+
                     </div>
                 </form>
             </section>
