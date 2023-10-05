@@ -32,16 +32,9 @@ const menuCalificar = document.getElementById("menuCalificar");
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
-
-
-if (fotoPerfil !== null) {
-    const trabajosConCalificacion = document.querySelectorAll('.trabajo-calificado');
-    const contadorElemento = document.getElementById('contadorTrabajosConCalificacion');
-
-    const contadorTrabajosConCalificacion = trabajosConCalificacion.length;
-    contadorElemento.textContent = contadorTrabajosConCalificacion;
-}
-;
+//const identificadorDePerfil = document.getElementById("identificadorDePerfil");
+//console.log(identificadorDePerfil);
+ 
 
 
 
@@ -339,3 +332,16 @@ if (aviso !== null) {
         aviso.classList.add('hidden');
     });
 }
+
+
+//control de calificaciones 
+    const trabajosConCalificacion = document.querySelectorAll('.trabajo-calificado');
+    const contadorElemento = document.getElementById('contadorTrabajosConCalificacion');
+    console.log();
+    if(trabajosConCalificacion.length>0){
+        const contadorTrabajosConCalificacion = trabajosConCalificacion.length;
+    contadorElemento.textContent = contadorTrabajosConCalificacion;
+    };
+    
+
+;

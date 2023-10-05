@@ -184,7 +184,7 @@
                             </div>
                             <div class="text-center mt-12">
 
-                                <h3
+                                <h3 id="identificadorDePerfil"
                                     class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                                     th:text="${user.nombre}">
                                 </h3>
@@ -203,7 +203,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="menuCalificar" th:if="${#strings.equalsIgnoreCase(user.rol, 'USUARIO')}" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-80 p-1 text-gray rounded shadow-lg hidden">
+                                    <div id="menuCalificar" th:if="${#strings.equalsIgnoreCase(user.rol, 'USUARIO')}" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-80 text-gray rounded  hidden">
                                         <div  class="right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                                             <div class="p-10 " >
 
