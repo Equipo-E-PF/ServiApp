@@ -79,7 +79,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <br>
                         <select class="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="especialidad" id="especialidad">
                             <option >Seleccione</option>
-                            <option th:each="especialidad : ${especialidades}" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></option>
+                            <option th:each="especialidad : ${especialidades}" th:value="${especialidad.nombre}" th:text="${especialidad.nombre}"></option>
                         </select>
 
                     </div>
