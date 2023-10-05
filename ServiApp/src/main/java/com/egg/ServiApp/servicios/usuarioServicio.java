@@ -193,6 +193,7 @@ public class usuarioServicio implements UserDetailsService {
         Proveedor p = usuario.convertirEnProveedor();
         p.setCostoHora(0);
         p.setEspecialidad(es.sinEspecilidad());
+        System.out.println(p.getEspecialidad().getId());
         ur.save(p);
     }
 

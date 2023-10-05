@@ -88,7 +88,7 @@
 
                                                     </div>
                                                     <div class="px-2 py-2 hover:bg-gray-100 cursor-pointer hidden" id="opcionesFormulario">
-                                                        <form th:action="@{/usuario/actualizarFoto}" method="POST" enctype="multipart/form-data">
+                                                        <form th:action="@{/usuario/actualizarFoto/__${user.id}__}" method="POST" enctype="multipart/form-data">
                                                             <input type="file" name="archivo" accept="image/*" class="py-2 flex rounded-md  text-sm font-semibold leading-6   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                                             <input hidden th:value="${user.id}" name="id">>
                                                             <button type="submit" value="subir" class=" p-2 flex  justify-center rounded-md bg-[#0F2C59] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#18468C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Subir</button>

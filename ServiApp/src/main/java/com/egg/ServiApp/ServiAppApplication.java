@@ -36,7 +36,7 @@ public class ServiAppApplication {
 //        try {
 //            
 //           //Creación de especialidades
-
+//
 //            
 //            es.crearEspecialidad("Sin especialidad");
 //            es.crearEspecialidad("Mecánico");
@@ -48,11 +48,11 @@ public class ServiAppApplication {
 //            
 //            // Creación de administrador
 //            
-//            us.crearAdmin("Admin Supremo", "admin@admin.com", "admin2032", "admin2023", 3143760609L);
+//            us.crearAdmin("Admin Supremo", "admin@admin.com", "111111", "111111", 3143760609L);
 //            
 //            // Creación de usuarios
 //            
-//            us.crearUsuario("Pedro Velandia", "usuario1@email.com", "Usuario1", "Usuario1", 3143785909L);
+//            us.crearUsuario("Pedro Velandia", "usuario1@email.com", "111111", "111111", 3143785909L);
 //            us.crearUsuario("Luis Romero", "usuario2@email.com", "Usuario2", "Usuario2", 315741698L);
 //            us.crearUsuario("Juan Calamardo", "usuario3@email.com", "Usuario3", "Usuario3", 3215489652L);
 //            us.crearUsuario("German Garcia", "usuario4@email.com", "Usuario4", "Usuario4", 3004521485L);
@@ -60,22 +60,22 @@ public class ServiAppApplication {
 //            
 //            // Creación proveedores
 //            
-//            us.crearProveedor("Juan Angulo", "juan.angulo@hotmail.com", "Proveedor1", "Proveedor1", 3143760609L, 15, "Electricista");
-//            us.crearProveedor("Marcos Romiti", "marcos.romiti@hotmail.com", "Proveedor2", "Proveedor2", 3259875169L, 20, "Mecánico");
+//            us.crearProveedor("Juan Angulo", "juan.angulo@hotmail.com", "111111", "111111", 3143760609L, 15, "Electricista");
+//            us.crearProveedor("Marcos Romiti", "marcos.romiti@hotmail.com", "111111", "111111", 3259875169L, 20, "Mecánico");
 //            us.crearProveedor("Alex Medina", "alex.medina@hotmail.com", "Proveedor3", "Proveedor3", 3206548765L, 10, "Carpintero");
 //            us.crearProveedor("Facundo Torino", "facundo.torino@hotmail.com", "Proveedor4", "Proveedor4", 3236549632L, 50, "Plomero");
 //            us.crearProveedor("Alejandra Lopez", "alejandra.lopez@hotmail.com", "Proveedor5", "Proveedor5", 3159548724L, 8, "Jardinero");
 //            us.crearProveedor("Mariana Torres", "mariana.torres@hotmail.com", "Proveedor6", "Proveedor6", 3226518743L, 30, "Gasista");
 //            us.crearProveedor("Rodrigo Pascual", "rodrigo.pascual@hotmail.com", "Proveedor7", "Proveedor7", 3174568520L, 27, "Mecánico");
 //            us.crearProveedor("Jefferson Rodríguez", "jefferson.rodríguez@hotmail.com", "Proveedor8", "Proveedor8", 3205418741L, 6, "Pintor");
-            
- //           // Creación de trabajo
-            
-//            ts.crearTrabajo(us.listarUsuarios().get(0), us.listarProveedores().get(0));
-            
+//          
+//           // Creación de trabajo
+//          
+//           // ts.crearTrabajo(us.listarUsuarios().get(0), us.listarProveedores().get(0));
+//          
 //            // Terminar trabajo
 //            
-//            ts.terminarTrabajo(ts.listarTrabajos().get(0).getId(), Estado.FINALIZADO, "Ha cumplido con mis expectativas", 5);
+//           // ts.terminarTrabajo(ts.listarTrabajos().get(0).getId(), Estado.FINALIZADO, "Ha cumplido con mis expectativas", 5);
 //            
 //            
 //            
