@@ -46,7 +46,8 @@ public class UsuarioControlador {
     
     @GetMapping("/perfilUser/{id}")
     public String cargarPerfilU(@PathVariable String id, ModelMap modelo) {
-        
+        List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
+        modelo.put("trabajos", trabajos);
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
         modelo.put("user", usuarioServicio.UserById(id));
@@ -55,6 +56,8 @@ public class UsuarioControlador {
     
     @GetMapping("/perfilProvider/{id}")
     public String cargarPerfilP(@PathVariable String id, ModelMap modelo) {
+        List<Trabajo> trabajos = trabajoServicio.listarTrabajoPorProveedor(id);
+        modelo.put("trabajos", trabajos);
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
         modelo.put("user", usuarioServicio.ProviderById(id));

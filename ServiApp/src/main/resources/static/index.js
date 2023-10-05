@@ -32,6 +32,19 @@ const menuCalificar = document.getElementById("menuCalificar");
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
+
+
+if (fotoPerfil !== null) {
+    const trabajosConCalificacion = document.querySelectorAll('.trabajo-calificado');
+    const contadorElemento = document.getElementById('contadorTrabajosConCalificacion');
+
+    const contadorTrabajosConCalificacion = trabajosConCalificacion.length;
+    contadorElemento.textContent = contadorTrabajosConCalificacion;
+}
+;
+
+
+
 const addClassToElements = (elementos) => {
     elementos.forEach(elemento => elemento?.classList.add("hidden"));
 };
@@ -152,9 +165,9 @@ if (btnGest !== null) {
     });
 
 //    if (menuGest !== null) {
-        menuGest.addEventListener('click', (event) => {
-            event.stopPropagation();
-        });
+    menuGest.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
 //        menu.addEventListener('click', (event) => {
 //            event.stopPropagation();
@@ -217,7 +230,6 @@ if (fotoPerfil !== null && opcionesFoto !== null) {
 listEstrellas.forEach(estrellitas => {
 
     const puntuacion = estrellitas.previousElementSibling;
-
     const numero = parseInt(puntuacion.textContent);
     const ul = document.createElement("ul");
     ul.classList.add("flex", "space-x-1");
