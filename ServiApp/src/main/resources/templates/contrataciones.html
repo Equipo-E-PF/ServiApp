@@ -308,7 +308,7 @@
                                                         <div  class="right-0 mt-3 w-96 max-w-md rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                                                             <div class="p-4" >
 
-                                                                <form th:action="@{/usuario/calificarTrabajo/__${item.id}__}" method="POST" id="calificarTrabajo">
+                                                                <form th:action="@{/usuario/calificarTrabajo/__${item.calificacion.id}__}" method="POST" id="calificarTrabajo">
 
                                                                     <label for="puntuacion" class="block text-sm font-medium text-gray-700">¿Qué puntuación le darias a este proveedor de 1 a 5?</label>
                                                                     <input type="number" id="puntuacion" th:value="puntuacion" name="puntuacion" required>

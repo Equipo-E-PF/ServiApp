@@ -200,7 +200,7 @@ public class UsuarioControlador {
     public String calificarTrabajo(@PathVariable String trabajoId, double puntuacion, String contenido, RedirectAttributes redirectAttributes) {
         System.out.println(trabajoId + " " + contenido + " " + puntuacion);
         try {
-            calificacionServicio.crearCalificacion(trabajoId, contenido, puntuacion);
+            calificacionServicio.modificarCalificacion(trabajoId, contenido, puntuacion);
             redirectAttributes.addFlashAttribute("exito", "Calificación creada con éxito");
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
