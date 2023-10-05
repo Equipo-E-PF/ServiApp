@@ -3,21 +3,19 @@ package com.egg.ServiApp.controladores;
 import com.egg.ServiApp.entidades.Especialidad;
 import com.egg.ServiApp.entidades.Proveedor;
 import com.egg.ServiApp.entidades.Trabajo;
-import com.egg.ServiApp.entidades.Usuario;
 import com.egg.ServiApp.servicios.usuarioServicio;
 import com.egg.ServiApp.servicios.especialidadServicio;
 import com.egg.ServiApp.servicios.trabajoServicio;
 import excepciones.miException;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +42,7 @@ public class PortalControlador {
 
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-        
+
         List<Proveedor> listFull = us.listarProveedores();
         List<Proveedor> listProveedoresFull = new ArrayList();
         List<Proveedor> listProveedores = new ArrayList();
@@ -94,14 +92,17 @@ public class PortalControlador {
     @GetMapping("/busqueda")
     public String busqueda(@RequestParam(name = "busqueda", required = false) String busqueda,
             @RequestParam(name = "ordenarPor", required = false) String ordenarPor,
-            ModelMap model) {
-        
+            ModelMap model, HttpServletRequest request) {
+
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         model.addAttribute("especialidades", especialidades);
-        List<Proveedor> listSearch = us.listarProveedores();
+
+        List<Proveedor> listSearch = new ArrayList<>();
 
         if (busqueda != null && !busqueda.isEmpty()) {
             listSearch = us.proveedorSearchGeneral(busqueda);
+        } else {
+            listSearch = us.listarProveedores();
         }
 
         if (null != ordenarPor) {
@@ -118,13 +119,27 @@ public class PortalControlador {
         }
 
         model.addAttribute("listSearch", listSearch);
-        return "busqueda.html";
-    }
 
-    @GetMapping("/busqueda/{especialidad}")
-    public String linksEspecialidad(@PathVariable String especialidad, ModelMap model) {
-        List<Proveedor> listSearch = us.proveedorSearch(especialidad);
-        model.addAttribute("listSearch", listSearch);
+        // Aquí construimos la URL de vuelta con los parámetros adecuados
+        StringBuilder urlVueltaBuilder = new StringBuilder(request.getRequestURI());
+        boolean hasParameters = false;
+
+        if (busqueda != null && !busqueda.isEmpty()) {
+            urlVueltaBuilder.append("?busqueda=").append(busqueda);
+            hasParameters = true;
+        }
+
+        if (ordenarPor != null && !ordenarPor.isEmpty()) {
+            if (hasParameters) {
+                urlVueltaBuilder.append("&ordenarPor=").append(ordenarPor);
+            } else {
+                urlVueltaBuilder.append("?ordenarPor=").append(ordenarPor);
+            }
+        }
+
+        // Resto del código para preparar los datos a mostrar en la vista
+        model.addAttribute("urlVuelta", urlVueltaBuilder.toString());
+
         return "busqueda.html";
     }
 
@@ -180,14 +195,14 @@ public class PortalControlador {
 
         List<Especialidad> especialidades = especialidadServicio.listarEspecialidades();
         modelo.addAttribute("especialidades", especialidades);
-        
+
         if (error != null) {
             Boolean errorLog = true;
             modelo.put("errorLog", errorLog);
             System.out.println("Error en login");
             modelo.put("error", "Usuario o Contrasena invalidos");
         }
-        
+
         return "login.html";
     }
 

@@ -13,9 +13,9 @@
                 <form method="GET" id="searchForm" action="/busqueda">
                     <div style="display:flex; flex-direction: row;">
                         <input type="search" name="busqueda" placeholder="Buscar Servicio o Proveedor" class="border h-10 w-full rounded-full text-sm focus:outline-none">
-                        <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
+<!--                        <button type="submit" style="margin-left: -30px;" class="mt-1 mr-4">
                             <i class="fas fa-search"></i>
-                        </button>
+                        </button>-->
                     </div>
                     <div style="display:flex; flex-direction: row;">
                         <label for="ordenarPor">Ordenar por:</label>
@@ -40,7 +40,8 @@
                             <p  id="puntuacion" th:text="${item.puntuacion}" class="hidden"></p>
                             <ul class="estrellas" ></ul>
                             <p class="text-base font-sans " th:text="${item.especialidad.nombre}"></p>
-                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="${item.telefono}"></p>
+                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="'Teléfono: ' + ${item.telefono}"></p>
+                            <p class="text-base font-sans " th:if="${session.usersession != null}" th:text="'Costo por hora: ' + ${item.costoHora}"></p>
                             <a class="underline text-blue-500 text-xs" th:if="${session.usersession == null}" th:href="@{/login}">Conoce más de este proveedor</a>
                             <a class="underline text-blue-500 text-xs" th:if="${session.usersession != null}" th:href="@{/usuario/perfilOtro/__${item.id}__}">Conoce más de este proveedor</a>
                         </div>
@@ -50,11 +51,7 @@
         </main>
         <script  src="/index.js"></script>
         <footer th:replace="/fragments/footer :: footer">  </footer>
-     
-        <script>
-                            function submitForm() {
-                                document.getElementById("searchForm").submit();
-                            }
-        </script>
+
+        <script src="/busqueda.js"></script>
     </body>
 </html>

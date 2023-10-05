@@ -16,7 +16,7 @@
                         </a>
                     </div>
                     <div class="flex-auto">
-                        <a th:href="@{/busqueda/__${especialidad.nombre}__}" class="block font-sans textcolor">
+                        <a th:href="@{/busqueda?busqueda=__${especialidad.nombre}__}" class="block font-sans textcolor">
                             <p class="text-base" th:value="${especialidad.nombre}" th:text="${especialidad.nombre}"></p> 
                             <span class="absolute inset-0"></span>
                         </a>
