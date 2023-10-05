@@ -173,17 +173,19 @@
                                                 ></span>
                                             <a href="/usuario/contrataciones" class="hover:underline hover:text-gray-500"><span class="text-sm text-gray-500">Trabajos Contratados</span></a>
                                         </div>
-                                        <div th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" class="mr-4 p-3 text-center">
+<!--                                        <div th:if="${#strings.equalsIgnoreCase(user.rol, 'PROVEEDOR')}" class="mr-4 p-3 text-center">
                                             <div th:each="trabajo : ${trabajos}">
                                                 <div th:if="${trabajo.calificacion.puntuacion!=0.0}" class="trabajo-calificado">
-
+                                                        <span
+                                                class="text-xl font-bold block uppercase tracking-wide text-gray-700" th:text="${trabajos.size}"
+                                                ></span>
                                                 </div>
                                             </div>
                                             <span
                                                 id="contadorTrabajosConCalificacion" class="text-xl font-bold block uppercase tracking-wide text-gray-700"
                                                 ></span>
                                             <a href="/usuario/contrataciones" class="hover:underline hover:text-gray-500"><span class="text-sm text-gray-500">Calificaciones</span></a>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
