@@ -29,6 +29,9 @@ const menuContactarProv = document.getElementById("menuContactar");
 const btnCalificar = document.getElementById("btnCalificar");
 const menuCalificar = document.getElementById("menuCalificar");
 
+const administrarButton = document.getElementById("administrarButton");
+const administrarDropdown = document.getElementById("administrarDropdown");
+
 const listEstrellas = document.querySelectorAll(".estrellas");
 const estrellasPerfil = document.getElementById("estrellasPerfil");
 
@@ -190,6 +193,22 @@ if (btnPerfil !== null) {
     });
 }
 
+if (administrarButton !== null) {
+    administrarButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        administrarDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!administrarDropdown.contains(event.target) && event.target !== administrarButton) {
+            administrarDropdown.classList.add('hidden');
+        }
+    });
+
+    administrarDropdown.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
 
 if (fotoPerfil !== null && opcionesFoto !== null) {
     fotoPerfil.addEventListener('click', () => {
