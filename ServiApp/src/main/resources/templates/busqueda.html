@@ -17,10 +17,10 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                    <div style="display:flex; flex-direction: row;">
+                    <div style="display:flex; flex-direction: row">
                         <label for="ordenarPor">Ordenar por:</label>
-                        <select name="ordenarPor" id="ordenarPor" onchange="submitForm()">
-                            <option>             </option>
+                        <select name="ordenarPor" id="ordenarPor" onchange="submitForm()" class="ordenarPor">
+                            <option value="" disabled selected>Elija una opción</option>
                             <option value="nombre">Nombre</option>
                             <option value="calificacion">Calificación</option>
                             <option th:if="${session.usersession != null}" value="costoHoraAsc">Costo por Hora (Menor a Mayor)</option>
