@@ -21,17 +21,15 @@ public class calificacionServicio {
     @Autowired
     private calificacionRepositorio califRepo;
     
-    @Autowired
-    private trabajoRepositorio tr;
-
     @Transactional
-    public void crearCalificacion(String trabajoId, String contenido, double puntuacion) throws miException {
-        Trabajo trabajo = tr.getOne(trabajoId);
-        trabajo.getCalificacion().setContenido(contenido);
-        trabajo.getCalificacion().setPuntuacion(puntuacion);
-
-        tr.save(trabajo);
+    public Calificacion crearCalificacion() throws miException {
+        Calificacion calif = new Calificacion();
+        calif.setContenido(null);
+        calif.setPuntuacion(0);
         
+        califRepo.save(calif);
+                
+        return calif;
     }
 
     public List<Calificacion> listarCalificaciones() {
@@ -41,15 +39,15 @@ public class calificacionServicio {
 
     @Transactional
     public void modificarCalificacion(String id, String contenido, double puntuacion) throws miException {
-
+        System.out.println("11111");
         validar(contenido, puntuacion);
         Optional<Calificacion> respuesta = califRepo.findById(id);
-
+        System.out.println("22222"+" "+respuesta.toString()+" "+id);
         if (respuesta.isPresent()) {
             Calificacion calif = respuesta.get();
             calif.setContenido(contenido);
             calif.setPuntuacion(puntuacion);
-
+            System.out.println("3333");
             califRepo.save(calif);
         }
     }

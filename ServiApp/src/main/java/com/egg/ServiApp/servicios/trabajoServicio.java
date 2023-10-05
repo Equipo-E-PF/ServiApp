@@ -40,10 +40,9 @@ public class trabajoServicio {
         trabajo.setEstado(Estado.PENDIENTE);
         trabajo.setUsuario(usuario);
         trabajo.setProveedor(proveedor);
-        Calificacion c = new Calificacion();
-        c.setPuntuacion(0);
-        trabajo.setCalificacion(c);
-
+        Calificacion calif = cs.crearCalificacion();
+        trabajo.setCalificacion(calif);
+        
         tr.save(trabajo);
     }
 

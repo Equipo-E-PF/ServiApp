@@ -107,17 +107,29 @@ public class UsuarioControlador {
         return "profileOtherUser.html";
     }
 
-    @PostMapping("/actualizarFoto")
-    public String registro(@RequestParam String id, MultipartFile archivo, ModelMap modelo) {
+    @PostMapping("/actualizarFoto/{id}")
+    public String registro(@RequestParam String id, MultipartFile archivo, @SessionAttribute("usersession") Usuario usuario, ModelMap modelo) {
         try {
             usuarioServicio.actualizarFoto(archivo, id);
             modelo.put("exito", "Actualización correcta");
-            return "profileUser.html";
+            String op=null;
+        if (usuario.getRol()==Rol.USUARIO) {
+                op = "User";
+            }else if(usuario.getRol()==Rol.PROVEEDOR){
+                op = "Provider";
+            }
+            return "redirect:../perfil"+op+"/{id}";
         } catch (miException e) {
             modelo.put("error", e.getMessage());
-
+            String op=null;
+        if (usuario.getRol()==Rol.USUARIO) {
+                op = "User";
+            }else if(usuario.getRol()==Rol.PROVEEDOR){
+                op = "Provider";
+            }
+            return "redirect:../perfil"+op+"/{id}";
         }
-        return "profileUser.html";
+        
 
     }
 
@@ -200,7 +212,7 @@ public class UsuarioControlador {
     public String calificarTrabajo(@PathVariable String trabajoId, double puntuacion, String contenido, RedirectAttributes redirectAttributes) {
         System.out.println(trabajoId + " " + contenido + " " + puntuacion);
         try {
-            calificacionServicio.crearCalificacion(trabajoId, contenido, puntuacion);
+            calificacionServicio.modificarCalificacion(trabajoId, contenido, puntuacion);
             redirectAttributes.addFlashAttribute("exito", "Calificación creada con éxito");
         } catch (miException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
