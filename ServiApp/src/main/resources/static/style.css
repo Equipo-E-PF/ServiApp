@@ -251,3 +251,7 @@ body {
   padding-left: 6px;
 }
 
+.ordenarPor {
+    color: gray;
+    copacity: 2.0;    
+}
